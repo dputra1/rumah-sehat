@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>i-Ris</title>
+
+    <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+    <body>
+        <header th:fragment="header" id="header" class="fixed-top" style="background: rgba(0, 0, 0, 0);">
+            <div class="container d-flex align-items-center justify-content-lg-between">
+
+                <h1 class="logo me-auto me-lg-0"><a href="/">i<span>-RIS</span></a></h1>
+
+                <nav th:fragment="navbar" id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/}"><span>Home</span></a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/user') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/user}"><span>User</span></a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/appointment') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/appointment}"><span>Appointment</span></a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/resep') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/resep}"><span>Resep</span></a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/obat') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/obat}"><span>Obat</span></a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+            </div>
+        </header>
+        <section id="hero" class="d-flex align-items-center justify-content-center">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+                    <div class="col-xl-6 col-lg-8">
+                        <h1>Welcome To I-ris<span>!</span></h1>
+                        <br>
+                        <h2>List of Features<span>:</span></h2>
+                    </div>
+                </div>
+
+                <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-user-line"></i>
+                            <h3><a href="/user">User</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-book-2-line"></i>
+                            <h3><a href="/appointment">Appointment</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-filter-line"></i>
+                            <h3><a href="/resep">Resep</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-filter-line"></i>
+                            <h3><a href="/obat">Obat</a></h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <div id="preloader"></div>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </body>
+</html>
