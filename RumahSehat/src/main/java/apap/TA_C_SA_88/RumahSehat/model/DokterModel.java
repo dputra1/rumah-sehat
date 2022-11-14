@@ -24,7 +24,6 @@ import java.util.List;
 @Entity
 @Table(name = "dokter")
 public class DokterModel extends UserModel implements Serializable {
-    
     @NotNull
     @Column(name = "tarif", nullable = false)
     private Integer tarif;

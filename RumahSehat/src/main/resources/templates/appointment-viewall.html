@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Daftar Appointment</title>
+
+    <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <main id="main">
+        <section>
+            <div class="container" data-aos="fade-up">
+                <div class="row d-flex justify-content-center">
+                    <h2 class="text-center">List Appointment</h2>
+                </div>
+                <br />
+                <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
+                    <div class="container">
+                        <div th:if="${listAppointment.size() != 0}">
+                            <div class="row d-flex justify-content-center">
+                                <table class="content-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama Dokter</th>
+                                        <th scope="col">Nama Pasien</th>
+                                        <th scope="col">Waktu Awal</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" style="vertical-align : middle;text-align:center;">Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody th:each= "appointment, iterationStatus : ${listAppointment}">
+                                    <tr>
+                                        <td th:text="${iterationStatus.count}"></td>
+                                        <td th:text="${appointment.pasien.getNama()}"></td>
+                                        <td th:text="${appointment.dokter.getNama()}"></td>
+                                        <td th:text="${appointment.waktuAwal}"></td>
+                                        <td>
+                                            <span th:if="${appointment.isDone == false}" th:text="'Non-Aktif'"></span>
+                                            <span th:if="${appointment.isDone == true}" th:text="'Aktif'"></span>
+                                        </td>
+                                        <td style="vertical-align : middle;text-align:center;">
+                                            <a class="btn btn-primary" th:href="@{/appointment/} + ${appointment.kode}">Detail</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div th:unless="${listAppointment.size() != 0}">
+                            <div class="mt-4 justify-content-center">
+                                <h5 class="text-center text-warning" th:text="'--Belum ada appointment yang terdaftar--'"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>
