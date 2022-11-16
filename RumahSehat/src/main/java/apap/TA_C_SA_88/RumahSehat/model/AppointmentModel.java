@@ -50,9 +50,12 @@ public class AppointmentModel implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name="uuid_dokter", referencedColumnName="uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private PasienModel dokter;
+    private DokterModel dokter;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tagihan", referencedColumnName = "id")
     private TagihanModel tagihan;
+
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ResepModel> listResep;
 }
