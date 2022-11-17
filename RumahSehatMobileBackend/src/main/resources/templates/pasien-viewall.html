@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Daftar Dokter & Apoteker</title>
+
+  <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+  <main id="main">
+    <section>
+      <div class="container" data-aos="fade-up">
+        <div class="row d-flex justify-content-center">
+          <h2 class="text-center">List Dokter & Apoteker</h2>
+        </div>
+        <div class="row d-flex justify-content-center mt-3">
+          <div class="col-md-4">
+            <div class="row d-flex justify-content-center">
+              <div class="col">
+                <div class="text-center buttons">
+                  <a class="btn btn-primary" href="/user/add-dokter"><i class="ri-add-line" style="font-size: small"></i> Tambah Dokter</a>
+                </div>
+              </div>
+              <div class="col">
+                <div class="text-center buttons">
+                  <a class="btn btn-primary" href="/user/add-apoteker"><i class="ri-add-line" style="font-size: small"></i> Tambah Apoteker</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
+          <div class="container">
+            <div th:if="${listPasien.size() != 0}">
+              <div class="row d-flex justify-content-center">
+                <table class="content-table">
+                  <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                  </thead>
+                  <tbody th:each= "pasien, iterationStatus : ${listPasien}">
+                  <tr>
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${pasien.nama}"></td>
+                    <td th:text="${pasien.username}"></td>
+                    <td th:text="${pasien.email}"></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div th:unless="${listPasien.size() != 0}">
+              <div class="mt-4 justify-content-center">
+                <h5 class="text-center text-warning" th:text="'--Belum ada pasien yang terdaftar--'"></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</section>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>
