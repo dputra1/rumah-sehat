@@ -44,11 +44,8 @@ public class ResepModel implements Serializable{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apoteker;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional=false)
-    @JoinColumn(name="id_appointment", referencedColumnName="id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(mappedBy = "resep")
     private AppointmentModel appointment;
-
 
     //relasi one-to-many ke apoteker
     // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)

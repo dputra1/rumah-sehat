@@ -56,6 +56,7 @@ public class AppointmentModel implements Serializable {
     @JoinColumn(name = "id_tagihan", referencedColumnName = "id")
     private TagihanModel tagihan;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ResepModel> listResep;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_appointment", referencedColumnName = "id")
+    private ResepModel resep;
 }
