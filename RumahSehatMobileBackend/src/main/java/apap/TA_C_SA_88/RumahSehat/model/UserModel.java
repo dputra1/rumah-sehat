@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 
 @Setter
 @Getter
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
 @MappedSuperclass
 public class  UserModel implements Serializable {
