@@ -33,4 +33,11 @@ public class AdminServiceImpl implements AdminService{
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }
+
+    @Override
+    public AdminModel findByUsername(String admin) {
+        return adminDb.findByUsername(admin);
+    }
+
+
 }

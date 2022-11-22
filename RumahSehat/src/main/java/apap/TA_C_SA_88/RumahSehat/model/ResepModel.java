@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,7 @@ public class ResepModel implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
+    @Nullable
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -46,6 +48,9 @@ public class ResepModel implements Serializable{
 
     @OneToOne(mappedBy = "resep")
     private AppointmentModel appointment;
+
+    @OneToMany(mappedBy = "idObat", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<ObatModel> listObatResep;
 
     //relasi one-to-many ke apoteker
     // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
