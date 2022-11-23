@@ -7,4 +7,5 @@ public interface AdminService {
     List<AdminModel> viewAllAdmin();
     void addAdmin(AdminModel admin);
     String encrypt(String pasword);
+    AdminModel findByUsername(String admin);
 }
