@@ -29,6 +29,7 @@ public class ApotekerController {
     public String addApotekerSubmitPage(@ModelAttribute ApotekerModel apoteker, Model model){
         apoteker.setRole("Apoteker");
         apoteker.setIsSso(false);
+        apoteker.setPassword(apotekerService.encrypt(apoteker.getPassword()));
         apotekerService.addApoteker(apoteker);
         model.addAttribute("apoteker", apoteker);
 

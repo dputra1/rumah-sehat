@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.service;
 
+import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,10 @@ public class ApotekerServiceImpl implements ApotekerService{
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
+    }
+
+    @Override
+    public ApotekerModel findByUsername(String apoteker) {
+        return apotekerDb.findByUsername(apoteker);
     }
 }
