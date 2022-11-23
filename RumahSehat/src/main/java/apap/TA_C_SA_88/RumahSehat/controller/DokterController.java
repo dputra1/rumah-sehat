@@ -32,48 +32,34 @@ public class DokterController {
 
     @GetMapping("/user/add-dokter")
     public String addDokterFormPage(Model model){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         DokterModel dokter = new DokterModel();
         model.addAttribute("dokter", dokter);
         model.addAttribute("user", userLoggedIn);
-
         return "form-add-dokter";
     }
 
     @PostMapping("/user/add-dokter")
     public String addDokterSubmitPage(@ModelAttribute DokterModel dokter, Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
-
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
         dokter.setRole("Dokter");
         dokter.setIsSso(false);
         dokterService.addDokter(dokter);
+
         model.addAttribute("dokter", dokter);
         model.addAttribute("user", userLoggedIn);
-
         return "add-dokter";
     }
 
     @GetMapping("/appointment/dokter")
     public String viewAllAppointment(Model model){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        DokterModel dokter = dokterService.getDokterByUsername(username);
-
+        DokterModel dokter = dokterService.getDokterLoggedIn();
         List<AppointmentModel> listAppointment = dokterService.viewAllDokterAppointment(dokter);
+
         model.addAttribute("listAppointment", listAppointment);
         model.addAttribute("dokter", dokter);
         model.addAttribute("user", dokter);
-
         return "dokter-appointment-viewall";
     }
 }

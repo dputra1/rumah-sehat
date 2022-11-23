@@ -1,8 +1,12 @@
 package apap.TA_C_SA_88.RumahSehat.service;
 
+import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +46,15 @@ public class DokterServiceImpl implements DokterService{
     @Override
     public List<AppointmentModel> viewAllDokterAppointment(DokterModel dokter) {
         return dokter.getListAppointment();
+    }
+
+    @Override
+    public DokterModel getDokterLoggedIn() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        DokterModel userLoggedIn = getDokterByUsername(username);
+
+        return userLoggedIn;
     }
 }
