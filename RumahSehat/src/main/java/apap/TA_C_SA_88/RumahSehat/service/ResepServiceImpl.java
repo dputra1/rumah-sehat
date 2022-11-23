@@ -7,6 +7,8 @@ import apap.TA_C_SA_88.RumahSehat.repository.JumlahDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import apap.TA_C_SA_88.RumahSehat.model.ResepModel;
 import apap.TA_C_SA_88.RumahSehat.repository.ResepDb;
@@ -21,6 +23,7 @@ public class ResepServiceImpl implements ResepService{
     JumlahDb jumlahDb;
 
 
+    
     @Override
     public void addResep(ResepModel resep) {resepDb.save(resep);
     }
@@ -28,5 +31,11 @@ public class ResepServiceImpl implements ResepService{
     @Override
     public void addJumlah(JumlahModel jumlah) {
         jumlahDb.save(jumlah);
+    }
+
+    @Override
+    public List<ResepModel> viewAllResep() {
+        // TODO Auto-generated method stub
+        return resepDb.findAll();
     }
 }

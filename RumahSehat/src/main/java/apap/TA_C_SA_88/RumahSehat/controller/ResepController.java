@@ -58,7 +58,7 @@ public class ResepController {
 
         // bikin model resep
         ResepModel resepModel = new ResepModel();
-//        resepModel.setApoteker(apotekerService.findByUsername(authentication.getName())); //ubah konfirmasi data uuid apoteker jadi nullable
+        resepModel.setApoteker(apotekerService.findByUsername(authentication.getName())); //ubah konfirmasi data uuid apoteker jadi nullable
         resepModel.setCreatedAt(LocalDateTime.now());
         resepModel.setIsDone(false);
         resepService.addResep(resepModel);
@@ -78,5 +78,13 @@ public class ResepController {
 
         model.addAttribute("resep", resepModel);
         return "add-resep";
+    }
+
+    @GetMapping("/resep")
+    public String viewAllResep(Model model) {
+        List<ResepModel> listResep = resepService.viewAllResep();
+
+        model.addAttribute("listResep", listResep);
+        return "viewall-resep";
     }
 }
