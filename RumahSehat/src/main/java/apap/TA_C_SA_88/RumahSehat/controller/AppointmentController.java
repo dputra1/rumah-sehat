@@ -31,10 +31,7 @@ public class AppointmentController {
 
     @GetMapping("/appointment")
     public String viewAllAppointment(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         List<AppointmentModel> listAppointment = appointmentService.viewAllAppointment();
 

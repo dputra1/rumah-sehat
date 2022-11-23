@@ -4,6 +4,9 @@ import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +41,15 @@ public class ApotekerServiceImpl implements ApotekerService{
     @Override
     public ApotekerModel findByUsername(String apoteker) {
         return apotekerDb.findByUsername(apoteker);
+    }
+
+    @Override
+    public ApotekerModel getApotekerLoggedIn() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        ApotekerModel userLoggedIn = findByUsername(username);
+
+        return userLoggedIn;
     }
 }

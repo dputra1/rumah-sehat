@@ -10,4 +10,5 @@ public interface ApotekerService {
     void addApoteker(ApotekerModel apoteker);
     String encrypt(String pasword);
     ApotekerModel findByUsername(String apoteker);
+    ApotekerModel getApotekerLoggedIn();
 }

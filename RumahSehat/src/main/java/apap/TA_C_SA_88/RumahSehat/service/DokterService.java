@@ -11,4 +11,6 @@ public interface DokterService {
     DokterModel getDokterByUsername(String username);
     List<AppointmentModel> viewAllDokterAppointment(DokterModel dokter);
     String encrypt(String pasword);
+
+    DokterModel getDokterLoggedIn();
 }

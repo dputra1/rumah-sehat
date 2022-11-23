@@ -43,10 +43,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String userManagement(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         model.addAttribute("user", userLoggedIn);
         return "user";
@@ -54,10 +51,7 @@ public class UserController {
 
     @GetMapping("/user/dokterApoteker")
     public String viewAllDokterApoteker(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         List<DokterModel> listDokter = dokterService.viewAllDokter();
         List<ApotekerModel> listApoteker = apotekerService.viewAllApoteker();
@@ -65,15 +59,11 @@ public class UserController {
         model.addAttribute("listDokter", listDokter);
         model.addAttribute("listApoteker", listApoteker);
         model.addAttribute("user", userLoggedIn);
-
         return "dokter-apoteker-viewall";
     }
     @GetMapping("/user/pasien")
     public String viewAllPasien(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
         List<PasienModel> listPasien = pasienService.viewAllPasien();
 
         model.addAttribute("listPasien", listPasien);

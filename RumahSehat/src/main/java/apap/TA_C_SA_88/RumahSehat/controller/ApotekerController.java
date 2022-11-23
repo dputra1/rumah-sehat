@@ -29,10 +29,7 @@ public class ApotekerController {
 
     @GetMapping("/user/add-apoteker")
     public String addApotekerFormPage(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         ApotekerModel apoteker = new ApotekerModel();
         model.addAttribute("apoteker", apoteker);
@@ -43,18 +40,15 @@ public class ApotekerController {
 
     @PostMapping("/user/add-apoteker")
     public String addApotekerSubmitPage(@ModelAttribute ApotekerModel apoteker, Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         apoteker.setRole("Apoteker");
         apoteker.setIsSso(false);
         apoteker.setPassword(apotekerService.encrypt(apoteker.getPassword()));
         apotekerService.addApoteker(apoteker);
+
         model.addAttribute("apoteker", apoteker);
         model.addAttribute("user", userLoggedIn);
-
         return "add-apoteker";
     }
 }
