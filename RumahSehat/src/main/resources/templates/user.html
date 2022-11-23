@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Manajemen User</title>
+
+    <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+    <section id="services" class="services d-flex align-items-center justify-content-center">
+        <div class="container" data-aos="fade-up">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-md-5 mt-5" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box">
+                        <div class="icon"><i class="ri-nurse-line"></i></div>
+                        <h4><a href="/user/dokterApoteker">Dokter & Apoteker</a></h4>
+                        <p>List of Registered Dokter & Apoteker</p>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mt-5" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="icon-box">
+                        <div class="icon"><i class="ri-user-line"></i></div>
+                        <h4><a href="/user/pasien">Pasien</a></h4>
+                        <p>List of Registered Pasien</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Services Section -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>

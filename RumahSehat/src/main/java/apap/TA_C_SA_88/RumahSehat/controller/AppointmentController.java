@@ -20,7 +20,7 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @GetMapping("/appointment")
-    public String viewAllDokterApoteker(Model model) {
+    public String viewAllAppointment(Model model) {
         List<AppointmentModel> listAppointment = appointmentService.viewAllAppointment();
 
         model.addAttribute("listAppointment", listAppointment);

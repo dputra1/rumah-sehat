@@ -41,8 +41,9 @@ public class DokterController {
         return "add-dokter";
     }
 
-    @GetMapping("dokter/viewAllAppointment")
+    @GetMapping("/appointment/dokter")
     public String viewAllAppointment(Model model){
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
