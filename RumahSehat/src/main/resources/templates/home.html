@@ -47,10 +47,16 @@
                             <h3><a href="/user">User</a></h3>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-md-4">
+                    <div th:if="${user.getRole() == 'Admin'}" class="col-xl-2 col-md-4">
                         <div class="icon-box">
                             <i class="ri-book-2-line"></i>
                             <h3><a href="/appointment">Appointment</a></h3>
+                        </div>
+                    </div>
+                    <div th:if="${user.getRole() == 'Dokter'}" class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-book-2-line"></i>
+                            <h3><a href="/appointment/dokter">Appointment</a></h3>
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-4">
