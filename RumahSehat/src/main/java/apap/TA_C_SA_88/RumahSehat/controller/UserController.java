@@ -31,6 +31,11 @@ public class UserController {
     @Autowired
     private PasienService pasienService;
 
+    @GetMapping("/user")
+    public String userManagement(Model model) {
+        return "user";
+    }
+
     @GetMapping("/user/dokterApoteker")
     public String viewAllDokterApoteker(Model model) {
         List<DokterModel> listDokter = dokterService.viewAllDokter();

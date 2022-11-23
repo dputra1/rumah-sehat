@@ -3,6 +3,7 @@ package apap.TA_C_SA_88.RumahSehat.service;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,17 @@ public class DokterServiceImpl implements DokterService{
     }
 
     @Override
-    public void addDokter(DokterModel dokter) {dokterDb.save(dokter);
+    public void addDokter(DokterModel dokter) {
+        String pass = encrypt(dokter.getPassword());
+        dokter.setPassword(pass);
+        dokterDb.save(dokter);
+    }
+
+    @Override
+    public String encrypt(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        return hashedPassword;
     }
 
     @Override
