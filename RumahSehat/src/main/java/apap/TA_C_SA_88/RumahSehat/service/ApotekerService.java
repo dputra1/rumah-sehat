@@ -7,4 +7,5 @@ import java.util.List;
 public interface ApotekerService {
     List<ApotekerModel> viewAllApoteker();
     void addApoteker(ApotekerModel apoteker);
+    String encrypt(String pasword);
 }
