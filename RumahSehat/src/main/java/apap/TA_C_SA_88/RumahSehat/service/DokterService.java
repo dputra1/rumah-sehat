@@ -10,4 +10,7 @@ public interface DokterService {
     void addDokter(DokterModel dokter);
     DokterModel getDokterByUsername(String username);
     List<AppointmentModel> viewAllDokterAppointment(DokterModel dokter);
+    String encrypt(String pasword);
+
+    DokterModel getDokterLoggedIn();
 }

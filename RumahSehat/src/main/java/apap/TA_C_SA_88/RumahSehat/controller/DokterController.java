@@ -1,7 +1,9 @@
 package apap.TA_C_SA_88.RumahSehat.controller;
 
+import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
+import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.RumahSehat.service.DokterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,35 +25,41 @@ public class DokterController {
     @Autowired
     private DokterService dokterService;
 
+    @Qualifier("adminServiceImpl")
+
+    @Autowired
+    private AdminService adminService;
+
     @GetMapping("/user/add-dokter")
     public String addDokterFormPage(Model model){
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
+
         DokterModel dokter = new DokterModel();
         model.addAttribute("dokter", dokter);
-
+        model.addAttribute("user", userLoggedIn);
         return "form-add-dokter";
     }
 
     @PostMapping("/user/add-dokter")
     public String addDokterSubmitPage(@ModelAttribute DokterModel dokter, Model model){
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
         dokter.setRole("Dokter");
         dokter.setIsSso(false);
         dokterService.addDokter(dokter);
-        model.addAttribute("dokter", dokter);
 
+        model.addAttribute("dokter", dokter);
+        model.addAttribute("user", userLoggedIn);
         return "add-dokter";
     }
 
-    @GetMapping("dokter/viewAllAppointment")
+    @GetMapping("/appointment/dokter")
     public String viewAllAppointment(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        DokterModel dokter = dokterService.getDokterByUsername(username);
-
+        DokterModel dokter = dokterService.getDokterLoggedIn();
         List<AppointmentModel> listAppointment = dokterService.viewAllDokterAppointment(dokter);
+
         model.addAttribute("listAppointment", listAppointment);
         model.addAttribute("dokter", dokter);
-
+        model.addAttribute("user", dokter);
         return "dokter-appointment-viewall";
     }
 }

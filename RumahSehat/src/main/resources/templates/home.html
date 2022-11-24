@@ -18,11 +18,12 @@
                 <nav th:fragment="navbar" id="navbar" class="navbar order-last order-lg-0">
                     <ul>
                         <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/}"><span>Home</span></a></li>
-                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/user') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/user}"><span>User</span></a></li>
-                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/appointment') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/appointment}"><span>Appointment</span></a></li>
+                        <li th:if="${user.getRole() == 'Admin'}" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/user') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/user}"><span>User</span></a></li>
+                        <li th:if="${user.getRole() == 'Admin'}" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/appointment') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/appointment}"><span>Appointment</span></a></li>
+                        <li th:if="${user.getRole() == 'Dokter'}" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/appointment') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/appointment/dokter}"><span>Appointment</span></a></li>
                         <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/resep') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/resep}"><span>Resep</span></a></li>
                         <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/obat') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/obat}"><span>Obat</span></a></li>
-                        <li th:classappend="${#httpServletRequest.getRequestURI().startsWith('/') ? active : ''}" class="nav-item"><a class="nav-link" th:href="@{/logout-sso}"><span>Log out</span></a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/logout-sso}"><span>Log out</span></a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>
@@ -40,27 +41,33 @@
                 </div>
 
                 <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="col-xl-2 col-md-4">
+                    <div th:if="${user.getRole() == 'Admin'}" class="col-xl-2 col-md-4">
                         <div class="icon-box">
                             <i class="ri-user-line"></i>
                             <h3><a href="/user">User</a></h3>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-md-4">
+                    <div th:if="${user.getRole() == 'Admin'}" class="col-xl-2 col-md-4">
                         <div class="icon-box">
                             <i class="ri-book-2-line"></i>
                             <h3><a href="/appointment">Appointment</a></h3>
                         </div>
                     </div>
+                    <div th:if="${user.getRole() == 'Dokter'}" class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-book-2-line"></i>
+                            <h3><a href="/appointment/dokter">Appointment</a></h3>
+                        </div>
+                    </div>
                     <div class="col-xl-2 col-md-4">
                         <div class="icon-box">
-                            <i class="ri-filter-line"></i>
+                            <i class="ri-dossier-line"></i>
                             <h3><a href="/resep">Resep</a></h3>
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-4">
                         <div class="icon-box">
-                            <i class="ri-filter-line"></i>
+                            <i class="ri-capsule-fill"></i>
                             <h3><a href="/obat">Obat</a></h3>
                         </div>
                     </div>
