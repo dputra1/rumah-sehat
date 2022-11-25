@@ -1,14 +1,13 @@
 package apap.TA_C_SA_88.RumahSehat.controller;
 
-import apap.TA_C_SA_88.RumahSehat.model.JumlahId;
-import apap.TA_C_SA_88.RumahSehat.model.JumlahModel;
-import apap.TA_C_SA_88.RumahSehat.model.ResepModel;
+import apap.TA_C_SA_88.RumahSehat.model.*;
 import apap.TA_C_SA_88.RumahSehat.payload.JumlahObatDTO;
 import apap.TA_C_SA_88.RumahSehat.service.*;
-import apap.TA_C_SA_88.RumahSehat.model.ObatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +35,7 @@ public class ResepController {
     @Autowired
     private ObatService obatService;
 
-    @GetMapping("/user/add-resep")
+    @GetMapping("/resep/add-resep")
     public String addResepFormPage(Model model){
         ResepModel resep = new ResepModel();
         List<ObatModel> listObatModel = new ArrayList<>();
@@ -46,13 +45,19 @@ public class ResepController {
         resep.setListObatResep(listObatModel);
         resep.getListObatResep().add(new ObatModel());
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        AdminModel userLoggedIn = adminService.findByUsername(username);
+
+        model.addAttribute("user", userLoggedIn);
         model.addAttribute("resep", resep);
         model.addAttribute("listObat",listobat);
 
         return "form-add-resep";
     }
 
-    @PostMapping("/user/add-resep")
+    @PostMapping("/resep/add-resep")
     public String addResepSubmitPage(@ModelAttribute ("jumlahObatDTO") JumlahObatDTO jumlahObatDTO,
                                      Model model, Authentication authentication){
 
@@ -75,6 +80,12 @@ public class ResepController {
         ObatModel obatModel = obatService.findObatById(jumlahObatDTO.getObat());
         obatModel.setStok(obatModel.getStok()-jumlahObatDTO.getKuantitas());
         obatService.save(obatModel);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        AdminModel userLoggedIn = adminService.findByUsername(username);
+
+        model.addAttribute("user", userLoggedIn);
 
         model.addAttribute("resep", resepModel);
         return "add-resep";
@@ -83,6 +94,12 @@ public class ResepController {
     @GetMapping("/resep")
     public String viewAllResep(Model model) {
         List<ResepModel> listResep = resepService.viewAllResep();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        AdminModel userLoggedIn = adminService.findByUsername(username);
+
+        model.addAttribute("user", userLoggedIn);
 
         model.addAttribute("listResep", listResep);
         return "viewall-resep";
