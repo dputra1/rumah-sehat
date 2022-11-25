@@ -26,14 +26,14 @@ public class ObatController {
     }
 
     @GetMapping("/obat/update-stok/{idObat}")
-    public String updateCourseFormPage(@PathVariable String idObat, Model model) {
+    public String updateObatFormPage(@PathVariable String idObat, Model model) {
         ObatModel obat = obatService.getObatByidObat(idObat);
         model.addAttribute("obat", obat);
         return "form-update-stokobat";
     }
 
     @PostMapping("/obat/update-stok")
-    public String updateCourseSubmitPage(@ModelAttribute ObatModel obat, Model model) {
+    public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model) {
         ObatModel updatedObat = obatService.updateStok(obat);
         model.addAttribute("idObat", updatedObat.getIdObat());
         return "redirect:/obat/viewAll";
