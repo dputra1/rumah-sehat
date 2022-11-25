@@ -36,7 +36,7 @@ public class ResepController {
     @Autowired
     private ObatService obatService;
 
-    @GetMapping("/user/add-resep")
+    @GetMapping("/resep/add-resep")
     public String addResepFormPage(Model model){
         ResepModel resep = new ResepModel();
         List<ObatModel> listObatModel = new ArrayList<>();
@@ -52,7 +52,7 @@ public class ResepController {
         return "form-add-resep";
     }
 
-    @PostMapping("/user/add-resep")
+    @PostMapping("/resep/add-resep")
     public String addResepSubmitPage(@ModelAttribute ("jumlahObatDTO") JumlahObatDTO jumlahObatDTO,
                                      Model model, Authentication authentication){
 
