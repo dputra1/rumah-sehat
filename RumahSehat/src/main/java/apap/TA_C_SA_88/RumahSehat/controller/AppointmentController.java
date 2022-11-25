@@ -1,9 +1,7 @@
 package apap.TA_C_SA_88.RumahSehat.controller;
 
-import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
-import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
-import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
-import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
+import apap.TA_C_SA_88.RumahSehat.model.*;
+import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
 import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.RumahSehat.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class AppointmentController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private AppointmentDb appointmentDb;
+
     @GetMapping("/appointment")
     public String viewAllAppointment(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -41,5 +45,28 @@ public class AppointmentController {
         model.addAttribute("listAppointment", listAppointment);
         model.addAttribute("user", userLoggedIn);
         return "appointment-viewall";
+    }
+
+    @GetMapping("/appointment/{kode}")
+    public String viewAllAppointment(@PathVariable String kode, Model model) {
+        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
+
+        AppointmentModel appointmentModel = appointmentService.getAppointmentByKode(kode);
+        DokterModel dokterModel = appointmentModel.getDokter();
+        PasienModel pasienModel = appointmentModel.getPasien();
+        model.addAttribute("appointment", appointmentModel);
+        model.addAttribute("dokter", dokterModel);
+        model.addAttribute("pasien", pasienModel);
+        model.addAttribute("user", userLoggedIn);
+        model.addAttribute("appointmentService", appointmentService);
+        return "appointment-detail";
+    }
+
+    @GetMapping("/appointment/updateStatus/{kode}")
+    public String updateAppointmentStatus(@PathVariable String kode) {
+        AppointmentModel appointmentModel = appointmentService.getAppointmentByKode(kode);
+        appointmentModel.setIsDone(Boolean.TRUE);
+        appointmentDb.save(appointmentModel);
+        return "redirect:/appointment/" + kode;
     }
 }
