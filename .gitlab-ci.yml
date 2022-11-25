@@ -30,7 +30,7 @@ build:
   stage: build
   script:
     - echo "Compiling the code..."
-    - cd $CI_PROJECT_DIR/RumahSehat
+    - cd $CI_PROJECT_DIR/RumahSehatMobileBackend
     - sh gradlew clean assemble
   artifacts:
     paths:
