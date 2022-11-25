@@ -24,10 +24,9 @@ public class WebSecurityConfig {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/**").hasAuthority("Admin")
-                .antMatchers("/resep").hasAnyAuthority("Admin", "Apoteker")
-                // .antMatchers("/user/viewall", "/user/add", "/user/delete/**").hasAnyAuthority("Admin", "Super Admin")
-
-                // .antMatchers("/penyelenggara/add").hasAuthority("Manajer")
+                .antMatchers("/resep/add-resep").hasAuthority("Dokter")
+                .antMatchers("/obat/update-stok/**").hasAuthority("Apoteker")
+                .antMatchers("/resep", "/obat/viewAll").hasAnyAuthority("Admin", "Apoteker")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
