@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\m.irfandi\Documents\APAP\fajar\rumah_sehat_mobile\build\windows\CMakeFiles\d656cdafa1205cccc1fcdb735e3f0e48\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F86E8893-DF67-3B80-8F0B-443305BD14B3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

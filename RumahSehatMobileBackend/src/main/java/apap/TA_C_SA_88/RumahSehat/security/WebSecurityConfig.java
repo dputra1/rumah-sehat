@@ -1,60 +1,92 @@
 package apap.TA_C_SA_88.RumahSehat.security;
 
+
+import apap.TA_C_SA_88.RumahSehat.security.jwt.AuthEntryPointJwt;
+import apap.TA_C_SA_88.RumahSehat.security.jwt.AuthTokenFilter;
+import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 
-import apap.TA_C_SA_88.RumahSehat.filter.CustomAuthenticationFilter;
-import apap.TA_C_SA_88.RumahSehat.filter.CustomAuthorizationFilter;
-import apap.TA_C_SA_88.RumahSehat.service.UserDetailsServiceImpl;
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.security.core.userdetails.UserDetailsService;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-  private final UserDetailsService userDetailsService;
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
 
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter(){
+        return new AuthTokenFilter();
+    }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-  }
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    
-      CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-      customAuthenticationFilter.setFilterProcessesUrl("/api/login");
-      http.csrf().disable();
-      http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-      http.authorizeRequests().antMatchers("/api/login/**", "/pasien/token/refresh/**").permitAll();
-      http.authorizeRequests().anyRequest().authenticated();
-      http.addFilter(customAuthenticationFilter);
-      http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-      
-  }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-  @Bean
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-      return super.authenticationManagerBean();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/dash/**").permitAll()
+                .anyRequest().authenticated();
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable()
+//                .cors().configurationSource(request -> {
+//                    CorsConfiguration corsConfiguration = new CorsConfiguration();
+//                    corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
+//                    corsConfiguration.setAllowedMethods(Arrays.asList(
+//                            "GET", "POST", "PUT", "DELETE", "OPTIONS"
+//                    ));
+//
+//                    corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
+//                    return corsConfiguration;
+//                }).and()
+//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .authorizeRequests()
+//                .antMatchers("/api/auth/**").permitAll()
+//                .anyRequest().authenticated();
+//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//    }
+
 
 }
-

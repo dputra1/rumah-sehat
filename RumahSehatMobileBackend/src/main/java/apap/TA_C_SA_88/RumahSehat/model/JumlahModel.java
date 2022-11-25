@@ -24,23 +24,16 @@ import java.util.List;
 @Entity
 @Table(name = "jumlah")
 public class JumlahModel implements Serializable {
+    @Id
+    private Long id;
 
-    @EmbeddedId
-    private JumlahId id;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional=false)
-    @JoinColumn(name="id_obat", referencedColumnName="idObat")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @MapsId("id_obat")
+    @ManyToOne
+    @JoinColumn(name = "id_obat")
     private ObatModel obat;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional=false)
-    @JoinColumn(name="id_resep", referencedColumnName="id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @MapsId("id_resep")
+    @ManyToOne
+    @JoinColumn(name = "id_resep")
     private ResepModel resep;
 
-    @NotNull
-    @Column(name = "kuantitas", nullable = false)
     private Integer kuantitas;
 }
