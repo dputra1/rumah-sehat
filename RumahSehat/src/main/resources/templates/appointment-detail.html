@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Detail Appointment</title>
+
+  <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+  <main id="main">
+    <section>
+      <div class="container" data-aos="fade-up">
+        <div class="row d-flex justify-content-center">
+          <h2 class="text-center">Detail Appointment</h2>
+        </div>
+        <br />
+        <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
+          <div class="container">
+              <div class="row d-flex justify-content-center">
+                <br>
+                <p th:text="'Kode Appointment: ' + ${appointment.kode}"></p>
+                <p th:text="'Waktu Awal Appointment: ' + ${#temporals.format(appointment.waktuAwal, 'dd MMMM yyyy HH:mm')}"></p>
+                <p th:text="'Status Appointment: ' + ${appointment.isDone}"></p>
+                <p th:text="'Nama Dokter: ' + ${dokter.nama}"></p>
+                <p th:text="'Nama Pasien : ' + ${pasien.nama}"></p>
+                <br>
+                <div th:if="${appointment.isDone == False}">
+                  <a class="btn btn-primary" th:href="@{/appointment/} + ${appointment.kode}">Create Resep</a>
+                  <a class="btn btn-primary" th:href="@{/appointment/updateStatus/} + ${appointment.kode}">Selesai</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</section>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>

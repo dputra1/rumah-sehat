@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface AppointmentDb extends JpaRepository<AppointmentModel, Long>{
-
+    AppointmentModel findByKode(String kode);
+    
 }
+
