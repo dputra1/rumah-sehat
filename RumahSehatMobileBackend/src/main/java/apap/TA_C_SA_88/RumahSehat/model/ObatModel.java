@@ -44,7 +44,7 @@ public class ObatModel implements Serializable {
     @Column(name="harga", nullable = false)
     private Integer harga;
 
-    //relasi many to many ke resep
+//    relasi many to many ke resep
     @OneToMany(mappedBy = "obat", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JumlahModel> listJumlah;
 }

@@ -11,5 +11,7 @@ public interface PasienRestService {
 
     String encrypt(String password);
 
-    PasienModel getPasien(String username);
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }
