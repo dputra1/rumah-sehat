@@ -33,7 +33,7 @@ public class ObatModel implements Serializable {
     private String idObat;
     
     @NotNull
-    @Column(name="nama_obat", nullable = false, unique = true)
+    @Column(name="nama_obat", nullable = false)
     private String namaObat;
 
     @NotNull
