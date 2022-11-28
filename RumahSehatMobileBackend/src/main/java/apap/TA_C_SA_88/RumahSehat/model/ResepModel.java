@@ -8,11 +8,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.stream.events.StartElement;
 import java.io.Serializable;
@@ -32,16 +30,12 @@ public class ResepModel implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "is_done", nullable = false)
+    @Column(name = "is_done")
     private Boolean isDone;
 
-    @NotNull
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
-    @Nullable
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)

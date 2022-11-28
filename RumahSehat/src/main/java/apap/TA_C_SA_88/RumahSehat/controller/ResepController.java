@@ -87,18 +87,10 @@ public class ResepController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
-        if(dokterService.getDokterByUsername(username)!=null) {
-            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
-        else if(adminService.findByUsername(username)!=null) {
-            AdminModel userLoggedIn = adminService.findByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
-        else if(apotekerService.findByUsername(username)!=null) {
-            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
+
+        DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+        
 
         return "form-add-resep";
     }
@@ -130,18 +122,10 @@ public class ResepController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
-        if(dokterService.getDokterByUsername(username)!=null) {
-            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
-        else if(adminService.findByUsername(username)!=null) {
-            AdminModel userLoggedIn = adminService.findByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
-        else if(apotekerService.findByUsername(username)!=null) {
-            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
+        
+        DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+        
 
         model.addAttribute("resep", resepModel);
         return "add-resep";
@@ -154,11 +138,7 @@ public class ResepController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
-        if(dokterService.getDokterByUsername(username)!=null) {
-            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }
-        else if(adminService.findByUsername(username)!=null) {
+        if(adminService.findByUsername(username)!=null) {
             AdminModel userLoggedIn = adminService.findByUsername(username);
             model.addAttribute("user", userLoggedIn);
         }

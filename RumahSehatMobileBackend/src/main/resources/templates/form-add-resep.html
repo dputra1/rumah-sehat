@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Add Mahasiswa</title>
+
+    <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <main id="main">
+        <section>
+            <div class="container-fluid" style="display: flex; align-items: center; justify-content: center;">
+                <div class="container" data-aos="fade-up">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-7">
+                            <div class="new_card p-3 py-5">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <h4 class="text-center">Add Resep</h4>
+                                </div>
+                                <form th:action="@{/user/add-resep}" th:object="${resep}" method="POST">
+
+                                    <div class="row mt-4 d-flex justify-content-center">
+                                        <div class="col-md-10">
+                                            <label class="labels">Nama Obat</label>
+                                            <select class="form-control">
+                                                <option th:each=" obat, key : ${listObat}" th:value="${obat}" th:text="${obat.namaObat}"></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mt-3 d-flex justify-content-center">
+                                        <div class="col-md-10">
+                                            <label class="labels">Kuantitas</label>
+                                            <input required class="form-control" type="number" name="kuantitas" placeholder="1" />
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 text-center">
+                                        <button class="btn btn-primary" type="submit" value="Simpan">Submit</button>
+                                    </div>
+                                </form>
+                                <div class="mt-4 text-center">
+                                    <a class="btn btn-danger" href="/">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>

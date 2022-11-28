@@ -20,7 +20,6 @@ public class PasienRestServiceImpl implements PasienRestService{
 
     @Override
     public PasienModel addPasien(PasienModel pasien){
-        pasien.setPassword(encrypt(pasien.getPassword()));
         return pasienDb.save(pasien);
     }
 
@@ -37,8 +36,14 @@ public class PasienRestServiceImpl implements PasienRestService{
     }
 
     @Override
-    public PasienModel getPasien(String username) {
-        return pasienDb.findByUsername(username);
+    public boolean existsByUsername(String username) {
+        return pasienDb.existsByUsername(username);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return pasienDb.existsByEmail(email);
+    }
+
 
 }
