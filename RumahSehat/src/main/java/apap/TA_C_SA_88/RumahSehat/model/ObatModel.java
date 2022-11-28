@@ -31,7 +31,7 @@ public class ObatModel implements Serializable {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String idObat;
-    
+
     @NotNull
     @Column(name="nama_obat", nullable = false)
     private String namaObat;
