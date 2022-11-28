@@ -20,6 +20,7 @@ public class PasienRestServiceImpl implements PasienRestService{
 
     @Override
     public PasienModel addPasien(PasienModel pasien){
+        pasien.setPassword(encrypt(pasien.getPassword()));
         return pasienDb.save(pasien);
     }
 
