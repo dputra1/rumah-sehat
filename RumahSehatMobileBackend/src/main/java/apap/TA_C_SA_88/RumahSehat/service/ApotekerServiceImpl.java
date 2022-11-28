@@ -3,6 +3,7 @@ package apap.TA_C_SA_88.RumahSehat.service;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,15 @@ public class ApotekerServiceImpl implements ApotekerService{
     }
 
     @Override
-    public void addApoteker(ApotekerModel apoteker) {apotekerDb.save(apoteker);
+    public void addApoteker(ApotekerModel apoteker) {
+        apoteker.setPassword(encrypt(apoteker.getPassword()));
+        apotekerDb.save(apoteker);
+    }
+
+    @Override
+    public String encrypt(String password) {
+      BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+      String hashedPassword = passwordEncoder.encode(password);
+      return hashedPassword;
     }
 }

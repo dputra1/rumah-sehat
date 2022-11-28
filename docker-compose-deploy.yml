@@ -1,5 +1,15 @@
 version: '2'
 services:
+  
+  db:
+    image: mariadb:10.4.24
+    restart: always
+    env_file:
+      - app.env
+    volumes:
+      - mysql-db-volume:/var/lib/mysql
+    networks:
+      - backend-network
 
   web:
     image: apap-registry.cs.ui.ac.id/fairuz.satria/apap-088
@@ -31,16 +41,6 @@ services:
       - db
     networks:
       - frontend-network
-      - backend-network
-
-  db:
-    image: mariadb:10.4.24
-    restart: always
-    env_file:
-      - app.env
-    volumes:
-      - mysql-db-volume:/var/lib/mysql
-    networks:
       - backend-network
 
 volumes:
