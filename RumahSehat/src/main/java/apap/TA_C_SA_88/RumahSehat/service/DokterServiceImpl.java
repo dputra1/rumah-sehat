@@ -34,7 +34,6 @@ public class DokterServiceImpl implements DokterService{
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
         String hashedPassword = passwordEncoder.encode(password);
         return hashedPassword;
     }

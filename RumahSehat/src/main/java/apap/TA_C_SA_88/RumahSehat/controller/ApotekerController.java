@@ -38,7 +38,6 @@ public class ApotekerController {
         return "form-add-apoteker";
     }
 
-
     @PostMapping("/user/add-apoteker")
     public String addApotekerSubmitPage(@ModelAttribute ApotekerModel apoteker, Model model){
         AdminModel userLoggedIn = adminService.getAdminLoggedIn();
