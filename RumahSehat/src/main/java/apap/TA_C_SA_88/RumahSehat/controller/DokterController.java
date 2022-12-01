@@ -54,7 +54,11 @@ public class DokterController {
 
     @GetMapping("/appointment/dokter")
     public String viewAllAppointment(Model model){
-        DokterModel dokter = dokterService.getDokterLoggedIn();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        DokterModel dokter = dokterService.getDokterByUsername(username);
+
         List<AppointmentModel> listAppointment = dokterService.viewAllDokterAppointment(dokter);
 
         model.addAttribute("listAppointment", listAppointment);

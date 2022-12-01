@@ -38,14 +38,12 @@ public class ApotekerController {
         return "form-add-apoteker";
     }
 
-
     @PostMapping("/user/add-apoteker")
     public String addApotekerSubmitPage(@ModelAttribute ApotekerModel apoteker, Model model){
         AdminModel userLoggedIn = adminService.getAdminLoggedIn();
 
         apoteker.setRole("Apoteker");
         apoteker.setIsSso(false);
-        apoteker.setPassword(apotekerService.encrypt(apoteker.getPassword()));
         apotekerService.addApoteker(apoteker);
 
         model.addAttribute("apoteker", apoteker);

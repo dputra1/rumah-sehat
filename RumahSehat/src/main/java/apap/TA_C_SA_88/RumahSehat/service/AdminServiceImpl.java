@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService{
         admin.setPassword(pass);
         adminDb.save(admin);
     }
-    
+
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
