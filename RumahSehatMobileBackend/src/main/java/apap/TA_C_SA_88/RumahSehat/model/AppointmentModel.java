@@ -57,6 +57,6 @@ public class AppointmentModel implements Serializable {
     private TagihanModel tagihan;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_appointment", referencedColumnName = "id")
+    @JoinColumn(name = "id_resep", referencedColumnName = "id")
     private ResepModel resep;
 }
