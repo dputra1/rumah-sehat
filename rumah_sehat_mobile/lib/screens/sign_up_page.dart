@@ -226,7 +226,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     )
                   ,
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       setState(() {
                         isLoading = true;
                       });

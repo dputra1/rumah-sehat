@@ -15,7 +15,7 @@ class AppStarted extends AuthenticationEvent {
 class SignedIn extends AuthenticationEvent {
   final String token;
 
-  SignedIn({@required this.token});
+  SignedIn({required this.token});
 
   @override
   List<Object> get props => [token];
