@@ -12,6 +12,7 @@ public interface PasienDb extends JpaRepository<PasienModel, String> {
   Optional<PasienModel> findByUsername(String username);
   List<PasienModel> findAll();
 
+  PasienModel findPasienByUsername(String username);
 
   boolean existsByUsername(String username);
 

@@ -35,6 +35,23 @@ class _SplashPageState extends State<SplashPage> {
                   color: Colors.white
                 ),
               )
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+              ),
+              onPressed: () async {
+                Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => AppointmentPage()));
+              },
+              child: Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              )
             )
           ],
         ),
