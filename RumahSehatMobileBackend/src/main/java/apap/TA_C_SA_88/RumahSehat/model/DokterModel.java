@@ -20,8 +20,9 @@ import java.util.List;
 
 @Setter
 @Getter
-@SuperBuilder
+@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "dokter")
 public class DokterModel extends UserModel implements Serializable {
@@ -30,5 +31,6 @@ public class DokterModel extends UserModel implements Serializable {
     private Integer tarif;
 
     @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AppointmentModel> listAppointment;
 }

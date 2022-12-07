@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,12 +31,9 @@ public class ResepModel implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "is_done", nullable = false)
+    @Column(name = "is_done")
     private Boolean isDone;
 
-    @NotNull
-    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
@@ -44,7 +42,11 @@ public class ResepModel implements Serializable{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apoteker;
 
+    @OneToMany(mappedBy = "idObat", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<ObatModel> listObatResep;
+
     @OneToOne(mappedBy = "resep")
+    @JsonIgnore
     private AppointmentModel appointment;
     //relasi one-to-many ke apoteker
     // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)

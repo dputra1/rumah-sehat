@@ -20,9 +20,10 @@ import java.util.List;
 
 @Setter
 @Getter
-@SuperBuilder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SuperBuilder
 @Table(name = "apoteker")
 public class ApotekerModel extends UserModel implements Serializable {
     

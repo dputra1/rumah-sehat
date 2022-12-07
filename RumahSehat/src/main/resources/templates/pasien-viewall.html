@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Daftar Dokter & Apoteker</title>
+  <title>Daftar Pasien</title>
 
   <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
   <object th:include="fragments/fragment :: css" th:remove="tag"></object>
@@ -17,25 +17,8 @@
     <section>
       <div class="container" data-aos="fade-up">
         <div class="row d-flex justify-content-center">
-          <h2 class="text-center">List Dokter & Apoteker</h2>
+          <h2 class="text-center">List Pasien</h2>
         </div>
-        <div class="row d-flex justify-content-center mt-3">
-          <div class="col-md-4">
-            <div class="row d-flex justify-content-center">
-              <div class="col">
-                <div class="text-center buttons">
-                  <a class="btn btn-primary" href="/user/add-dokter"><i class="ri-add-line" style="font-size: small"></i> Tambah Dokter</a>
-                </div>
-              </div>
-              <div class="col">
-                <div class="text-center buttons">
-                  <a class="btn btn-primary" href="/user/add-apoteker"><i class="ri-add-line" style="font-size: small"></i> Tambah Apoteker</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
         <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
           <div class="container">
             <div th:if="${listPasien.size() != 0}">

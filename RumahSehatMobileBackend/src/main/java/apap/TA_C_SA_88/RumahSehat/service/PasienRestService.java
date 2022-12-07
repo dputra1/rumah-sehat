@@ -3,6 +3,7 @@ package apap.TA_C_SA_88.RumahSehat.service;
 import java.util.List;
 
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
+import org.springframework.security.core.Authentication;
 
 public interface PasienRestService {
     PasienModel addPasien(PasienModel pasien);
@@ -11,5 +12,11 @@ public interface PasienRestService {
 
     String encrypt(String password);
 
-    PasienModel getPasien(String username);
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+
+    Authentication getAuthentication();
+
+    void setAuthentication(Authentication newAuthentication);
 }

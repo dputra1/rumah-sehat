@@ -33,7 +33,7 @@ public class ObatModel implements Serializable {
     private String idObat;
     
     @NotNull
-    @Column(name="nama_obat", nullable = false, unique = true)
+    @Column(name="nama_obat", nullable = false)
     private String namaObat;
 
     @NotNull
@@ -44,7 +44,7 @@ public class ObatModel implements Serializable {
     @Column(name="harga", nullable = false)
     private Integer harga;
 
-    //relasi many to many ke resep
+//    relasi many to many ke resep
     @OneToMany(mappedBy = "obat", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JumlahModel> listJumlah;
 }

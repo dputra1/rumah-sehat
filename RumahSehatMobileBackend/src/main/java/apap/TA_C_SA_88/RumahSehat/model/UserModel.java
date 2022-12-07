@@ -19,8 +19,9 @@ import java.io.Serializable;
 
 @Setter
 @Getter
-@SuperBuilder
+@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @MappedSuperclass
 public class  UserModel implements Serializable {
     @Id

@@ -3,22 +3,25 @@ package apap.TA_C_SA_88.RumahSehat.controller;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
+import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
+import apap.TA_C_SA_88.RumahSehat.service.ApotekerService;
+import apap.TA_C_SA_88.RumahSehat.service.DokterService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.UserModel;
@@ -30,6 +33,7 @@ import apap.TA_C_SA_88.RumahSehat.security.xml.ServiceResponse;
 import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.setting.Setting;
 import apap.TA_C_SA_88.RumahSehat.security.xml.Attributes;
+import org.springframework.ui.Model;
 
 @Controller
 public class BaseController {
@@ -48,18 +52,46 @@ public class BaseController {
     @Autowired
     AdminDb adminDb;
 
+    @Qualifier("adminServiceImpl")
+
     @Autowired
     AdminService adminService;
-    
+
+    @Qualifier("dokterServiceImpl")
+
+    @Autowired
+    private DokterService dokterService;
+
+    @Qualifier("apotekerServiceImpl")
+
+    @Autowired
+    private ApotekerService apotekerService;
+
     private WebClient webClient = WebClient.builder().build();
 
     @GetMapping("/")
-    private String Home() {
+    private String Home(Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        if(dokterService.getDokterByUsername(username)!=null) {
+            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else if(adminService.findByUsername(username)!=null) {
+            AdminModel userLoggedIn = adminService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else if(apotekerService.findByUsername(username)!=null) {
+            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
         return "home";
     }
 
     @RequestMapping("/login")
-    public String login(Model model) {
+    public String login(Model model){
         return "login";
     }
 
@@ -70,11 +102,11 @@ public class BaseController {
     ){
 
         ServiceResponse serviceResponse = this.webClient.get().uri(
-            String.format(
-                Setting.SERVER_VALIDATE_TICKET, 
-                ticket,
-                Setting.CLIENT_LOGIN
-            )
+                String.format(
+                        Setting.SERVER_VALIDATE_TICKET,
+                        ticket,
+                        Setting.CLIENT_LOGIN
+                )
         ).retrieve().bodyToMono(ServiceResponse.class).block();
 
         Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
