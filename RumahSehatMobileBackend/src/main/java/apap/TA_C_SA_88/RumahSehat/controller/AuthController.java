@@ -10,6 +10,7 @@ import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsImpl;
 import apap.TA_C_SA_88.RumahSehat.service.PasienRestService;
 import apap.TA_C_SA_88.RumahSehat.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,11 +45,12 @@ public class AuthController {
     @Autowired
     private PasienRestService pasienRestService;
 
-
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        pasienRestService.setAuthentication(authentication);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);

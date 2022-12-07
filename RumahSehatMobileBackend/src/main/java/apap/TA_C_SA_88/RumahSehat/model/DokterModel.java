@@ -31,5 +31,6 @@ public class DokterModel extends UserModel implements Serializable {
     private Integer tarif;
 
     @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AppointmentModel> listAppointment;
 }
