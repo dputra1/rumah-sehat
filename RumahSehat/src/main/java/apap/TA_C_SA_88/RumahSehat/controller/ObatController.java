@@ -36,10 +36,7 @@ public class ObatController {
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
 
-        if(adminService.findByUsername(username)==null) {
-            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }else if(apotekerService.findByUsername(username)==null){
+        if(adminService.findByUsername(username)!=null) {
             AdminModel userLoggedIn = adminService.findByUsername(username);
             model.addAttribute("user", userLoggedIn);
         }

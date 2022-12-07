@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Daftar Obat</title>
+
+  <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+  <main id="main">
+    <section>
+      <div class="container" data-aos="fade-up">
+        <div class="row d-flex justify-content-center">
+          <h2 class="text-center">List Obat</h2>
+        </div>
+<!--        <div class="row d-flex justify-content-center mt-3">-->
+<!--          <div class="col-md-4">-->
+<!--            <div class="row d-flex justify-content-center">-->
+<!--              <div class="col">-->
+<!--                <div class="text-center buttons">-->
+<!--                  <a class="btn btn-primary" href="/obat/update-stok"><i class="ri-add-line" style="font-size: small"></i> Ubah Stok</a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <br />
+        <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
+          <div class="container">
+            <div th:if="${listObat.size() != 0}">
+              <div class="row d-flex justify-content-center">
+                <table class="content-table">
+                  <thead>
+                  <tr>
+                    <th scope="col">ID Obat</th>
+                    <th scope="col">Nama Obat</th>
+                    <th scope="col">Stok Obat</th>
+                    <th scope="col">Harga Obat</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody th:each= "obat, iterationStatus : ${listObat}">
+                  <tr>
+                    <td th:text="${obat.idObat}"></td>
+                    <td th:text="${obat.namaObat}"></td>
+                    <td th:text="${obat.stok}"></td>
+                    <td th:text="${obat.harga}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/obat/update-stok/} + ${obat.idObat}"><i class="ri-add-line" style="font-size: small"></i> Ubah Stok</a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div th:unless="${listObat.size() != 0}">
+              <div class="mt-4 justify-content-center">
+                <h5 class="text-center text-warning" th:text="'--Belum ada obat yang terdaftar--'"></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</section>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>
