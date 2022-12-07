@@ -30,17 +30,18 @@ public class ObatController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/obat/viewAll")
+    @GetMapping("/obat")
     public String viewAllObat(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
 
-        if(adminService.findByUsername(username)=null) {
-            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
-            model.addAttribute("user", userLoggedIn);
-        }else if(apotekerService.findByUsername(username)=null){
+        if(adminService.findByUsername(username)!=null) {
             AdminModel userLoggedIn = adminService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else if(apotekerService.findByUsername(username)!=null) {
+            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
             model.addAttribute("user", userLoggedIn);
         }
 
@@ -64,6 +65,6 @@ public class ObatController {
         ObatModel updatedObat = obatService.updateStok(obat);
         model.addAttribute("idObat", updatedObat.getIdObat());
         model.addAttribute("user", userLoggedIn);
-        return "redirect:/obat/viewAll";
+        return "redirect:/obat";
     }
 }
