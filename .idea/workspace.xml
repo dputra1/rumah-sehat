@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb35a49-4f21-4ee2-b4ab-550bee4a03e0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ta_c_sa_88.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RumahSehat/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/RumahSehat/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RumahSehat/src/main/java/apap/TA_C_SA_88/RumahSehat/controller/ObatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/RumahSehat/src/main/java/apap/TA_C_SA_88/RumahSehat/controller/ObatController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
