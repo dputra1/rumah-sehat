@@ -45,5 +45,10 @@ public class PasienRestController {
         return pasienRestService.retrieveListPasien();
     }
 
+    @GetMapping("/get-detail-pasien/{username}")
+    public ResponseEntity<?> detailPasien(@PathVariable String username){
+        return ResponseEntity.ok(pasienRestService.getPasien(username));
+    }
+
 
 }

@@ -14,4 +14,6 @@ public interface PasienRestService {
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
+
+    PasienModel getPasien(String username);
 }
