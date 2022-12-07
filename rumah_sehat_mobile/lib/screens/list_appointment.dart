@@ -1,6 +1,5 @@
 part of 'pages.dart';
-
-//import 'detail_appointment.dart';
+// import 'detail_appointment.dart';
 
 String formatDateTime(String unformattedDateTime) {
   List<String> datetime = unformattedDateTime.split("T");
@@ -33,7 +32,7 @@ class Appointment {
   }
 }
 
-Future<List<Appointment>> fetchAppointment() async {
+Future<List<Appointment>> fetchAppointment(String id) async {
   final response = await http
       .get(Uri.parse('http://localhost:2020/api/appointment'));
 
@@ -52,8 +51,11 @@ Future<List<Appointment>> fetchAppointment() async {
 }
 
 class AppointmentPage extends StatefulWidget {
-  static String routeName = "/AppointmentPage";
   const AppointmentPage({super.key});
+  static String routeName = "/AppointmentPage";
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => AppointmentPage());
+  }
 
   @override
   // ignore: library_private_types_in_public_api
@@ -66,7 +68,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   void initState() {
     super.initState();
-    listAppointment = fetchAppointment();
+    listAppointment = fetchAppointment("4");
   }
 
   @override
@@ -138,7 +140,7 @@ ListView dataBody(List<Appointment> listAppointment, BuildContext context) {
               //       context,
               //       MaterialPageRoute(
               //           builder: (context) =>
-              //               //DetailAppointment(kode: appointment.kode)),
+              //               DetailAppointment(kode: appointment.kode)),
               //     );
               //   },
               // )),
