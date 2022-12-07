@@ -66,17 +66,17 @@ class _ListTagihanPage extends State<ListTagihanPage> {
           title: const Text("List Tagihan"),
         ),
         body: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                const Text(
                   "Daftar Tagihan Anda",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
                 ),
-                Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
                 ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Card(
@@ -87,22 +87,22 @@ class _ListTagihanPage extends State<ListTagihanPage> {
                           children: <Widget>[
                             Text(
                               _Tagihan[index].fields['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Rp" + _Tagihan[index].fields['price'].toString(),
+                              "Rp${_Tagihan[index].fields['price']}",
                               style: TextStyle(color: Colors.grey.shade600),
                             ),
-                            Padding(
+                            const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.0)),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFFFFC300),
+                                  primary: const Color(0xFFFFC300),
                                   onPrimary: Colors.white,
                                 ),
                                 onPressed: movePage,
-                                child: Text("Pesan sekarang"))
+                                child: const Text("Lihat Detail"))
                           ],
                         ),
                       ));
