@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,7 @@ public class ResepModel implements Serializable{
     private List<ObatModel> listObatResep;
 
     @OneToOne(mappedBy = "resep")
+    @JsonIgnore
     private AppointmentModel appointment;
     //relasi one-to-many ke apoteker
     // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)

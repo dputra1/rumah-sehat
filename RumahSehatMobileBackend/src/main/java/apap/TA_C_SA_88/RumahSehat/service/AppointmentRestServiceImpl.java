@@ -4,6 +4,7 @@ import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
+import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -26,13 +27,19 @@ public class AppointmentRestServiceImpl implements AppointmentRestService{
     @Autowired
     private PasienService pasienService;
 
+    @Qualifier("pasienRestServiceImpl")
+
+    @Autowired
+    private PasienRestService pasienRestService;
+
     @Override
     public List<AppointmentModel> retrievePasienListAppointment() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
+        Authentication auth = pasienRestService.getAuthentication();
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+        String username = userDetails.getUsername();
         PasienModel pasien = pasienService.getPasienByUsername(username);
-
+        System.out.println(pasienService.viewAllPasienAppointment(pasien));
         return pasienService.viewAllPasienAppointment(pasien);
     }
 }
