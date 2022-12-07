@@ -14,32 +14,19 @@ import java.util.List;
 @Transactional
 public class ObatServiceImpl implements ObatService{
     @Autowired
-    ObatDb obatDb;
+    ObatDb obatdb;
 
-    @Override
     public List<ObatModel> getListObat(){
-        return obatDb.findAll();
-    }
-
-    @Override
-    public ObatModel getObatByidObat(String idObat){
-        ObatModel obatModel = obatDb.findByIdObat(idObat);
-        return obatModel;
+        return obatdb.findAll();
     }
 
     @Override
     public ObatModel findObatById(String id) {
-        return obatDb.findById(id).get();
+        return obatdb.findById(id).get();
     }
 
     @Override
     public void save(ObatModel obatModel) {
-        obatDb.save(obatModel);
-    }
-
-    @Override
-    public ObatModel updateStok(ObatModel obat) {
-        obatDb.save(obat);
-        return obat;
+        obatdb.save(obatModel);
     }
 }
