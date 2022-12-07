@@ -7,5 +7,6 @@ final Map<String, WidgetBuilder> routes = {
   SignInPage.routeName: (context) => SignInPage(),
   SignUpPage.routeName: (context) => SignUpPage(),
   SplashPage.routeName: (context) => SplashPage(),
+  ListTagihanPage.routeName: (context) => ListTagihanPage(),
   AppointmentPage.routeName: (context) => AppointmentPage()
 };
