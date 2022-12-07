@@ -44,7 +44,7 @@ public class ObatController {
             model.addAttribute("user", userLoggedIn);
         }
 
-        List<ObatModel> listObat = obatService.viewAllObat();
+        List<ObatModel> listObat = obatService.getListObat();
         model.addAttribute("listObat", listObat);
         return "obat-viewall";
     }
