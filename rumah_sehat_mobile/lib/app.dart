@@ -11,7 +11,7 @@ import 'package:rumah_sehat_mobile/screens/pages.dart';
 class MyApp extends StatelessWidget {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigator => _navigatorKey.currentState;
+  NavigatorState? get _navigator => _navigatorKey.currentState;
   final secureStorage = FlutterSecureStorage();
 
   @override
@@ -49,12 +49,12 @@ class MyApp extends StatelessWidget {
                 print('halo');
                 print(state.status == AuthenticationStatus.unauthenticated);
                 if (state.status == AuthenticationStatus.unauthenticated) {
-                  _navigator.pushAndRemoveUntil<void>(
+                  _navigator?.pushAndRemoveUntil<void>(
                       MaterialPageRoute<void>(builder: (_) => SignInPage()),
                       (route) => false);
                 }
                 if (state.status == AuthenticationStatus.authenticated) {
-                  _navigator.pushAndRemoveUntil<void>(MaterialPageRoute<void>(builder: (_) => SplashPage()), (route) => false);
+                  _navigator?.pushAndRemoveUntil<void>(MaterialPageRoute<void>(builder: (_) => SplashPage()), (route) => false);
                 }
               },
               child: child,

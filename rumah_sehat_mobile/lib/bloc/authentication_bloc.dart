@@ -11,7 +11,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
 
-  AuthenticationBloc({@required this.userRepository}) : super(const AuthenticationState.unauthenticated());
+  AuthenticationBloc({required this.userRepository}) : super(const AuthenticationState.unauthenticated());
 
   @override
   Stream<AuthenticationState> mapEventToState(
