@@ -26,8 +26,10 @@ import java.time.LocalDateTime;
 @Table(name = "tagihan")
 public class TagihanModel implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(name = "sequence_bill_id", strategy = "apap.TA_C_SA_88.RumahSehat.generator.TagihanIdGenerator")
+    @GeneratedValue(generator = "sequence_bill_id")  
+    @Column(name="id")
+    private String id;
 
     @NotNull
     @Column(name="kode", nullable = false, unique = true)

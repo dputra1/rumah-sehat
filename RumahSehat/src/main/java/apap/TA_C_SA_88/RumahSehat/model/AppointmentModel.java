@@ -1,21 +1,18 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.lang.Nullable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.List;
 import java.time.LocalDateTime;
 
 @Setter
@@ -26,8 +23,10 @@ import java.time.LocalDateTime;
 @Table(name = "appointment")
 public class AppointmentModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GenericGenerator(name = "sequence_apt_id", strategy = "apap.TA_C_SA_88.RumahSehat.generator.AppointmentIdGenerator")
+    @GeneratedValue(generator = "sequence_apt_id")  
+    @Column(name="id")
+    private String id;
     
     @NotNull
     @Column(name="kode", nullable = false, unique = true)
