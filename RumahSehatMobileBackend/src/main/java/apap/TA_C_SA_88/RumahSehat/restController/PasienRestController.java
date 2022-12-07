@@ -35,7 +35,6 @@ public class PasienRestController {
             pasien.setRole("Pasien");
             pasien.setSaldo(0);
             pasien.setIsSso(false);;
-            pasien.setPassword(pasienRestService.encrypt(pasien.getPassword()));
             return pasienRestService.addPasien(pasien);
         }
     }
