@@ -24,7 +24,7 @@ public class WebSecurityConfig {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/login-sso", "/validate-ticket").permitAll()
                 .antMatchers("/user/**").hasAuthority("Admin")
-                .antMatchers("/resep/add-resep").hasAuthority("Dokter")
+                .antMatchers("/resep/add-resep").permitAll()
                 .antMatchers("/obat/update-stok/**").hasAuthority("Apoteker")
                 .antMatchers("/resep", "/obat/viewAll").hasAnyAuthority("Admin", "Apoteker")
                 .anyRequest().authenticated()

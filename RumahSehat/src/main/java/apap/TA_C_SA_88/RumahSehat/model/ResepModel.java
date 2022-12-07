@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.bytebuddy.utility.nullability.AlwaysNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,6 +13,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.stream.events.StartElement;
 import java.io.Serializable;
@@ -42,17 +44,14 @@ public class ResepModel implements Serializable{
 
     @Nullable
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
-    @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid")
+    @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apoteker;
 
     @OneToOne(mappedBy = "resep")
     private AppointmentModel appointment;
 
-    @OneToMany(mappedBy = "idObat", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<ObatModel> listObatResep;
+    @OneToMany(mappedBy = "resep",  cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<JumlahModel> listJumlah;
 
-    //relasi one-to-many ke apoteker
-    // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    // private List<ApotekerModel> id_apoteker;
 }

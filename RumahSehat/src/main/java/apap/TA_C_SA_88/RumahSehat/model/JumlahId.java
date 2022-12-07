@@ -23,11 +23,11 @@ import java.util.List;
 @NoArgsConstructor
 @Embeddable
 public class JumlahId implements Serializable{
-    
+
     @Range(max = 20)
     @Column(name = "id_obat")
     private String idObat;
- 
+
     @Size(max = 10)
     @Column(name = "id_resep")
     private Long idResep;

@@ -30,6 +30,7 @@ public class ObatModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name="id_obat", nullable = false)
     private String idObat;
 
     @NotNull
@@ -47,4 +48,6 @@ public class ObatModel implements Serializable {
     //relasi many to many ke resep
     @OneToMany(mappedBy = "obat", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JumlahModel> listJumlah;
+
+
 }
