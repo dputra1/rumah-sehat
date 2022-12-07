@@ -21,6 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         PasienModel pasienModel = pasienDb.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+        System.out.println(pasienModel.getUsername());
 
         return UserDetailsImpl.build(pasienModel);
     }
