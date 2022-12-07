@@ -43,6 +43,10 @@ public class ObatController {
             AdminModel userLoggedIn = adminService.findByUsername(username);
             model.addAttribute("user", userLoggedIn);
         }
+        else if(apotekerService.findByUsername(username)!=null) {
+            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
 
         List<ObatModel> listObat = obatService.getListObat();
         model.addAttribute("listObat", listObat);
