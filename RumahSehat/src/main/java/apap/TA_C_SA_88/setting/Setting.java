@@ -1,9 +1,9 @@
 package apap.TA_C_SA_88.setting;
 
 public class Setting {
-    // final public static String CLIENT_BASE_URL = "https://apap-088.cs.ui.ac.id";
+    final public static String CLIENT_BASE_URL = "https://apap-088.cs.ui.ac.id";
 
-    final public static String CLIENT_BASE_URL = "http://localhost:8080";
+    // final public static String CLIENT_BASE_URL = "http://localhost:8080";
 
     final public static String CLIENT_LOGIN = CLIENT_BASE_URL + "/validate-ticket";
 
