@@ -4,6 +4,7 @@ import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
+import apap.TA_C_SA_88.RumahSehat.security.jwt.JwtUtils;
 import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -32,12 +34,15 @@ public class AppointmentRestServiceImpl implements AppointmentRestService{
     @Autowired
     private PasienRestService pasienRestService;
 
+    @Autowired
+    JwtUtils jwtUtils;
+
     @Override
-    public List<AppointmentModel> retrievePasienListAppointment() {
-        Authentication auth = pasienRestService.getAuthentication();
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
-        String username = userDetails.getUsername();
+    public List<AppointmentModel> retrievePasienListAppointment(String username) {
+        // Authentication auth = pasienRestService.getAuthentication();
+        // SecurityContextHolder.getContext().setAuthentication(auth);
+        // UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+
         PasienModel pasien = pasienService.getPasienByUsername(username);
         System.out.println(pasienService.viewAllPasienAppointment(pasien));
         return pasienService.viewAllPasienAppointment(pasien);

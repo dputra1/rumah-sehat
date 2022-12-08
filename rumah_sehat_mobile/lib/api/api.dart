@@ -25,6 +25,7 @@ class Api {
       }
     }
     return {
+
       "token": "Failed"
     };
   }
