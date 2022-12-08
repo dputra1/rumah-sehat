@@ -57,10 +57,9 @@ Future<List<Appointment>> fetchAppointment() async {
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
-  static String routeName = "/SignInPage";
-
+  static String routeName = "/AppointmentPage";
   static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => SignInPage());
+    return MaterialPageRoute<void>(builder: (_) => AppointmentPage());
   }
 
   @override
@@ -74,7 +73,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   void initState() {
     super.initState();
-    listAppointment = fetchAppointment();
+    listAppointment = fetchAppointment("4");
   }
 
   @override
