@@ -1,5 +1,4 @@
 part of 'pages.dart';
-// import 'detail_appointment.dart';
 
 String formatDateTime(String unformattedDateTime) {
   List<String> datetime = unformattedDateTime.split("T");
@@ -32,9 +31,15 @@ class Appointment {
   }
 }
 
-Future<List<Appointment>> fetchAppointment(String id) async {
-  final response = await http
-      .get(Uri.parse('http://localhost:2020/api/appointment'));
+Future<List<Appointment>> fetchAppointment() async {
+  final storage = FlutterSecureStorage();
+  final token = await storage.read(key: "token");
+  final response = await http.get(
+    Uri.parse('http://localhost:2020/api/appointment/list-appointment'),
+    headers:{
+    'Authorization': '$token',
+    },);
+  print(response.statusCode);
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -52,9 +57,10 @@ Future<List<Appointment>> fetchAppointment(String id) async {
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
-  static String routeName = "/AppointmentPage";
+  static String routeName = "/SignInPage";
+
   static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => AppointmentPage());
+    return MaterialPageRoute<void>(builder: (_) => SignInPage());
   }
 
   @override
@@ -68,7 +74,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   void initState() {
     super.initState();
-    listAppointment = fetchAppointment("4");
+    listAppointment = fetchAppointment();
   }
 
   @override
@@ -119,9 +125,9 @@ ListView dataBody(List<Appointment> listAppointment, BuildContext context) {
         DataColumn(
           label: Text("Status"),
         ),
-        DataColumn(
-          label: Text("Detail"),
-        ),
+        // DataColumn(
+        //   label: Text("Detail"),
+        // ),
       ],
       rows: listAppointment
           .map(
@@ -130,9 +136,9 @@ ListView dataBody(List<Appointment> listAppointment, BuildContext context) {
               DataCell(
                 Text(appointment.waktuAwal),
               ),
-              DataCell(
-                Text(appointment.status),
-              ),
+              // DataCell(
+              //   Text(appointment.status),
+              // ),
               // DataCell(ElevatedButton(
               //   child: const Text("Detail"),
               //   onPressed: () {
