@@ -32,34 +32,4 @@ public class ResepController {
     @Qualifier("obatServiceImpl")
     @Autowired
     private ObatService obatService;
-
-    @GetMapping("/user/add-resep")
-    public String addResepFormPage(Model model){
-        ResepModel resep = new ResepModel();
-        List<ObatModel> listObatModel = new ArrayList<>();
-
-        List<ObatModel> listobat = obatService.getListObat();
-
-        resep.setListObatResep(listObatModel);
-        resep.getListObatResep().add(new ObatModel());
-
-        model.addAttribute("resep", resep);
-        model.addAttribute("listObat",listobat);
-
-        return "form-add-resep";
-    }
-
-    @PostMapping("/user/add-resep")
-    public String addResepSubmitPage(@ModelAttribute ResepModel resep, Model model){
-        resepService.addResep(resep);
-        ApotekerModel apoteker = new ApotekerModel();
-        apoteker.setUuid("ff80808184948a330184948fba1b0000");
-        apotekerService.addApoteker(apoteker);
-        resep.setIsDone(false);
-        resep.setCreatedAt(LocalDateTime.now());
-        resep.setApoteker(apoteker);
-        model.addAttribute("resep", resep);
-
-        return "add-resep";
-    }
 }

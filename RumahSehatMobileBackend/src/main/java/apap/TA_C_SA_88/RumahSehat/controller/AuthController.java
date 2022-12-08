@@ -84,7 +84,7 @@ public class AuthController {
         PasienModel addPasien = new PasienModel();
         addPasien.setNama(registerRequest.getNama());
         addPasien.setUsername(registerRequest.getUsername());
-        addPasien.setPassword(pasienRestService.encrypt(registerRequest.getPassword()));
+        addPasien.setPassword(registerRequest.getPassword());
         addPasien.setEmail(registerRequest.getEmail());
         addPasien.setUmur(registerRequest.getUmur());
         addPasien.setRole("Pasien");

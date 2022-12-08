@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PasienService {
     List<PasienModel> viewAllPasien();
+    PasienModel getByUsername(String username);
 }

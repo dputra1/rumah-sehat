@@ -18,4 +18,9 @@ public class PasienServiceImpl implements PasienService{
     public List<PasienModel> viewAllPasien(){
         return pasienDb.findAll();
     }
+
+    @Override
+    public PasienModel getByUsername(String username){
+       return pasienDb.findByUsername(username).get();
+    }
 }

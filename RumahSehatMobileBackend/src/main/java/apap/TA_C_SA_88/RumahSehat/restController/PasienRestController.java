@@ -19,7 +19,7 @@ import apap.TA_C_SA_88.RumahSehat.service.PasienRestService;
 
 
 @RestController
-@RequestMapping("/pasien/")
+@RequestMapping("/api/pasien")
 public class PasienRestController {
     @Autowired
     private PasienRestService pasienRestService;
