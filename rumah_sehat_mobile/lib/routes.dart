@@ -6,5 +6,6 @@ import 'package:rumah_sehat_mobile/screens/pages.dart';
 final Map<String, WidgetBuilder> routes = {
   SignInPage.routeName: (context) => SignInPage(),
   SignUpPage.routeName: (context) => SignUpPage(),
-  SplashPage.routeName: (context) => SplashPage()
+  SplashPage.routeName: (context) => SplashPage(),
+  AddAppointmentPage.routeName: (context) => AddAppointmentPage()
 };
