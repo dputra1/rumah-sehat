@@ -7,6 +7,7 @@ import 'package:rumah_sehat_mobile/bloc/authentication_bloc.dart';
 import 'package:rumah_sehat_mobile/bloc/authentication_event.dart';
 import 'package:rumah_sehat_mobile/api/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rumah_sehat_mobile/domain/domain.dart';
 import 'package:rumah_sehat_mobile/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

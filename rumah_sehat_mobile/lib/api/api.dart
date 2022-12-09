@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -47,5 +48,16 @@ class Api {
     );
 
     return response.statusCode;
+  }
+
+  static Future<dynamic> fetchAppointment() async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    final response = await http.get(
+      Uri.parse('http://localhost:2020/api/appointment/list-appointment'),
+      headers:{
+      'Authorization': '$token',
+      },);
+    return response;
   }
 }
