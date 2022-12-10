@@ -41,13 +41,22 @@ class _SplashPageState extends State<SplashPage> {
                 backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
               ),
               onPressed: () async {
-                Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => AppointmentPage()));
+                var response = await Api.fetchAppointment();
+                if (response.statusCode == 200) {
+                  List jsonRes = json.decode(response.body);
+                  List<Appointment> listAppointment= jsonRes.map((data) => new Appointment.fromJson(data)).toList();
+                  {Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return AppointmentPage(listAppointment: listAppointment);
+                      }),
+                    );
+                  }
+                } else {
+                  print("gagal get Data");
+                }
               },
               child: Text(
-                'Logout',
+                'List Appointment',
                 style: TextStyle(
                   color: Colors.white
                 ),

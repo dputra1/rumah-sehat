@@ -1,152 +1,176 @@
 part of 'pages.dart';
-// import 'detail_appointment.dart';
-
-String formatDateTime(String unformattedDateTime) {
-  List<String> datetime = unformattedDateTime.split("T");
-  String date = datetime[0];
-  String time = datetime[1];
-  String formattedDate =
-      "${date.split("-")[2]}-${date.split("-")[1]}-${date.split("-")[0]}";
-  String formattedTime = "${time.split(":")[0]}:${time.split(":")[1]}";
-  return "$formattedDate $formattedTime";
-}
-
-class Appointment {
-  final String kode;
-  final String nama;
-  final String waktuAwal;
-  final String status;
-
-  const Appointment(
-      {required this.kode,
-      required this.nama,
-      required this.waktuAwal,
-      required this.status});
-
-  factory Appointment.fromJson(Map<String, dynamic> json) {
-    return Appointment(
-        kode: json['kode'],
-        nama: json['dokter']['nama'],
-        waktuAwal: formatDateTime(json['waktuAwal']),
-        status: json['isDone'] == 1 ? 'Selesai' : 'Belum Selesai');
-  }
-}
-
-Future<List<Appointment>> fetchAppointment(String id) async {
-  final response = await http
-      .get(Uri.parse('http://localhost:2020/api/appointment'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    Iterable l = json.decode(response.body);
-    List<Appointment> listAppointment =
-        List<Appointment>.from(l.map((model) => Appointment.fromJson(model)));
-    return listAppointment;
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load appointment');
-  }
-}
 
 class AppointmentPage extends StatefulWidget {
-  const AppointmentPage({super.key});
   static String routeName = "/AppointmentPage";
-  static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => AppointmentPage());
-  }
+  List<Appointment> listAppointment;
+  AppointmentPage({super.key, required this.listAppointment});
 
   @override
-  // ignore: library_private_types_in_public_api
   _AppointmentPageState createState() => _AppointmentPageState();
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  late Future<List<Appointment>> listAppointment;
-
-  @override
-  void initState() {
-    super.initState();
-    listAppointment = fetchAppointment("4");
-  }
 
   @override
   Widget build(BuildContext context) {
+
+    List<Appointment> data = widget.listAppointment;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Jadwal Appointment"),
+        backgroundColor: const Color(0xff131313),
+        title: const Text(
+          "List Appointment",
+          textScaleFactor: 1.3,
+        ),
       ),
-      body: FutureBuilder(
-        future: listAppointment,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasData) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              verticalDirection: VerticalDirection.down,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.all(5),
-                      child: dataBody(snapshot.data!, context)),
-                )
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        shrinkWrap: true,
+        itemCount: widget.listAppointment.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            margin: const EdgeInsets.only(top: 30),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Card(
+                        margin: const EdgeInsets.only(top: 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 15, right: 15, bottom: 10),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Kode Tagihan",
+                                    style: TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                  const SizedBox(
+                                    width: 40,
+                                  ),
+                                  Text(
+                                    widget.listAppointment[index].kode,
+                                    style: const TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Tanggal terbuat",
+                                    style: TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                  const SizedBox(
+                                    width: 40,
+                                  ),
+                                  Text(
+                                    widget.listAppointment[index].nama,
+                                    style: const TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Tanggal terbuat",
+                                    style: TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                  const SizedBox(
+                                    width: 40,
+                                  ),
+                                  Text(
+                                    widget.listAppointment[index].waktuAwal,
+                                    style: const TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Status",
+                                    style: TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                  const SizedBox(
+                                    width: 100,
+                                  ),
+                                  Text(
+                                    widget.listAppointment[index].status,
+                                    style: const TextStyle(
+                                        fontFamily: 'Mulish',
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     ElevatedButton(
+                              //         onPressed: () async {
+                              //           var response = await provider.get(AppUrl.detailTagihan+widget.listTagihan![index].kode);
+                              //           print(response.statusCode);
+                              //           if (response.statusCode == 200) {
+                              //             print(json.decode(response.body));
+                              //             final Map<String, dynamic> res = json.decode(response.body);
+                              //             print(res);
+                              //             final Tagihan tagihanNew = Tagihan.fromJson(res);
+                              //             print(tagihanNew);
+                              //             // Tagihan tagihanTest = new Tagihan.fromJson(res);
+                              //             // print(tagihanTest);
+                              //             {Navigator.of(context).push(
+                              //               MaterialPageRoute(builder: (context) {
+                              //                 return DetailTagihan(tagihanDetail: tagihanNew);
+                              //               }),
+                              //             );
+                              //             }
+                              //           } else {
+                              //             print("gagal get Data");
+                              //           }
+                              //         },
+                              //         child: const Text("Detail")),
+                              //   ],
+                              // ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
               ],
-            );
-          }
-
-          return const Center();
+            ),
+          );
         },
       ),
     );
   }
-}
-
-ListView dataBody(List<Appointment> listAppointment, BuildContext context) {
-  return ListView(scrollDirection: Axis.vertical, children: [
-    DataTable(
-      sortColumnIndex: 0,
-      showCheckboxColumn: false,
-      columns: const [
-        DataColumn(label: Text("Nama Dokter")),
-        DataColumn(
-          label: Text("Waktu Awal"),
-        ),
-        DataColumn(
-          label: Text("Status"),
-        ),
-        DataColumn(
-          label: Text("Detail"),
-        ),
-      ],
-      rows: listAppointment
-          .map(
-            (appointment) => DataRow(cells: [
-              DataCell(Text(appointment.nama)),
-              DataCell(
-                Text(appointment.waktuAwal),
-              ),
-              DataCell(
-                Text(appointment.status),
-              ),
-              // DataCell(ElevatedButton(
-              //   child: const Text("Detail"),
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) =>
-              //               DetailAppointment(kode: appointment.kode)),
-              //     );
-              //   },
-              // )),
-            ]),
-          )
-          .toList(),
-    ),
-  ]);
 }
