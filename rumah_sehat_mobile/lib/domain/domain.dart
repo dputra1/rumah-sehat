@@ -33,3 +33,70 @@ class Appointment {
         status: json['isDone'] == 1 ? 'Selesai' : 'Belum Selesai');
   }
 }
+
+class Tagihan {
+  final String kode;
+  final DateTime tanggalTerbuat;
+  String? tanggalBayar;
+  final int jumlahTagihan;
+  final String isPaid;
+
+  Tagihan(
+      {required this.kode,
+      required this.tanggalTerbuat,
+      required this.isPaid,
+      required this.jumlahTagihan,
+      required this.tanggalBayar,
+      });
+
+  factory Tagihan.fromJson(Map<String, dynamic> json) {
+    return Tagihan(
+      kode: json['kode'],
+      tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
+      tanggalBayar: json['tanggalBayar'] == null ? 'Belum Dibayar' : formatDateTime(json['tanggalBayar']),    
+      isPaid: json['isPaid'] == 1 ? 'Selesai' : 'Belum Selesai',
+      jumlahTagihan: json['jumlahTagihan'],
+    );
+  }
+
+  Map<dynamic, dynamic> toJson() => {
+        kode: kode,
+        tanggalTerbuat: tanggalTerbuat,
+        tanggalBayar: tanggalBayar,
+        isPaid: isPaid,
+        jumlahTagihan: jumlahTagihan,
+      };
+}
+
+class TagihanModel {
+  final String kode;
+  final DateTime tanggalTerbuat;
+  DateTime? tanggalBayar;
+  final bool isPaid;
+  final int jumlahTagihan;
+
+  TagihanModel(
+      {required this.kode,
+      required this.tanggalTerbuat,
+      required this.tanggalBayar,
+      required this.isPaid,
+      required this.jumlahTagihan,});
+
+  factory TagihanModel.fromJson(Map<String, dynamic> json) => TagihanModel(
+        kode: json["kode"],
+        tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
+        tanggalBayar: json['tanggalBayar'] == null
+            ? null
+            : DateTime.parse(json['tanggalBayar']),
+        isPaid: (json['isPaid']) == false ? false : true,
+        jumlahTagihan: json['jumlahTagihan'],
+      );
+
+  Map<dynamic, dynamic> toJson() => {
+        kode: kode,
+        tanggalTerbuat: tanggalTerbuat,
+        tanggalBayar: tanggalBayar,
+        isPaid: isPaid,
+        jumlahTagihan: jumlahTagihan,
+      };
+}
