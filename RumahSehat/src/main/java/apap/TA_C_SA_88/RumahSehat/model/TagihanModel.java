@@ -28,11 +28,7 @@ public class TagihanModel implements Serializable{
     @Id
     @GenericGenerator(name = "sequence_bill_id", strategy = "apap.TA_C_SA_88.RumahSehat.generator.TagihanIdGenerator")
     @GeneratedValue(generator = "sequence_bill_id")  
-    @Column(name="id")
-    private String id;
-
-    @NotNull
-    @Column(name="kode", nullable = false, unique = true)
+    @Column(name="kode")
     private String kode;
 
     @NotNull
@@ -52,6 +48,7 @@ public class TagihanModel implements Serializable{
     @Column(name="jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
 
-    @OneToOne(mappedBy = "tagihan")
-    private AppointmentModel appointment;
+    // @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "kode_appointment", referencedColumnName = "kode")
+    // private AppointmentModel appointment;
 }
