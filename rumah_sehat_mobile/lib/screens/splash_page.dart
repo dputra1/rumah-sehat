@@ -61,6 +61,32 @@ class _SplashPageState extends State<SplashPage> {
                   color: Colors.white
                 ),
               )
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+              ),
+              onPressed: () async {
+                var response = await Api.fetchTagihan();
+                if (response.statusCode == 200) {
+                  List jsonRes = json.decode(response.body);
+                  List<Tagihan> listTagihan= jsonRes.map((data) => new Tagihan.fromJson(data)).toList();
+                  {Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return TagihanPage(listTagihan: listTagihan);
+                      }),
+                    );
+                  }
+                } else {
+                  print("gagal get Data");
+                }
+              },
+              child: Text(
+                'List Tagihan',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              )
             )
           ],
         ),
