@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,5 +56,6 @@ public class AppointmentModel implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_resep", referencedColumnName = "id")
+    @JsonIgnore
     private ResepModel resep;
 }
