@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface TagihanRestService {
     List<TagihanModel> getAllTagihan();
+    List<TagihanModel> getUserTagihan(String username);
 }
