@@ -47,8 +47,8 @@ public class AppointmentModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DokterModel dokter;
 
-    @OneToOne(mappedBy = "appointment")
-    private TagihanModel tagihan;
+    // @OneToOne(mappedBy = "appointment")
+    // private TagihanModel tagihan;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_resep", referencedColumnName = "id")

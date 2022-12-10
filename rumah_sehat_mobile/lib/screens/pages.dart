@@ -18,5 +18,5 @@ import 'dart:convert';
 part 'sign_in_page.dart';
 part 'sign_up_page.dart';
 part 'splash_page.dart';
-part 'list_tagihan_page.dart';
+part 'tagihan_page.dart';
 part 'list_appointment.dart';

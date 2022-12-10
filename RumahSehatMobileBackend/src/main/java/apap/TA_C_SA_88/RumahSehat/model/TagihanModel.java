@@ -48,7 +48,7 @@ public class TagihanModel implements Serializable{
     @Column(name="jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode")
-    private AppointmentModel appointment;
+    // @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "kode_appointment", referencedColumnName = "kode")
+    // private AppointmentModel appointment;
 }
