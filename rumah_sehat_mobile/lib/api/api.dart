@@ -65,7 +65,7 @@ class Api {
     final storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
     final response = await http.get(
-      Uri.parse('http://localhost:2020/api/tagihan/getall'),
+      Uri.parse('http://localhost:2020/api/tagihan/getAllTagihanUser'),
       headers:{
       'Authorization': '$token',
       },);
