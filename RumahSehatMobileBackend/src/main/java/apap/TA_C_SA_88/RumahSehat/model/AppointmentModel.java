@@ -25,11 +25,7 @@ public class AppointmentModel implements Serializable {
     @Id
     @GenericGenerator(name = "sequence_apt_id", strategy = "apap.TA_C_SA_88.RumahSehat.generator.AppointmentIdGenerator")
     @GeneratedValue(generator = "sequence_apt_id")  
-    @Column(name="id")
-    private String id;
-    
-    @NotNull
-    @Column(name="kode", nullable = false, unique = true)
+    @Column(name="kode")
     private String kode;
 
     @NotNull
@@ -51,8 +47,7 @@ public class AppointmentModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DokterModel dokter;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_tagihan", referencedColumnName = "id")
+    @OneToOne(mappedBy = "appointment")
     private TagihanModel tagihan;
 
     @OneToOne(cascade = CascadeType.ALL)

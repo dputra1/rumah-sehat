@@ -1,114 +1,147 @@
 part of 'pages.dart';
+// import 'detail_appointment.dart';
 
 class Tagihan {
-  String model = "";
-  int pk = 0;
-  Map<String, dynamic> fields = {};
+  final String kode;
+  final DateTime tanggalTerbuat;
+  final DateTime tanggalBayar;
+  final int jumlahTagihan;
+  final bool isPaid;
 
-  Tagihan(this.model, this.pk, this.fields);
+  const Tagihan(
+      {required this.kode,
+      required this.tanggalTerbuat,
+      required this.isPaid,
+      required this.jumlahTagihan,
+      required this.tanggalBayar,
+      });
 
-  Tagihan.fromJson(Map<String, dynamic> json) {
-    model = json['model'];
-    pk = json['pk'];
-    fields = json['fields'];
+  factory Tagihan.fromJson(Map<String, dynamic> json) {
+    return Tagihan(
+      kode: json['kode'],
+      tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
+      tanggalBayar: DateTime.parse(json['tanggalBayar']),
+      isPaid: json['isPaid'],
+      jumlahTagihan: json['jumlahTagihan'],
+    );
   }
 }
 
-class ListTagihanPage extends StatefulWidget {
-  static String routeName = "/ListTagihanPage";
+Future<List<Tagihan>> fetchTagihan(String id) async {
+  final response = await http
+      .get(Uri.parse('http://localhost:2020/api/tagihan/getall'));
 
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    Iterable l = json.decode(response.body);
+    List<Tagihan> listTagihan =
+        List<Tagihan>.from(l.map((model) => Tagihan.fromJson(model)));
+    return listTagihan;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load Tagihan');
+  }
+}
+
+class TagihanPage extends StatefulWidget {
+  const TagihanPage({super.key});
+  static String routeName = "/TagihanPage";
   static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => ListTagihanPage());
+    return MaterialPageRoute<void>(builder: (_) => TagihanPage());
   }
 
   @override
-  _ListTagihanPage createState() => _ListTagihanPage();
+  // ignore: library_private_types_in_public_api
+  _TagihanPageState createState() => _TagihanPageState();
 }
 
-class _ListTagihanPage extends State<ListTagihanPage> {
-  List<Tagihan> _Tagihan = <Tagihan>[];
-
-  Future<List<Tagihan>> fetchTagihan() async {
-    var url = 'http://slowlab-core.herokuapp.com/product-list/json';
-    var response = await http.get(Uri.parse(url));
-
-    var bill = <Tagihan>[];
-
-    if (response.statusCode == 200) {
-      var billsJson = json.decode(response.body);
-      for (var billJson in billsJson) {
-        bill.add(Tagihan.fromJson(billJson));
-      }
-    }
-    return bill;
-  }
-
-// TODO: ganti ke detail tagihan
-  void movePage() {
-    Navigator.pop(context);
-    Navigator.pushNamed(context, '/booking');
-  }
+class _TagihanPageState extends State<TagihanPage> {
+  late Future<List<Tagihan>> listTagihan;
 
   @override
   void initState() {
-    fetchTagihan().then((value) {
-      setState(() {
-        _Tagihan.addAll(value);
-      });
-    });
     super.initState();
+    listTagihan = fetchTagihan("4");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("List Tagihan"),
-        ),
-        body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(
+        title: const Text("Jadwal Tagihan"),
+      ),
+      body: FutureBuilder(
+        future: listTagihan,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasData) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              verticalDirection: VerticalDirection.down,
               children: <Widget>[
-                const Text(
-                  "Daftar Tagihan Anda",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
-                ),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
-                ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Card(
-                          child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              _Tagihan[index].fields['name'],
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Rp${_Tagihan[index].fields['price']}",
-                              style: TextStyle(color: Colors.grey.shade600),
-                            ),
-                            const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.0)),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xFFFFC300),
-                                  onPrimary: Colors.white,
-                                ),
-                                onPressed: movePage,
-                                child: const Text("Lihat Detail"))
-                          ],
-                        ),
-                      ));
-                    },
-                    itemCount: _Tagihan.length)
+                Expanded(
+                  child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: dataBodyTagihan(snapshot.data!, context)),
+                )
               ],
-            )));
+            );
+          }
+
+          return const Center();
+        },
+      ),
+    );
   }
+}
+
+ListView dataBodyTagihan(List<Tagihan> listTagihan, BuildContext context) {
+  return ListView(scrollDirection: Axis.vertical, children: [
+    DataTable(
+      sortColumnIndex: 0,
+      showCheckboxColumn: false,
+      columns: const [
+        DataColumn(label: Text("Nama Dokter")),
+        DataColumn(
+          label: Text("Waktu Awal"),
+        ),
+        DataColumn(
+          label: Text("Status"),
+        ),
+        DataColumn(
+          label: Text("Detail"),
+        ),
+      ],
+      rows: listTagihan
+          .map(
+            (tagihan) => DataRow(cells: [
+              DataCell(Text(tagihan.nama)),
+              DataCell(
+                Text(tagihan.waktuAwal),
+              ),
+              DataCell(
+                Text(tagihan.status),
+              ),
+              // DataCell(ElevatedButton(
+              //   child: const Text("Detail"),
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) =>
+              //               DetailAppointment(kode: appointment.kode)),
+              //     );
+              //   },
+              // )),
+            ]),
+          )
+          .toList(),
+    ),
+  ]);
 }
