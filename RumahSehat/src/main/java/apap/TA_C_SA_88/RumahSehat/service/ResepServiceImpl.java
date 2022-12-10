@@ -38,4 +38,9 @@ public class ResepServiceImpl implements ResepService{
         // TODO Auto-generated method stub
         return resepDb.findAll();
     }
+
+    @Override
+    public ResepModel findResepById(Long id) {
+        return resepDb.findById(id).get();
+    }
 }
