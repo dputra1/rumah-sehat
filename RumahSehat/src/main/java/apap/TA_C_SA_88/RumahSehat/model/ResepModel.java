@@ -42,10 +42,13 @@ public class ResepModel implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
-    @Nullable
-    @ManyToOne(fetch = FetchType.EAGER, optional=false)
-    @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @ManyToOne(fetch = FetchType.EAGER, optional=false)
+//    @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid", nullable = true)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private ApotekerModel apoteker;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "uuid_apoteker", referencedColumnName = "uuid")
     private ApotekerModel apoteker;
 
     @OneToOne(mappedBy = "resep")
