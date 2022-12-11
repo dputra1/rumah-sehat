@@ -22,3 +22,4 @@ part 'sign_up_page.dart';
 part 'splash_page.dart';
 part 'tagihan_page.dart';
 part 'list_appointment.dart';
+part 'tagihan_detail.dart';
