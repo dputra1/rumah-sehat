@@ -183,7 +183,7 @@ class _TagihanPageState extends State<TagihanPage> {
                                     width: 47,
                                   ),
                                 Text(": " + (
-                                  widget.listTagihan[index].tanggalTerbuat),
+                                  widget.listTagihan[index].tanggalTerbuat.toString()),
                                   style: TextStyle(
                                   color: kTextLightColor,
                                   ),
