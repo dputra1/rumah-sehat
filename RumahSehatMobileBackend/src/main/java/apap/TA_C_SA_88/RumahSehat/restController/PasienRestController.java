@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import apap.TA_C_SA_88.RumahSehat.payload.MessageResponse;
 import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 import apap.TA_C_SA_88.RumahSehat.service.PasienService;
@@ -39,6 +40,7 @@ public class PasienRestController {
     @Autowired
     private PasienDb pasienDb;
 
+    Logger logger = LoggerFactory.getLogger(PasienRestController.class);
     @PostMapping(value = "/register")
     private PasienModel createPengajar(@Valid @RequestBody PasienModel pasien, BindingResult bindingResult){
         if(bindingResult.hasFieldErrors()){

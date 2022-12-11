@@ -133,15 +133,15 @@ class _TagihanPageState extends State<TagihanPage> {
                                   child: Text(
                                     widget.listTagihan[index].kode,
                                     style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: kPrimaryColor
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: kPrimaryColor
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
                                 ),
-                                
+
                                 // Column(
                                 //   children: <Widget>[
                                 //     Text(
@@ -161,31 +161,31 @@ class _TagihanPageState extends State<TagihanPage> {
                                 // ),
                               ],
                             ),
-                            SizedBox(height: 13.0), 
+                            SizedBox(height: 13.0),
                             Divider(
-                                  color: kPrimaryColor2, //color of divider
-                                  height: 5, //height spacing of divider
-                                  thickness: 1, //thickness of divier line
-                                  indent: 8, //spacing at the start of divider
-                                  endIndent: 8, //spacing at the end of divider
-                                ),
-                            SizedBox(height: 10.0), 
+                              color: kPrimaryColor2, //color of divider
+                              height: 5, //height spacing of divider
+                              thickness: 1, //thickness of divier line
+                              indent: 8, //spacing at the start of divider
+                              endIndent: 8, //spacing at the end of divider
+                            ),
+                            SizedBox(height: 10.0),
                             Row(
                               children: [
                                 Text(
                                   "Tanggal Dibuat",
                                   style: TextStyle(
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.w600,
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 47,
-                                  ),
+                                  width: 47,
+                                ),
                                 Text(": " + (
-                                  widget.listTagihan[index].tanggalTerbuat.toString()),
+                                    widget.listTagihan[index].tanggalTerbuat.toString()),
                                   style: TextStyle(
-                                  color: kTextLightColor,
+                                    color: kTextLightColor,
                                   ),
                                 ),
                               ],
@@ -196,16 +196,16 @@ class _TagihanPageState extends State<TagihanPage> {
                                 Text(
                                   "Tanggal Pembayaran",
                                   style: TextStyle(
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.w600,
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 10,
-                                  ),
+                                  width: 10,
+                                ),
                                 Text(": " + (
-                                  widget.listTagihan[index].tanggalBayar == "Belum dibayar" ? "Belum dibayar" : 
-                                  widget.listTagihan[index].tanggalBayar.toString()),
+                                    widget.listTagihan[index].tanggalBayar == "Belum dibayar" ? "Belum dibayar" :
+                                    widget.listTagihan[index].tanggalBayar.toString()),
                                   style: TextStyle(
                                     color: kTextLightColor,
                                   ),
@@ -233,7 +233,7 @@ class _TagihanPageState extends State<TagihanPage> {
                             //     ),
                             //   ],
                             // ),
-                            SizedBox(height: 10.0), 
+                            SizedBox(height: 10.0),
                             widget.listTagihan[index].isPaid == "Belum Lunas"?
                             Container(
                               padding: EdgeInsets.all(5.0),
@@ -246,8 +246,8 @@ class _TagihanPageState extends State<TagihanPage> {
                               child: Text(
                                 widget.listTagihan[index].isPaid,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                  ),
+                                  color: Colors.white,
+                                ),
                               ),
                             ):
                             Container(
@@ -291,9 +291,9 @@ class _TagihanPageState extends State<TagihanPage> {
                       ),
                     ),
                   ],
-                ),
-                onTap: () {
-                  Navigator.push(
+                  ),
+                  onTap: () {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => TagihanDetail(

@@ -77,8 +77,8 @@ class TagihanDetail extends StatelessWidget {
                           (tagihan.tanggalBayar == "Belum Bayar"
                               ? "-"
                               : tagihan.tanggalBayar
-                                  .toString()
-                                  .substring(0, 10)),
+                              .toString()
+                              .substring(0, 10)),
                           style: const TextStyle(
                               fontSize: 14, color: Colors.black),
                         ),
@@ -155,7 +155,7 @@ class TagihanDetail extends StatelessWidget {
                   return AlertDialog(
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(30.0))),
+                          BorderRadius.all(Radius.circular(30.0))),
                       title: Center(
                           child: Text("Bayar Tagihan",
                               style: TextStyle(
@@ -179,7 +179,7 @@ class TagihanDetail extends StatelessWidget {
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty
                                         .resolveWith<Color>(
-                                      (Set<MaterialState> states) {
+                                          (Set<MaterialState> states) {
                                         if (states
                                             .contains(MaterialState.pressed))
                                           return Colors.grey;
@@ -202,16 +202,16 @@ class TagihanDetail extends StatelessWidget {
                                             return AlertDialog(
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                30.0))),
+                                                    BorderRadius.all(
+                                                        Radius.circular(
+                                                            30.0))),
                                                 title: Center(
                                                     child: Text("Gagal",
                                                         style: TextStyle(
                                                             fontWeight:
-                                                                FontWeight.w500,
+                                                            FontWeight.w500,
                                                             color:
-                                                                Colors.teal))),
+                                                            Colors.teal))),
                                                 content: Text(
                                                   "Saldo tidak cukup",
                                                   textAlign: TextAlign.center,
@@ -219,27 +219,27 @@ class TagihanDetail extends StatelessWidget {
                                                 actions: [
                                                   Center(
                                                       child: ElevatedButton(
-                                                    child: Text("OK"),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    style: ButtonStyle(
-                                                      backgroundColor:
+                                                        child: Text("OK"),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
                                                           MaterialStateProperty
                                                               .resolveWith<
-                                                                  Color>(
-                                                        (Set<MaterialState>
+                                                              Color>(
+                                                                (Set<MaterialState>
                                                             states) {
-                                                          if (states.contains(
-                                                              MaterialState
-                                                                  .pressed))
-                                                            return Colors.teal;
-                                                          return Colors.teal;
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ))
+                                                              if (states.contains(
+                                                                  MaterialState
+                                                                      .pressed))
+                                                                return Colors.teal;
+                                                              return Colors.teal;
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ))
                                                 ]);
                                           });
                                     } else {
@@ -266,49 +266,49 @@ class TagihanDetail extends StatelessWidget {
                                                 return AlertDialog(
                                                     shape: RoundedRectangleBorder(
                                                         borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    30.0))),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                30.0))),
                                                     title: Center(
                                                         child: Text("Berhasil",
                                                             style: TextStyle(
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                FontWeight
+                                                                    .w500,
                                                                 color: Colors
                                                                     .teal))),
                                                     content: Text(
                                                       "Berhasil membayar tagihan",
                                                       textAlign:
-                                                          TextAlign.center,
+                                                      TextAlign.center,
                                                     ),
                                                     actions: [
                                                       Center(
                                                           child: ElevatedButton(
-                                                        child: Text("OK"),
-                                                        onPressed: () {
-                                                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                                          builder: (context) => SplashPage(),
-                                                        ));
-                                                        },
-                                                        style: ButtonStyle(
-                                                          backgroundColor:
+                                                            child: Text("OK"),
+                                                            onPressed: () {
+                                                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                                                builder: (context) => SplashPage(),
+                                                              ));
+                                                            },
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
                                                               MaterialStateProperty
                                                                   .resolveWith<
-                                                                      Color>(
-                                                            (Set<MaterialState>
+                                                                  Color>(
+                                                                    (Set<MaterialState>
                                                                 states) {
-                                                              if (states.contains(
-                                                                  MaterialState
-                                                                      .pressed))
-                                                                return Colors
-                                                                    .teal;
-                                                              return Colors
-                                                                  .teal;
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ))
+                                                                  if (states.contains(
+                                                                      MaterialState
+                                                                          .pressed))
+                                                                    return Colors
+                                                                        .teal;
+                                                                  return Colors
+                                                                      .teal;
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ))
                                                     ]);
                                               });
                                         }
@@ -318,7 +318,7 @@ class TagihanDetail extends StatelessWidget {
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty
                                         .resolveWith<Color>(
-                                      (Set<MaterialState> states) {
+                                          (Set<MaterialState> states) {
                                         if (states
                                             .contains(MaterialState.pressed))
                                           return Colors.teal;
