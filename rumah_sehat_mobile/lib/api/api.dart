@@ -50,27 +50,80 @@ class Api {
     return response.statusCode;
   }
 
+  static Future<dynamic> fetchUser() async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+
+    final response = await http.get(
+      Uri.parse('${url}pasien/getPasien'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },);
+  
+    return response;
+  }
+
   static Future<dynamic> fetchAppointment() async {
     final storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
+
     final response = await http.get(
-      Uri.parse('http://localhost:2020/api/appointment/list-appointment'),
-      headers:{
-      'Authorization': '$token',
+      Uri.parse('${url}appointment/list-appointment'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
       },);
-    print(jsonEncode(response.body));
+   
     return response;
   }
 
   static Future<dynamic> fetchTagihan() async {
     final storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
+
     final response = await http.get(
-      Uri.parse('http://localhost:2020/api/tagihan/getall'),
+      Uri.parse('${url}tagihan/getall'),
       headers:{
-      'Authorization': '$token',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
       },);
-    print(jsonEncode(response.body));
+    
+    return response;
+  }
+
+  static Future<dynamic> updateStatusTagihan(dynamic data) async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+
+    final response = await http.put(
+      Uri.parse('${url}tagihan/updateStatusTagihan'),
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: data);
+   
+    return response;
+  }
+
+  static Future<dynamic> updateSaldo(dynamic data) async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    
+    final response = await http.put(
+      Uri.parse('${url}pasien/updateSaldoPasien'),
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: data);
+
     return response;
   }
 }

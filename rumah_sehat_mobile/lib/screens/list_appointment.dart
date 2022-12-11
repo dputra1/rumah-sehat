@@ -126,11 +126,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  width: 120.0,
+                                Center(
                                   child: Text(
                                     widget.listAppointment[index].kode,
                                     style: TextStyle(

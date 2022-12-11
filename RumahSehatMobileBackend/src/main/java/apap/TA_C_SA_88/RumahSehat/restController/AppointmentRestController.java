@@ -28,7 +28,7 @@ public class AppointmentRestController {
 
     @GetMapping(value = "/list-appointment")
         private List<AppointmentModel> retrieveListAppointment(@RequestHeader("Authorization") String token) {
-        String username = jwtUtils.getUserNameFromJwtToken(token);
+        String username = jwtUtils.getUserNameFromJwtToken(token.substring(7));
         return appointmentRestService.retrievePasienListAppointment(username);
     }
 }
