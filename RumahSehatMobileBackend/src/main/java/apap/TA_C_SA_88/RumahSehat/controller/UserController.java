@@ -3,18 +3,25 @@ package apap.TA_C_SA_88.RumahSehat.controller;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
+import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
+import apap.TA_C_SA_88.RumahSehat.security.jwt.JwtUtils;
 import apap.TA_C_SA_88.RumahSehat.service.ApotekerService;
 import apap.TA_C_SA_88.RumahSehat.service.DokterService;
 import apap.TA_C_SA_88.RumahSehat.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+
+@RestController
+@CrossOrigin
+@RequestMapping("/user")
 public class UserController {
     @Qualifier("dokterServiceImpl")
 
@@ -30,8 +37,13 @@ public class UserController {
 
     @Autowired
     private PasienService pasienService;
+    @Autowired
+    private PasienDb pasienDb;
 
-    @GetMapping("/user/dokterApoteker")
+    @Autowired
+    JwtUtils jwtUtils;
+
+    @GetMapping("/dokterApoteker")
     public String viewAllDokterApoteker(Model model) {
         List<DokterModel> listDokter = dokterService.viewAllDokter();
         List<ApotekerModel> listApoteker = apotekerService.viewAllApoteker();
@@ -40,7 +52,7 @@ public class UserController {
         model.addAttribute("listApoteker", listApoteker);
         return "dokter-apoteker-viewall";
     }
-    @GetMapping("/user/pasien")
+    @GetMapping("/pasien")
     public String viewAllPasien(Model model) {
         List<PasienModel> listPasien = pasienService.viewAllPasien();
 
