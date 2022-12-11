@@ -28,6 +28,7 @@ public class TagihanRestServiceImpl implements TagihanRestService {
         // String username = userDetails.getUsername();
         // PasienModel pasien = pasienService.getPasienByUsername(username);
         // System.out.println(pasienService.viewAllPasienAppointment(pasien));
+        System.out.println(tagihanDb.findAll());
         return tagihanDb.findAll();
 	}
     

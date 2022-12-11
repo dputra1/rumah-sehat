@@ -17,159 +17,277 @@ class _AppointmentPageState extends State<AppointmentPage> {
     List<Appointment> data = widget.listAppointment;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff131313),
-        title: const Text(
-          "List Appointment",
-          textScaleFactor: 1.3,
-        ),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        shrinkWrap: true,
-        itemCount: widget.listAppointment.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            margin: const EdgeInsets.only(top: 30),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Card(
-                        margin: const EdgeInsets.only(top: 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 15, right: 15, bottom: 10),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Kode Tagihan",
-                                    style: TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                  const SizedBox(
-                                    width: 40,
-                                  ),
-                                  Text(
-                                    widget.listAppointment[index].kode,
-                                    style: const TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Tanggal terbuat",
-                                    style: TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                  const SizedBox(
-                                    width: 40,
-                                  ),
-                                  Text(
-                                    widget.listAppointment[index].nama,
-                                    style: const TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Tanggal terbuat",
-                                    style: TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                  const SizedBox(
-                                    width: 40,
-                                  ),
-                                  Text(
-                                    widget.listAppointment[index].waktuAwal,
-                                    style: const TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Status",
-                                    style: TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                  const SizedBox(
-                                    width: 100,
-                                  ),
-                                  Text(
-                                    widget.listAppointment[index].status,
-                                    style: const TextStyle(
-                                        fontFamily: 'Mulish',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: [
-                              //     ElevatedButton(
-                              //         onPressed: () async {
-                              //           var response = await provider.get(AppUrl.detailTagihan+widget.listTagihan![index].kode);
-                              //           print(response.statusCode);
-                              //           if (response.statusCode == 200) {
-                              //             print(json.decode(response.body));
-                              //             final Map<String, dynamic> res = json.decode(response.body);
-                              //             print(res);
-                              //             final Tagihan tagihanNew = Tagihan.fromJson(res);
-                              //             print(tagihanNew);
-                              //             // Tagihan tagihanTest = new Tagihan.fromJson(res);
-                              //             // print(tagihanTest);
-                              //             {Navigator.of(context).push(
-                              //               MaterialPageRoute(builder: (context) {
-                              //                 return DetailTagihan(tagihanDetail: tagihanNew);
-                              //               }),
-                              //             );
-                              //             }
-                              //           } else {
-                              //             print("gagal get Data");
-                              //           }
-                              //         },
-                              //         child: const Text("Detail")),
-                              //   ],
-                              // ),
-                            ],
-                          ),
-                        )),
+      body: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0.0, 2.0),
+                      blurRadius: 6.0,
+                    ),
                   ],
                 ),
-              ],
+                child: Hero(
+                  tag: 'assets/images/appointment.jpg',
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image(
+                      image: AssetImage('assets/images/appointment.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 30.0,
+                      color: Colors.white,
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 20.0,
+                bottom: 20.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "List Appointment",
+                      style: TextStyle(
+                        color: Colors.white ,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    // Row(
+                    //   children: <Widget>[
+                    //     Icon(
+                    //       FontAwesomeIcons.locationArrow,
+                    //       size: 15.0,
+                    //       color: Colors.white70,
+                    //     ),
+                    //     SizedBox(width: 5.0),
+                    //     Text(
+                    //       widget.destination.country,
+                    //       style: TextStyle(
+                    //         color: Colors.white70,
+                    //         fontSize: 20.0,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  ],
+                ),
+              ),
+              // Positioned(
+              //   right: 20.0,
+              //   bottom: 20.0,
+              //   child: Icon(
+              //     Icons.location_on,
+              //     color: Colors.white70,
+              //     size: 25.0,
+              //   ),
+              // ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
+              itemCount: widget.listAppointment.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
+                      height: 170.0,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: 120.0,
+                                  child: Text(
+                                    widget.listAppointment[index].kode,
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: kPrimaryColor
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                                
+                                // Column(
+                                //   children: <Widget>[
+                                //     Text(
+                                //       '\$${activity.price}',
+                                //       style: TextStyle(
+                                //         fontSize: 22.0,
+                                //         fontWeight: FontWeight.w600,
+                                //       ),
+                                //     ),
+                                //     Text(
+                                //       'per pax',
+                                //       style: TextStyle(
+                                //         color: Colors.grey,
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                              ],
+                            ),
+                            SizedBox(height: 13.0), 
+                            Divider(
+                                  color: kPrimaryColor2, //color of divider
+                                  height: 5, //height spacing of divider
+                                  thickness: 1, //thickness of divier line
+                                  indent: 8, //spacing at the start of divider
+                                  endIndent: 8, //spacing at the end of divider
+                                ),
+                            SizedBox(height: 10.0), 
+                            Row(
+                              children: [
+                                Text(
+                                  "Nama Dokter",
+                                  style: TextStyle(
+                                  color: kTextColor,
+                                  fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 29,
+                                  ),
+                                Text(": " + (
+                                  widget.listAppointment[index].nama),
+                                  style: TextStyle(
+                                  color: kTextLightColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10.0),
+                            Row(
+                              children: [
+                                Text(
+                                  "Tanggal Terbuat",
+                                  style: TextStyle(
+                                  color: kTextColor,
+                                  fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 10,
+                                  ),
+                                Text(": " + (
+                                  widget.listAppointment[index].waktuAwal),
+                                  style: TextStyle(
+                                    color: kTextLightColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            // SizedBox(height: 10.0),
+                            // Row(
+                            //   children: [
+                            //     Text(
+                            //       "Status",
+                            //       style: TextStyle(
+                            //       color: Colors.black87,
+                            //       fontWeight: FontWeight.w500,
+                            //       ),
+                            //     ),
+                            //     const SizedBox(
+                            //         width: 71,
+                            //       ),
+                            //     Text(": " + (
+                            //       widget.listAppointment[index].status),
+                            //       style: TextStyle(
+                            //         color: Colors.grey,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            SizedBox(height: 10.0), 
+                            widget.listAppointment[index].status == "Belum Selesai"?
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              width: 100.0,
+                              decoration: BoxDecoration(
+                                color: kTextLightColor,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                widget.listAppointment[index].status,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                              ),
+                            ):
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              width: 60.0,
+                              decoration: BoxDecoration(
+                                color: kPrimaryColor,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                widget.listAppointment[index].status,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),   
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Positioned(
+                    //   left: 20.0,
+                    //   top: 15.0,
+                    //   bottom: 15.0,
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(20.0),
+                    //     child: Image(
+                    //       width: 110.0,
+                    //       image: AssetImage(
+                    //         'assets/images/appointment2.jpg',
+                    //       ),
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

@@ -58,6 +58,7 @@ class Api {
       headers:{
       'Authorization': '$token',
       },);
+    print(jsonEncode(response.body));
     return response;
   }
 
@@ -69,6 +70,7 @@ class Api {
       headers:{
       'Authorization': '$token',
       },);
+    print(jsonEncode(response.body));
     return response;
   }
 }

@@ -30,7 +30,7 @@ class Appointment {
         kode: json['kode'],
         nama: json['dokter']['nama'],
         waktuAwal: formatDateTime(json['waktuAwal']),
-        status: json['isDone'] == 1 ? 'Selesai' : 'Belum Selesai');
+        status: json['isDone'] == true ? 'Selesai' : 'Belum Selesai');
   }
 }
 
