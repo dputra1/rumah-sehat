@@ -35,25 +35,25 @@ public class RumahSehatApplication {
 			.umur(20)
 			.build());
 
-	// 		apotekerService.addApoteker(ApotekerModel.builder().email("testmapoteker@gmail.com")
-	// 		.isSso(false)
-	// 		.nama("testApoteker")
-	// 		.password("apotekertest")
-	// 		.role("Apoteker")
-	// 		.username("apotekertest")
-	// 		.listResep(new ArrayList<>())
-	// 		.build());
+			apotekerService.addApoteker(ApotekerModel.builder().email("testmapoteker@gmail.com")
+			.isSso(false)
+			.nama("testApoteker")
+			.password("apotekertest")
+			.role("Apoteker")
+			.username("apotekertest")
+			.listResep(new ArrayList<>())
+			.build());
 
-	// 		dokterService.addDokter(DokterModel.builder().email("testmdokter@gmail.com")
-	// 		.isSso(false)
-	// 		.nama("testDokter")
-	// 		.password("doktertest")
-	// 		.role("Dokter")
-	// 		.username("doktertest")
-	// 		.tarif(200000)
-	// 		.listAppointment(new ArrayList<>())
-	// 		.build());
-	// 	};
+			dokterService.addDokter(DokterModel.builder().email("testmdokter@gmail.com")
+			.isSso(false)
+			.nama("testDokter")
+			.password("doktertest")
+			.role("Dokter")
+			.username("doktertest")
+			.tarif(200000)
+			.listAppointment(new ArrayList<>())
+			.build());
 		};
 	}
+
 }

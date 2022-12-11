@@ -67,36 +67,3 @@ class Tagihan {
         jumlahTagihan: jumlahTagihan,
       };
 }
-
-class TagihanModel {
-  final String kode;
-  final DateTime tanggalTerbuat;
-  DateTime? tanggalBayar;
-  final bool isPaid;
-  final int jumlahTagihan;
-
-  TagihanModel(
-      {required this.kode,
-      required this.tanggalTerbuat,
-      required this.tanggalBayar,
-      required this.isPaid,
-      required this.jumlahTagihan,});
-
-  factory TagihanModel.fromJson(Map<String, dynamic> json) => TagihanModel(
-        kode: json["kode"],
-        tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
-        tanggalBayar: json['tanggalBayar'] == null
-            ? null
-            : DateTime.parse(json['tanggalBayar']),
-        isPaid: (json['isPaid']) == false ? false : true,
-        jumlahTagihan: json['jumlahTagihan'],
-      );
-
-  Map<dynamic, dynamic> toJson() => {
-        kode: kode,
-        tanggalTerbuat: tanggalTerbuat,
-        tanggalBayar: tanggalBayar,
-        isPaid: isPaid,
-        jumlahTagihan: jumlahTagihan,
-      };
-}

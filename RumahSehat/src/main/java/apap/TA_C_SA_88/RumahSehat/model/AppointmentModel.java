@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -47,10 +50,12 @@ public class AppointmentModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DokterModel dokter;
 
-    // @OneToOne(mappedBy = "appointment")
-    // private TagihanModel tagihan;
+    @OneToOne(mappedBy = "appointment")
+    @JsonManagedReference
+    private TagihanModel tagihan;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_resep", referencedColumnName = "id")
+    @JsonIgnore
     private ResepModel resep;
 }
