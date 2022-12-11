@@ -18,7 +18,7 @@ public class AppointmentIdGenerator implements IdentifierGenerator{
         try {
             Statement statement=connection.createStatement();
 
-            ResultSet rs=statement.executeQuery("select count(Id) from tkapap.appointment");
+            ResultSet rs=statement.executeQuery("select count(kode) from tkapap.appointment");
 
             if(rs.next())
             {
