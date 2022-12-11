@@ -37,22 +37,56 @@ class _SplashPageState extends State<SplashPage> {
               )
             ),
             TextButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+              ),
+              onPressed: () async {
+                var response = await Api.fetchAppointment();
+                if (response.statusCode == 200) {
+                  List jsonRes = json.decode(response.body);
+                  List<Appointment> listAppointment= jsonRes.map((data) => new Appointment.fromJson(data)).toList();
+                  {Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return AppointmentPage(listAppointment: listAppointment);
+                      }),
+                    );
+                  }
+                } else {
+                  print("gagal get Data");
+                }
+              },
+              child: Text(
+                'List Appointment',
+                style: TextStyle(
+                  color: Colors.white
                 ),
-                onPressed: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              AddAppointmentPage()));
-                },
-                child: Text(
-                  'Tambah Appointment',
-                  style: TextStyle(
-                      color: Colors.white
-                  ),
-                )
+              )
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+              ),
+              onPressed: () async {
+                var response = await Api.fetchTagihan();
+                if (response.statusCode == 200) {
+                  List jsonRes = json.decode(response.body);
+                  List<Tagihan> listTagihan= jsonRes.map((data) => new Tagihan.fromJson(data)).toList();
+                  {Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return TagihanPage(listTagihan: listTagihan);
+                      }),
+                    );
+                  }
+                } else {
+                  print("gagal get Data");
+                }
+              },
+              child: Text(
+                'List Tagihan',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              )
             )
           ],
         ),

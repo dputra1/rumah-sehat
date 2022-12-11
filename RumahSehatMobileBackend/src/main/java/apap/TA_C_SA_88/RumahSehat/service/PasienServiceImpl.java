@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.service;
 
+import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,7 +22,12 @@ public class PasienServiceImpl implements PasienService{
     }
 
     @Override
-    public PasienModel getByUsername(String username){
-       return pasienDb.findByUsername(username).get();
+    public PasienModel getPasienByUsername(String username) {
+        return pasienDb.findPasienByUsername(username);
+    }
+
+    @Override
+    public List<AppointmentModel> viewAllPasienAppointment(PasienModel pasien) {
+        return pasien.getListAppointment();
     }
 }

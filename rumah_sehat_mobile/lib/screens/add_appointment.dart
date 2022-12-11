@@ -15,7 +15,7 @@ class _AddAppointmentPageState extends State<AddAppointmentPage> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
   TextEditingController _waktuAwalController = TextEditingController();
-  String _dokterPilihan;
+  String _dokterPilihan = "";
 
   @override
   void initState() {
@@ -82,10 +82,10 @@ class _AddAppointmentPageState extends State<AddAppointmentPage> {
                             hintText: 'Select Date Time',
                           ),
                           onTap: () async {
-                            DateTime pickeddate = await DatePicker.showDateTimePicker(context,
+                            DateTime pickeddate = (await DatePicker.showDateTimePicker(context,
                               minTime: DateTime(2001),
                               maxTime: DateTime(2200),
-                            );
+                            ))!;
 
                             if(pickeddate != null){
                               setState(() {

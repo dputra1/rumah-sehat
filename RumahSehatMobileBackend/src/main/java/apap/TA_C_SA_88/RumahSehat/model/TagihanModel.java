@@ -26,11 +26,9 @@ import java.time.LocalDateTime;
 @Table(name = "tagihan")
 public class TagihanModel implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull
-    @Column(name="kode", nullable = false, unique = true)
+    @GenericGenerator(name = "sequence_bill_id", strategy = "apap.TA_C_SA_88.RumahSehat.generator.TagihanIdGenerator")
+    @GeneratedValue(generator = "sequence_bill_id")  
+    @Column(name="kode")
     private String kode;
 
     @NotNull
@@ -50,6 +48,7 @@ public class TagihanModel implements Serializable{
     @Column(name="jumlah_tagihan", nullable = false)
     private Integer jumlahTagihan;
 
-    @OneToOne(mappedBy = "tagihan")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kode_appointment", referencedColumnName = "kode")
     private AppointmentModel appointment;
 }

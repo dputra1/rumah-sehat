@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.lang.Nullable;
@@ -19,6 +21,7 @@ import java.util.List;
 @Setter
 @Getter
 @AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
 @Entity
 @Table(name = "pasien")
@@ -28,7 +31,6 @@ public class PasienModel extends UserModel implements Serializable {
     private Integer saldo;
 
     @NotNull
-    @Size(max = 3)
     @Column(name = "umur", nullable = false)
     private Integer umur;
 

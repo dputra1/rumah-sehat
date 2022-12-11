@@ -20,9 +20,9 @@
                     <h2 class="text-center" th:text="'List Appointment - '+ ${dokter.getNama()}"></h2>
                 </div>
                 <br />
-                <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
-                    <div class="container">
-                        <div th:if="${listAppointment.size() != 0}">
+                <div th:if="${listAppointment.size() != 0}">
+                    <div class="container-fluid" style="padding-bottom: 19%; display: flex; align-items: center; justify-content: center;">
+                        <div class="container">
                             <div class="row d-flex justify-content-center">
                                 <table class="content-table">
                                     <thead>
@@ -50,7 +50,11 @@
                                 </table>
                             </div>
                         </div>
-                        <div th:unless="${listAppointment.size() != 0}">
+                    </div>
+                </div>
+                <div th:unless="${listAppointment.size() != 0}">
+                    <div class="container-fluid" style="padding-bottom: 28%; display: flex; align-items: center; justify-content: center;">
+                        <div class="container">
                             <div class="mt-4 justify-content-center">
                                 <h5 class="text-center text-warning" th:text="'--Belum ada appointment yang terdaftar--'"></h5>
                             </div>

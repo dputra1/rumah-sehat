@@ -44,7 +44,7 @@ public class ResepModel implements Serializable{
     private LocalDateTime createdAt;
 
     @Nullable
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional=true)
     @JoinColumn(name="uuid_apoteker", referencedColumnName="uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apoteker;

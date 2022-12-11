@@ -5,8 +5,8 @@ class DokterModel {
   final String nama;
 
   DokterModel({
-    @required this.uuid,
-    @required this.nama
+    required this.uuid,
+    required this.nama
   });
 
   factory DokterModel.fromJson(Map<String, dynamic> json) {

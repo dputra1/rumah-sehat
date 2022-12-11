@@ -18,7 +18,8 @@ class Api {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{'username': userId, 'password': password}),
+      body: jsonEncode(
+          <String, String>{'username': userId, 'password': password}),
     );
     if (response.statusCode == 200) {
       final Map parsedResponse = json.decode(response.body);
@@ -28,12 +29,11 @@ class Api {
         return parsedResponse;
       }
     }
-    return {
-      "token": "Failed"
-    };
+    return {"token": "Failed"};
   }
 
-  static Future<int> signUp(String email, String password, String username, String umur, String nama) async {
+  static Future<int> signUp(String email, String password, String username,
+      String umur, String nama) async {
     Uri uri = Uri.parse('${url}auth/signup/');
     final response = await http.post(
       uri,
@@ -52,7 +52,8 @@ class Api {
     return response.statusCode;
   }
 
-  static Future<int> addAppointment(String uuid, String waktuAwal, String token) async {
+  static Future<int> addAppointment(
+      String uuid, String waktuAwal, String token) async {
     Uri uri = Uri.parse('${url}dokter/addAppointment/');
     final response = await http.post(
       uri,
@@ -71,13 +72,11 @@ class Api {
 
   static Future<List> getAllDokterRaw() async {
     String endpoint = "http://localhost:2020/api/dokter/list-dokter";
-    String token = await FlutterSecureStorage().read(key: 'token');
-    http.Response response = await get(
-        Uri.parse(endpoint),
-        headers: <String, String>{
-          "Authorization": "Bearer " + token,
-        }
-    );
+    String token = (await FlutterSecureStorage().read(key: 'token'))!;
+    http.Response response =
+        await get(Uri.parse(endpoint), headers: <String, String>{
+      "Authorization": "Bearer " + token,
+    });
     if (response.statusCode == 200) {
       final List result = jsonDecode(response.body);
 
@@ -88,23 +87,48 @@ class Api {
     }
   }
 
-  static Future<http.Response> tambahAppointment(String waktuAwal, String username) async {
-    String token = await FlutterSecureStorage().read(key: 'token');
+  static Future<http.Response> tambahAppointment(
+    String waktuAwal, String username) async {
+    String token = (await FlutterSecureStorage().read(key: 'token'))!;
     String endpoint = "http://localhost:2020/api/appointment/add-appointment";
-    http.Response response = await post(Uri.parse(endpoint),
-        headers: <String, String>{
-          "Authorization": "Bearer " + token,
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode(<String, String>{
-          'waktuAwal': waktuAwal,
-          'username': username,
-        }),
+    http.Response response = await post(
+      Uri.parse(endpoint),
+      headers: <String, String>{
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      },
+      body: jsonEncode(<String, String>{
+        'waktuAwal': waktuAwal,
+        'username': username,
+      }),
     );
     print(response.statusCode);
-      //final List result = jsonDecode(response.body);
-      // return result.map(((e) => DokterModel.fromJson(e))).toList();
-      return response;
+    //final List result = jsonDecode(response.body);
+    // return result.map(((e) => DokterModel.fromJson(e))).toList();
+    return response;
+  }
 
+  static Future<dynamic> fetchAppointment() async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    final response = await http.get(
+      Uri.parse('http://localhost:2020/api/appointment/list-appointment'),
+      headers: {
+        'Authorization': '$token',
+      },
+    );
+    return response;
+  }
+
+  static Future<dynamic> fetchTagihan() async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    final response = await http.get(
+      Uri.parse('http://localhost:2020/api/tagihan/getall'),
+      headers: {
+        'Authorization': '$token',
+      },
+    );
+    return response;
   }
 }

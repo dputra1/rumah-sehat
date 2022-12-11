@@ -10,4 +10,6 @@ public interface PasienRestService {
     List<PasienModel> retrieveListPasien();
 
     String encrypt(String password);
+
+    PasienModel getByUsername(String username);
 }

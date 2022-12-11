@@ -27,16 +27,16 @@
                 <p th:text="'ID: ' + ${resep.id}"></p>
                 <p th:text="'Dokter: ' + ${resep.appointment.dokter.nama}"></p>
                 <p th:text="'Pasien: ' + ${resep.appointment.pasien.nama}"></p>
-                <p th:text="'Apoteker: ' + ${resep.apoteker.nama}"></p>
-                <br>
-                <div th:if="${appointment.isDone == False}">
-                  <a class="btn btn-primary" th:href="@{/appointment/} + ${appointment.kode}">Create Resep</a>
-                  <a class="btn btn-primary" th:href="@{/appointment/updateStatus/} + ${appointment.kode}">Selesai</a>
+                <div th:switch="${resep.isDone}"> 
+                  <p th:case="false">Status: Belum Dikonfirmasi</p>
+                  <p th:case="true">Status: Selesai</p>
                 </div>
+                <p th:text="'Apoteker: ' + (${resep.apoteker} ? ${resep.apoteker.nama} : '-')"></p>
+                <br>
               </div>
           </div>
           <div class="container">
-            <div th:if="${listPasien.size() != 0}">
+            <div th:if="${resep.listJumlah.size() != 0}">
               <div class="row d-flex justify-content-center">
                 <table class="content-table">
                   <thead>
@@ -60,7 +60,7 @@
                 </table>
               </div>
             </div>
-            <form th:action="@{/detail-resep/} + ${resep.id}" th:object="${resep}" method="POST">
+            <form th:if="${resep.isDone == False}" th:action="@{/resep/detail-resep/} + ${resep.id}" th:object="${resep}" method="POST">
                 <div class="mt-5 text-center">
                     <button class="btn btn-primary" type="submit" value="Simpan">Konfirmasi</button>
                 </div>

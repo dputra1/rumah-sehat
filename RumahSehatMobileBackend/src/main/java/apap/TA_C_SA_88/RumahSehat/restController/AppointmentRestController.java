@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,7 +22,9 @@ import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.payload.NewAppointmentRequest;
+import apap.TA_C_SA_88.RumahSehat.security.jwt.JwtUtils;
 import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsImpl;
+import apap.TA_C_SA_88.RumahSehat.service.AppointmentRestService;
 import apap.TA_C_SA_88.RumahSehat.service.AppointmentService;
 import apap.TA_C_SA_88.RumahSehat.service.DokterService;
 import apap.TA_C_SA_88.RumahSehat.service.PasienRestService;
@@ -40,6 +43,18 @@ public class AppointmentRestController {
     @Autowired
     PasienService pasienService;
 
+    @Autowired
+    private AppointmentRestService appointmentRestService;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
+    @GetMapping(value = "/list-appointment")
+        private List<AppointmentModel> retrieveListAppointment(@RequestHeader("Authorization") String token) {
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+        return appointmentRestService.retrievePasienListAppointment(username);
+    }
+
     @PostMapping(value = "/add-appointment")
     private AppointmentModel addAppointment(@Valid @RequestBody NewAppointmentRequest appointmentRequest){
         if(!appointmentService.checkAvailability(appointmentRequest)){
@@ -50,7 +65,7 @@ public class AppointmentRestController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
         String username = user.getUsername();
-        PasienModel pasien = pasienService.getByUsername(username);
+        PasienModel pasien = pasienService.getPasienByUsername(username);
 
         List<AppointmentModel> listAppointment = appointmentService.viewAllAppointment();
 

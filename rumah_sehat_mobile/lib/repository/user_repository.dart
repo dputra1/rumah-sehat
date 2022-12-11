@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
 
@@ -13,7 +11,7 @@ class UserRepository {
   final String umurKey = "umur";
   final String rolesKey = "pasien";
 
-  UserRepository({@required FlutterSecureStorage storage}) : _storage = storage;
+  UserRepository({required FlutterSecureStorage storage}) : _storage = storage;
 
   Future<void> clearAll() async {
     await _storage.delete(key: emailKey);
@@ -48,11 +46,11 @@ class UserRepository {
     return value != null;
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     return await _storage.read(key: key);
   }
 
-  Future<String> getNama() async {
+  Future<String?> getNama() async {
     return await _storage.read(key: namaKey);
   }
 
@@ -60,7 +58,7 @@ class UserRepository {
     await _storage.write(key: namaKey, value: nama);
   }
 
-  Future<String> getEmail() async {
+  Future<String?> getEmail() async {
     return await _storage.read(key: emailKey);
   }
 
@@ -68,7 +66,7 @@ class UserRepository {
     await _storage.write(key: emailKey, value: email);
   }
 
-  Future<String> getUsername() async {
+  Future<String?> getUsername() async {
     return await _storage.read(key: usernameKey);
   }
 
@@ -76,7 +74,7 @@ class UserRepository {
     await _storage.write(key: usernameKey, value: username);
   }
   
-  Future<String> getSaldo() async {
+  Future<String?> getSaldo() async {
     return await _storage.read(key: saldoKey);
   }
 
@@ -84,7 +82,7 @@ class UserRepository {
     await _storage.write(key: saldoKey, value: saldo);
   }
   
-  Future<String> getUmur() async {
+  Future<String?> getUmur() async {
     return await _storage.read(key: umurKey);
   }
 
@@ -92,7 +90,7 @@ class UserRepository {
     await _storage.write(key: umurKey, value: umur);
   }
   
-  Future<String> getRoles() async {
+  Future<String?> getRoles() async {
     return await _storage.read(key: rolesKey);
   }
 

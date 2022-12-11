@@ -6,12 +6,15 @@ import apap.TA_C_SA_88.RumahSehat.model.ResepModel;
 import apap.TA_C_SA_88.RumahSehat.payload.JumlahObatDTO;
 import apap.TA_C_SA_88.RumahSehat.service.*;
 import apap.TA_C_SA_88.RumahSehat.model.ObatModel;
+import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
+import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 
 import apap.TA_C_SA_88.RumahSehat.repository.AdminDb;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
+import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
 import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
 import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 
@@ -74,9 +77,15 @@ public class ResepController {
     @Autowired
     private ObatService obatService;
 
+    @Autowired
+    private PasienRestService pasienService;
 
-    @GetMapping("/resep/add-resep")
-    public String addResepFormPage(Model model){
+    @Autowired
+    private AppointmentService appointmentService;
+
+
+    @GetMapping("/resep/add-resep/{IdApp}")
+    public String addResepFormPage(@PathVariable Long IdApp, Model model){
         ResepModel resep = new ResepModel();
 
         List<ObatModel> listObat = obatService.getListObat();
@@ -85,24 +94,25 @@ public class ResepController {
         resep.setListJumlah(listJumlahNew);
         resep.getListJumlah().add(new JumlahModel());
 
+
         //auth
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
         AdminModel userLoggedin = adminService.findByUsername(username);
 
+        model.addAttribute("IdApp",IdApp);
         model.addAttribute("user",userLoggedin);
         model.addAttribute("resep", resep);
         model.addAttribute("listObatExisting", listObat);
 
 
-
         return "form-add-resep";
     }
 
-    @PostMapping(value = "/resep/add-resep", params = {"addRow"})
+    @PostMapping(value = "/resep/add-resep/{IdApp}", params = {"addRow"})
     private String addRowObatMultiple(
-            @ModelAttribute ResepModel resep,
+            @PathVariable Long IdApp, @ModelAttribute ResepModel resep,
             Model model
     ){
         if (resep.getListJumlah() == null || resep.getListJumlah().size()==0){
@@ -118,14 +128,15 @@ public class ResepController {
         AdminModel userLoggedin = adminService.findByUsername(username);
 
         model.addAttribute("user",userLoggedin);
-
+        model.addAttribute("IdApp",IdApp);
         model.addAttribute("resep", resep);
         model.addAttribute("listObatExisting", listObat);
         return "form-add-resep";
-    }
 
-    @PostMapping(value = "/resep/add-resep", params = {"deleteRow"})
-    private String deleteRowObatMultiple(@ModelAttribute ResepModel resep, final HttpServletRequest req, Model model){
+
+    }
+    @PostMapping(value = "/resep/add-resep/{IdApp}", params = {"deleteRow"})
+    private String deleteRowObatMultiple(@PathVariable Long IdApp, @ModelAttribute ResepModel resep, final HttpServletRequest req, Model model){
         final Integer rowId = Integer.valueOf(req.getParameter("deleteRow"));
         resep.getListJumlah().remove(rowId.intValue());
 
@@ -137,25 +148,33 @@ public class ResepController {
         AdminModel userLoggedin = adminService.findByUsername(username);
 
         model.addAttribute("user",userLoggedin);
-
+        model.addAttribute("IdApp",IdApp);
         model.addAttribute("resep", resep);
         model.addAttribute("listObatExisting", listObat);
         return "form-add-resep";
     }
 
 
-    @PostMapping("/resep/add-resep")
-    public String addResepSubmitPage(@ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model){
+    @PostMapping("/resep/add-resep/{IdApp}")
+    public String addResepSubmitPage(@PathVariable Long IdApp, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model){
         if (resep.getListJumlah() == null) {
             resep.setListJumlah(new ArrayList<>());
         }
 
         List<ResepModel> listResepModel = new ArrayList<>();
         ResepModel resepModel = new ResepModel();
+        AppointmentModel appointment = appointmentService.getAppointmentById(IdApp);
+
         resepModel.setCreatedAt(LocalDateTime.now());
         resepModel.setIsDone(false);
         resepModel.setApoteker(null);
-        resepService.addResep(resepModel);
+        resepModel.setAppointment(appointment);
+        resepModel = resepService.addResep(resepModel);
+
+        appointment.setResep(resepModel);
+        appointmentService.saveApp(appointment);
+        System.out.println(IdApp);
+        
         listResepModel.add(resepModel);
 
         for (int i = 0; i < resep.getListJumlah().size(); i++) {
@@ -166,10 +185,10 @@ public class ResepController {
             jumlahModel.setKuantitas(resep.getListJumlah().get(i).getKuantitas());
             resepService.addJumlah(jumlahModel);
 
-            //ngurangin jumlah obat
-            ObatModel obatModel = resep.getListJumlah().get(i).getObat();
-            obatModel.setStok(obatModel.getStok()-resep.getListJumlah().get(i).getKuantitas());
-            obatService.save(obatModel);
+            // //ngurangin jumlah obat
+            // ObatModel obatModel = resep.getListJumlah().get(i).getObat();
+            // obatModel.setStok(obatModel.getStok()-resep.getListJumlah().get(i).getKuantitas());
+            // obatService.save(obatModel);
         }
 
         //auth
@@ -178,11 +197,11 @@ public class ResepController {
         String username = user.getUsername();
         AdminModel userLoggedin = adminService.findByUsername(username);
 
-
         model.addAttribute("user",userLoggedin);
         model.addAttribute("resep", resepModel);
         return "add-resep";
     }
+
 
     @GetMapping("/resep")
     public String viewAllResep(Model model) {
@@ -218,13 +237,23 @@ public class ResepController {
             ObatModel obat = jumlah.getObat();
             obat.setStok(obat.getStok()-jumlah.getKuantitas());
             if(obat.getStok()<0){
+                model.addAttribute("resep", resep);
                 return "fail-konfirmasi-resep";
             }
         }
+
         for(JumlahModel jumlah : listJumlah){
             ObatModel obatDibeli = jumlah.getObat();
             obatService.save(obatDibeli);
         }
+
+        resep.setIsDone(true);
+        resep.getAppointment().setIsDone(true);
+
+        appointmentService.saveApp(resep.getAppointment());
+        resepService.addResep(resep);
+
+        model.addAttribute("resep", resep);
         return "konfirmasi-resep";
     }
 }
