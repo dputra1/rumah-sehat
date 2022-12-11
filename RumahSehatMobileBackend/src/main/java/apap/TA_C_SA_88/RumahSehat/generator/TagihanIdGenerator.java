@@ -18,7 +18,7 @@ public class TagihanIdGenerator implements IdentifierGenerator{
         try {
             Statement statement=connection.createStatement();
 
-            ResultSet rs=statement.executeQuery("select count(Id) from tkapap.tagihan");
+            ResultSet rs=statement.executeQuery("select count(kode) from tkapap.tagihan");
 
             if(rs.next())
             {
