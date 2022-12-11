@@ -65,7 +65,7 @@ class _TagihanPageState extends State<TagihanPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "List Appointment",
+                      "List Tagihan",
                       style: TextStyle(
                         color: Colors.white ,
                         fontSize: 35.0,

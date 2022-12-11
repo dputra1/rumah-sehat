@@ -276,15 +276,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Text(
                         "Masuk sekarang",
                         style: TextStyle(
-                          color: Colors.lightGreen
+                          color: kPrimaryColor
                         ),
                       ),
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    SignInPage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                            SignInPage()
+                          )
+                        );
                       },
                     )
                   ],
