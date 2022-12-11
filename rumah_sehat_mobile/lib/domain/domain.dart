@@ -67,7 +67,6 @@ class Tagihan {
         jumlahTagihan: jumlahTagihan,
       };
 }
-<<<<<<< HEAD
 
 class TagihanModel {
   final String kode;
@@ -101,5 +100,3 @@ class TagihanModel {
     jumlahTagihan: jumlahTagihan,
   };
 }
-=======
->>>>>>> fff34a08f90eb3d9f10d23dbe98bc3f4dad5fc4c
