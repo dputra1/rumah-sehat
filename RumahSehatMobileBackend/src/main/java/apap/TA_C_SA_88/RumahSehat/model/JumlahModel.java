@@ -9,6 +9,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +34,7 @@ public class JumlahModel implements Serializable {
     @JoinColumn(name = "id_obat")
     private ObatModel obat;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name = "id_resep")
     private ResepModel resep;

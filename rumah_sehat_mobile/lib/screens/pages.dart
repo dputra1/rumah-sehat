@@ -1,5 +1,3 @@
-
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -24,3 +22,4 @@ part 'splash_page.dart';
 part 'add_appointment.dart';
 part 'tagihan_page.dart';
 part 'list_appointment.dart';
+// part 'detail_resep.dart';

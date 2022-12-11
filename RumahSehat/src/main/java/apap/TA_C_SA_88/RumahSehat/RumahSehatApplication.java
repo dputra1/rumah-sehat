@@ -21,40 +21,4 @@ public class RumahSehatApplication {
 		SpringApplication.run(RumahSehatApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner run(PasienRestService pasienRestService, DokterService dokterService, ApotekerService apotekerService) {
-		return args -> {
-
-			apotekerService.addApoteker(ApotekerModel.builder().email("fairuzsatriamapoteker@gmail.com")
-			.isSso(false)
-			.nama("fairuzApoteker")
-			.password("apotekertest")
-			.role("Apoteker")
-			.username("apotekertest")
-			.listResep(new ArrayList<>())
-			.build());
-
-			pasienRestService.addPasien(PasienModel.builder().email("testpasien@gmail.com")
-			.isSso(false)
-			.listAppointment(new ArrayList<>())
-			.nama("testPasien")
-			.password("pasientest")
-			.role("Pasien")
-			.saldo(0)
-			.username("pasientest")
-			.umur(20)
-			.build());
-
-			dokterService.addDokter(DokterModel.builder().email("fairuzsatriamdokter@gmail.com")
-			.isSso(false)
-			.nama("fairuzDokter")
-			.password("doktertest")
-			.role("Dokter")
-			.username("doktertest")
-			.tarif(200000)
-			.listAppointment(new ArrayList<>())
-			.build());
-		};
-	}
-
 }

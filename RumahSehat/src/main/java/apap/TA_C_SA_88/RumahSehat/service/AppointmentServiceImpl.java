@@ -23,8 +23,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public AppointmentModel getAppointmentById(Long Id) {
-        return appointmentDb.findById(Id).get();
+    public AppointmentModel getAppointmentByKode(String kode) {
+        return appointmentDb.findById(kode).get();
     }
 
 }

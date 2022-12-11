@@ -23,7 +23,7 @@
                                 <div class="d-flex justify-content-center mb-4">
                                     <h4 class="text-center">Add Resep</h4>
                                 </div>
-                                <form th:action="@{/resep/add-resep}" th:object="${resep}" method="POST">
+                                <form th:action="@{/resep/add-resep/} + ${IdApp}" th:object="${resep}" method="POST">
                                     <div class="row mt-4 d-flex justify-content-center">
                                         <table class="table">
                                             <thead>

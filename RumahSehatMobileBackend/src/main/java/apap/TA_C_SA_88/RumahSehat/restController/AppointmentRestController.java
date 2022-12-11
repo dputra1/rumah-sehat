@@ -49,11 +49,11 @@ public class AppointmentRestController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping(value = "/list-appointment")
-        private List<AppointmentModel> retrieveListAppointment(@RequestHeader("Authorization") String token) {
-        String username = jwtUtils.getUserNameFromJwtToken(token);
-        return appointmentRestService.retrievePasienListAppointment(username);
-    }
+    // @GetMapping(value = "/list-appointment")
+    //     private List<AppointmentModel> retrieveListAppointment(@RequestHeader("Authorization") String token) {
+    //     String username = jwtUtils.getUserNameFromJwtToken(token);
+    //     return appointmentRestService.retrievePasienListAppointment(username);
+    // }
 
     @PostMapping(value = "/add-appointment")
     private AppointmentModel addAppointment(@Valid @RequestBody NewAppointmentRequest appointmentRequest){

@@ -18,4 +18,9 @@ public class ResepServiceImpl implements ResepService{
     @Override
     public void addResep(ResepModel resep) {resepDb.save(resep);
     }
+
+    @Override
+    public ResepModel findResepById(Long id) {
+        return resepDb.findById(id).get();
+    }
 }

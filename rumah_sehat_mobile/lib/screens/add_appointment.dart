@@ -16,6 +16,7 @@ class _AddAppointmentPageState extends State<AddAppointmentPage> {
   bool isLoading = false;
   TextEditingController _waktuAwalController = TextEditingController();
   String _dokterPilihan = "";
+  String selectedValue = "";
 
   @override
   void initState() {
@@ -29,15 +30,15 @@ class _AddAppointmentPageState extends State<AddAppointmentPage> {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.fromLTRB(0, 70, 0, 0),
-          child: FutureBuilder(
-            future: Api.getAllDokterRaw(),
+          child: FutureBuilder<List<DropdownMenuItem<String>>>(
+            future: Api.getAllDokterRawDropdownList(),
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting){
                 return const CircularProgressIndicator.adaptive();
               }
               if(snapshot.hasError){
                 return Text(snapshot.error.toString());
-              } else{
+              } else {
                 return Form(
                   key: _formKey,
                   child: ListView(
@@ -110,22 +111,15 @@ class _AddAppointmentPageState extends State<AddAppointmentPage> {
                       Container(
                         width: double.infinity,
                         margin: const EdgeInsets.symmetric(horizontal: 24),
-                        child: DropDownFormField(hintText: 'Please choose one',
-                          value: _dokterPilihan,
-                          onSaved: (value) {
-                            setState(() {
-                              _dokterPilihan = value;
-                            });
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              _dokterPilihan = value;
-                            });
-                          },
-                          dataSource: snapshot.data,
-                          textField: 'nama',
-                          valueField: 'username',
-                        ),
+                        child: DropdownButton(
+                            value: selectedValue,
+                            items: snapshot.data,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedValue = newValue!;
+                              });
+                            },
+                          ),
                       ),
                       Container(
                         width: double.infinity,
@@ -150,14 +144,19 @@ class _AddAppointmentPageState extends State<AddAppointmentPage> {
                           )
                           ,
                           onPressed: () async {
-
-                            Response response = await Api.tambahAppointment(_waktuAwalController.text, _dokterPilihan);
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Response response = await Api.tambahAppointment(_waktuAwalController.text, selectedValue);
                             if(response.statusCode != 200){
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       _buildPopupDialog(context, "Jadwal appointment tidak tersedia"));
                             }
+                            setState(() {
+                              isLoading = false;
+                            });
                           },
                         ),
                       ),

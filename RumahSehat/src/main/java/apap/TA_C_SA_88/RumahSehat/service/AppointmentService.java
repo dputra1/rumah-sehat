@@ -6,5 +6,5 @@ import java.util.List;
 public interface AppointmentService {
     List<AppointmentModel> viewAllAppointment();
     void saveApp(AppointmentModel appointment);
-    AppointmentModel getAppointmentById(Long Id);
+    AppointmentModel getAppointmentByKode(String Id);
 }

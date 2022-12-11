@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../models/dokter_model.dart';
 
@@ -59,7 +60,7 @@ class Api {
       uri,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        "Authorization": "bearer " + token,
+        "Authorization": "Bearer " + token,
       },
       body: jsonEncode(<String, String>{
         "waktuAwal": waktuAwal,
@@ -87,8 +88,37 @@ class Api {
     }
   }
 
+  static Future<List<DropdownMenuItem<String>>> getAllDokterRawDropdownList() async {
+      List<DropdownMenuItem<String>> menuItems = [];
+      String endpoint = "http://localhost:2020/api/dokter/list-dokter";
+      String token = (await FlutterSecureStorage().read(key: 'token'))!;
+      print(token);
+      http.Response response =
+          await http.get(Uri.parse(endpoint), headers: <String, String>{
+        "Authorization": "Bearer " + token,
+      });
+      if (response.statusCode == 200) {
+        final List result = jsonDecode(response.body);
+        print(result);
+        menuItems.add(DropdownMenuItem(
+          child: Text(""),
+          value: ""!,
+        ));
+        for (Map<String, dynamic> data in result) {
+          print(data['nama']);
+          menuItems.add(DropdownMenuItem(
+              child: Text(data['nama']), value: data['username']));
+        }
+        print(menuItems.length);
+        // return result.map(((e) => DokterModel.fromJson(e))).toList();
+        return menuItems;
+      } else {
+        throw Exception(response.reasonPhrase);
+      }
+  }
+
   static Future<http.Response> tambahAppointment(
-    String waktuAwal, String username) async {
+      String waktuAwal, String username) async {
     String token = (await FlutterSecureStorage().read(key: 'token'))!;
     String endpoint = "http://localhost:2020/api/appointment/add-appointment";
     http.Response response = await post(
@@ -114,10 +144,23 @@ class Api {
     final response = await http.get(
       Uri.parse('http://localhost:2020/api/appointment/list-appointment'),
       headers: {
-        'Authorization': '$token',
+        'Authorization': 'Bearer $token',
       },
     );
     return response;
+  }
+
+  static Future<Map<String, dynamic>> fetchDetailResep(String kodeResep) async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    final response = await http.get(
+      Uri.parse('http://localhost:2020/api/resep/detail-resep/'+kodeResep),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    Map<String, dynamic> data = jsonDecode(response.body);
+    return data;
   }
 
   static Future<dynamic> fetchTagihan() async {
@@ -125,9 +168,10 @@ class Api {
     final token = await storage.read(key: "token");
     final response = await http.get(
       Uri.parse('http://localhost:2020/api/tagihan/getAllTagihanUser'),
-      headers:{
-      'Authorization': '$token',
-      },);
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
     return response;
   }
 }

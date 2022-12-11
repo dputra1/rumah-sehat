@@ -28,7 +28,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         for(AppointmentModel appointment : listAppointment){
             LocalDateTime waktuAwal = appointment.getWaktuAwal();
             LocalDateTime waktuAkhir = appointment.getWaktuAwal().plusHours(1);
-            if((waktuAwalCek.isAfter(waktuAwal) && waktuAwalCek.isBefore(waktuAkhir)) || (waktuAkhirCek.isAfter(waktuAwal) && waktuAkhirCek.isBefore(waktuAkhir))) {
+            if((waktuAwalCek.isAfter(waktuAwal) && waktuAwalCek.isBefore(waktuAkhir)) || (waktuAkhirCek.isAfter(waktuAwal) && waktuAkhirCek.isBefore(waktuAkhir)) || waktuAwalCek.isEqual(waktuAwal)) {
                 return false;
             };
         }

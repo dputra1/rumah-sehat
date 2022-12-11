@@ -85,7 +85,7 @@ public class ResepController {
 
 
     @GetMapping("/resep/add-resep/{IdApp}")
-    public String addResepFormPage(@PathVariable Long IdApp, Model model){
+    public String addResepFormPage(@PathVariable String IdApp, Model model){
         ResepModel resep = new ResepModel();
 
         List<ObatModel> listObat = obatService.getListObat();
@@ -112,7 +112,7 @@ public class ResepController {
 
     @PostMapping(value = "/resep/add-resep/{IdApp}", params = {"addRow"})
     private String addRowObatMultiple(
-            @PathVariable Long IdApp, @ModelAttribute ResepModel resep,
+            @PathVariable String IdApp, @ModelAttribute ResepModel resep,
             Model model
     ){
         if (resep.getListJumlah() == null || resep.getListJumlah().size()==0){
@@ -136,7 +136,7 @@ public class ResepController {
 
     }
     @PostMapping(value = "/resep/add-resep/{IdApp}", params = {"deleteRow"})
-    private String deleteRowObatMultiple(@PathVariable Long IdApp, @ModelAttribute ResepModel resep, final HttpServletRequest req, Model model){
+    private String deleteRowObatMultiple(@PathVariable String IdApp, @ModelAttribute ResepModel resep, final HttpServletRequest req, Model model){
         final Integer rowId = Integer.valueOf(req.getParameter("deleteRow"));
         resep.getListJumlah().remove(rowId.intValue());
 
@@ -156,14 +156,13 @@ public class ResepController {
 
 
     @PostMapping("/resep/add-resep/{IdApp}")
-    public String addResepSubmitPage(@PathVariable Long IdApp, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model){
+    public String addResepSubmitPage(@PathVariable String IdApp, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model){
         if (resep.getListJumlah() == null) {
             resep.setListJumlah(new ArrayList<>());
         }
 
-        List<ResepModel> listResepModel = new ArrayList<>();
         ResepModel resepModel = new ResepModel();
-        AppointmentModel appointment = appointmentService.getAppointmentById(IdApp);
+        AppointmentModel appointment = appointmentService.getAppointmentByKode(IdApp);
 
         resepModel.setCreatedAt(LocalDateTime.now());
         resepModel.setIsDone(false);
@@ -174,8 +173,8 @@ public class ResepController {
         appointment.setResep(resepModel);
         appointmentService.saveApp(appointment);
         System.out.println(IdApp);
-        
-        listResepModel.add(resepModel);
+
+        List<JumlahModel> listJumlah = new ArrayList<>();
 
         for (int i = 0; i < resep.getListJumlah().size(); i++) {
 
@@ -183,13 +182,17 @@ public class ResepController {
             jumlahModel.setResep(resepModel);
             jumlahModel.setObat(resep.getListJumlah().get(i).getObat());
             jumlahModel.setKuantitas(resep.getListJumlah().get(i).getKuantitas());
-            resepService.addJumlah(jumlahModel);
+            jumlahModel = resepService.addJumlah(jumlahModel);
+            listJumlah.add(jumlahModel);
 
             // //ngurangin jumlah obat
             // ObatModel obatModel = resep.getListJumlah().get(i).getObat();
             // obatModel.setStok(obatModel.getStok()-resep.getListJumlah().get(i).getKuantitas());
             // obatService.save(obatModel);
         }
+
+        resepModel.setListJumlah(listJumlah);
+        resepModel = resepService.addResep(resepModel);
 
         //auth
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -237,7 +240,8 @@ public class ResepController {
     }
 
     @PostMapping("resep/detail-resep/{id}")
-    public String konfirmasiResep(@ModelAttribute ResepModel resep, Model model) {
+    public String konfirmasiResep(@PathVariable Long id, Model model) {
+        ResepModel resep = resepService.findResepById(id);
         List<JumlahModel> listJumlah = resep.getListJumlah();
         for(JumlahModel jumlah : listJumlah){
             ObatModel obat = jumlah.getObat();

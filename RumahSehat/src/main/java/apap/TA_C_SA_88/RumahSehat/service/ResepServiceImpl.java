@@ -29,8 +29,8 @@ public class ResepServiceImpl implements ResepService{
     }
 
     @Override
-    public void addJumlah(JumlahModel jumlah) {
-        jumlahDb.save(jumlah);
+    public JumlahModel addJumlah(JumlahModel jumlah) {
+        return jumlahDb.save(jumlah);
     }
 
     @Override

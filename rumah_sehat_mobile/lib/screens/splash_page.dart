@@ -62,6 +62,26 @@ class _SplashPageState extends State<SplashPage> {
                 ),
               )
             ),
+
+            TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+                ),
+                onPressed: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              AddAppointmentPage()));
+                },
+                child: Text(
+                  'Tambah Appointment',
+                  style: TextStyle(
+                      color: Colors.white
+                  ),
+                )
+            ),
+
             TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
