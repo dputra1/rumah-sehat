@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
       child: Scaffold(
         body: Column(
           children: [
-            Text('Home Page'),
+            const Text('Home Page'),
             TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
@@ -29,7 +29,7 @@ class _SplashPageState extends State<SplashPage> {
                     .deleteToken();
                 RepositoryProvider.of<UserRepository>(context).clearAll();
               },
-              child: Text(
+              child: const Text(
                 'Logout',
                 style: TextStyle(
                   color: Colors.white
@@ -55,7 +55,7 @@ class _SplashPageState extends State<SplashPage> {
                   print("gagal get Data");
                 }
               },
-              child: Text(
+              child: const Text(
                 'List Appointment',
                 style: TextStyle(
                   color: Colors.white
@@ -81,13 +81,32 @@ class _SplashPageState extends State<SplashPage> {
                   print("gagal get Data");
                 }
               },
-              child: Text(
+              child: const Text(
                 'List Tagihan',
                 style: TextStyle(
                   color: Colors.white
                 ),
               )
+            ),
+
+            TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
+                ),
+                onPressed: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => const TopUpPage()));
+                },
+                child: const Text(
+                  'Top Up(Temporary)',
+                  style: TextStyle(
+                      color: Colors.white
+                  ),
+                )
             )
+
           ],
         ),
       )

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Daftar Resep</title>
+
+    <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <main id="main">
+        <section>
+            <div class="container" data-aos="fade-up">
+                <div class="container-fluid" style="padding-bottom: 32%; display: flex; align-items: center; justify-content: center;">
+                    <div class="container" style="align-items: center">
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>
