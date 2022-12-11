@@ -60,7 +60,7 @@
                 </table>
               </div>
             </div>
-            <form th:if="${resep.isDone == False}" th:action="@{/resep/detail-resep/} + ${resep.id}" th:object="${resep}" method="POST">
+            <form th:if="${resep.isDone == false and isApoteker == true}" th:action="@{/resep/detail-resep/} + ${resep.id}" th:object="${resep}" method="POST">
                 <div class="mt-5 text-center">
                     <button class="btn btn-primary" type="submit" value="Simpan">Konfirmasi</button>
                 </div>

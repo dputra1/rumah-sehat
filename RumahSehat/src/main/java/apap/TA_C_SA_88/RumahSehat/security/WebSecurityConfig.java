@@ -4,6 +4,7 @@ package apap.TA_C_SA_88.RumahSehat.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +27,7 @@ public class WebSecurityConfig {
                 .antMatchers("/user/**").hasAuthority("Admin")
                 .antMatchers("/resep/add-resep").hasAuthority("Dokter")
                 .antMatchers("/obat/update-stok/**").hasAuthority("Apoteker")
+                .antMatchers(HttpMethod.POST, "/resep/detail-resep/**").hasAuthority("Apoteker")
                 .antMatchers("/resep", "/obat/viewAll").hasAnyAuthority("Admin", "Apoteker")
                 .anyRequest().authenticated()
                 .and()

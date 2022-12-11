@@ -226,7 +226,13 @@ public class ResepController {
     @GetMapping("resep/detail-resep/{id}")
     public String detailResep(@PathVariable Long id, Model model){
         ResepModel resep = resepService.findResepById(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        boolean isApoteker = user.getAuthorities().stream()
+          .anyMatch(r -> r.getAuthority().equals("Apoteker"));
+
         model.addAttribute("resep", resep);
+        model.addAttribute("isApoteker", isApoteker);
         return "resep-detail";
     }
 
