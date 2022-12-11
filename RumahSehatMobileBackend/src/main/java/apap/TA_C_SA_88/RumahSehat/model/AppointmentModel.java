@@ -12,6 +12,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -49,8 +51,9 @@ public class AppointmentModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DokterModel dokter;
 
-    // @OneToOne(mappedBy = "appointment")
-    // private TagihanModel tagihan;
+    @OneToOne(mappedBy = "appointment")
+    @JsonManagedReference
+    private TagihanModel tagihan;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_resep", referencedColumnName = "id")
