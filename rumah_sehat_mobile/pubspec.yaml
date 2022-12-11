@@ -45,6 +45,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   meta: ^1.8.0
   supercharged: ^2.1.1
+  intl:
 
   # bloc: ^7.0.0
   # convert: ^3.0.0

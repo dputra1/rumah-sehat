@@ -51,7 +51,7 @@ class _TagihanPageState extends State<TagihanPage> {
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "Rp${widget.listTagihan[index].jumlahTagihan}",
+                          NumberFormat.currency(name: "Rp").format(widget.listTagihan[index].jumlahTagihan),
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                         Padding(

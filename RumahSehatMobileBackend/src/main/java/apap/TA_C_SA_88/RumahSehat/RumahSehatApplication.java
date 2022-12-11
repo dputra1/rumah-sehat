@@ -35,7 +35,7 @@ public class RumahSehatApplication {
 	// 		.umur(20)
 	// 		.build());
 
-	// 		apotekerService.addApoteker(ApotekerModel.builder().email("testmapoteker@gmail.com")
+	// 		apotekerService.addApoteker(ApotekerModel.builder().email("testapoteker@gmail.com")
 	// 		.isSso(false)
 	// 		.nama("testApoteker")
 	// 		.password("apotekertest")
@@ -44,7 +44,7 @@ public class RumahSehatApplication {
 	// 		.listResep(new ArrayList<>())
 	// 		.build());
 
-	// 		dokterService.addDokter(DokterModel.builder().email("testmdokter@gmail.com")
+	// 		dokterService.addDokter(DokterModel.builder().email("testdokter@gmail.com")
 	// 		.isSso(false)
 	// 		.nama("testDokter")
 	// 		.password("doktertest")
