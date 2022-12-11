@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class PasienRestServiceImpl implements PasienRestService{
 
     @Override
     public PasienModel addPasien(PasienModel pasien){
+        pasien.setPassword(encrypt(pasien.getPassword()));
         return pasienDb.save(pasien);
     }
 
@@ -30,6 +32,11 @@ public class PasienRestServiceImpl implements PasienRestService{
     public List<PasienModel> retrieveListPasien(){
         return pasienDb.findAll();
     }
+
+    @Qualifier("pasienServiceImpl")
+
+    @Autowired
+    private PasienService pasienService;
 
     @Override
     public String encrypt(String password) {
@@ -55,5 +62,12 @@ public class PasienRestServiceImpl implements PasienRestService{
 
     public void setAuthentication(Authentication newAuthentication){
         this.userAuthentication = newAuthentication;
+    }
+
+    @Override
+    public PasienModel updateSaldoPasien(String username, PasienModel newPasien) {
+        PasienModel pasien = pasienService.getPasienByUsername(username);
+        pasien.setSaldo(newPasien.getSaldo());
+        return pasienDb.save(pasien);
     }
 }

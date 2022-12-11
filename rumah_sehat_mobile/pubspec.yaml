@@ -46,6 +46,8 @@ dependencies:
   meta: ^1.8.0
   supercharged: ^2.1.1
   intl:
+  font_awesome_flutter: ^10.3.0
+  flutter_svg: ^1.1.6
 
   # bloc: ^7.0.0
   # convert: ^3.0.0
@@ -88,6 +90,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+   - assets/images/
+   - assets/images/vector.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -30,13 +30,13 @@ class Appointment {
         kode: json['kode'],
         nama: json['dokter']['nama'],
         waktuAwal: formatDateTime(json['waktuAwal']),
-        status: json['isDone'] == 1 ? 'Selesai' : 'Belum Selesai');
+        status: json['isDone'] == true ? 'Selesai' : 'Belum Selesai');
   }
 }
 
 class Tagihan {
   final String kode;
-  final DateTime tanggalTerbuat;
+  final String tanggalTerbuat;
   String? tanggalBayar;
   final int jumlahTagihan;
   final String isPaid;
@@ -52,9 +52,9 @@ class Tagihan {
   factory Tagihan.fromJson(Map<String, dynamic> json) {
     return Tagihan(
       kode: json['kode'],
-      tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
+      tanggalTerbuat: formatDateTime(json['tanggalTerbuat']),
       tanggalBayar: json['tanggalBayar'] == null ? 'Belum Dibayar' : formatDateTime(json['tanggalBayar']),    
-      isPaid: json['isPaid'] == 1 ? 'Selesai' : 'Belum Selesai',
+      isPaid: json['isPaid'] == true ? 'Lunas' : 'Belum Lunas',
       jumlahTagihan: json['jumlahTagihan'],
     );
   }
@@ -67,3 +67,4 @@ class Tagihan {
         jumlahTagihan: jumlahTagihan,
       };
 }
+<<<<<<< HEAD
