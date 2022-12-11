@@ -109,8 +109,8 @@ class _TagihanPageState extends State<TagihanPage> {
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
               itemCount: widget.listTagihan.length,
               itemBuilder: (BuildContext context, int index) {
-                return Stack(
-                  children: <Widget>[
+                return InkWell(
+                  child: Stack(children: <Widget>[
                     Container(
                       margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
                       height: 170.0,
@@ -262,27 +262,45 @@ class _TagihanPageState extends State<TagihanPage> {
                                 widget.listTagihan[index].isPaid,
                                 style: TextStyle(color: Colors.white),
                               ),
-                            ),   
+                            ),
+                            // Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       TextButton(
+                            //         onPressed: () {
+                            //           Navigator.push(
+                            //               context,
+                            //               MaterialPageRoute(
+                            //                 builder: (context) => TagihanDetail(
+                            //                   tagihan: widget.listTagihan[index],
+                            //                 ),
+                            //               ));
+                            //         },
+                            //         child: Text(
+                            //           textAlign: TextAlign.right,
+                            //           'View Detail',
+                            //           style: TextStyle (
+                            //               fontWeight: FontWeight.w600,
+                            //               color: kPrimaryColor),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   )   
                           ],
                         ),
                       ),
                     ),
-                    // Positioned(
-                    //   left: 20.0,
-                    //   top: 15.0,
-                    //   bottom: 15.0,
-                    //   child: ClipRRect(
-                    //     borderRadius: BorderRadius.circular(20.0),
-                    //     child: Image(
-                    //       width: 110.0,
-                    //       image: AssetImage(
-                    //         'assets/images/appointment2.jpg',
-                    //       ),
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TagihanDetail(
+                            tagihan: widget.listTagihan[index],
+                          ),
+                        ));
+                  },
                 );
               },
             ),
