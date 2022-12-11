@@ -85,7 +85,11 @@ class Api {
     final token = await storage.read(key: "token");
 
     final response = await http.get(
+<<<<<<< HEAD
       Uri.parse('${url}tagihan/getall'),
+=======
+      Uri.parse('http://localhost:2020/api/tagihan/getAllTagihanUser'),
+>>>>>>> fff34a08f90eb3d9f10d23dbe98bc3f4dad5fc4c
       headers:{
         'Content-Type': 'application/json',
         'Accept': 'application/json',

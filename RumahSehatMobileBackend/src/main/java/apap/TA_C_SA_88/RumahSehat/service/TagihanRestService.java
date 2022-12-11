@@ -7,4 +7,5 @@ public interface TagihanRestService {
     List<TagihanModel> getAllTagihan();
     TagihanModel getTagihanByKode(String kode);
     TagihanModel updateStatusTagihan(TagihanModel newTagihan);
+    List<TagihanModel> getUserTagihan(String username);
 }

@@ -3,8 +3,6 @@ package apap.TA_C_SA_88.RumahSehat.restController;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.validation.Valid;
-
 import apap.TA_C_SA_88.RumahSehat.model.TagihanModel;
 import apap.TA_C_SA_88.RumahSehat.service.TagihanRestService;
 import apap.TA_C_SA_88.RumahSehat.security.jwt.JwtUtils;
@@ -22,11 +20,10 @@ public class TagihanRestController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping(value = "/getall")
+    @GetMapping(value = "/getAllTagihanUser")
     private List<TagihanModel> getAllTagihan(@RequestHeader("Authorization") String token) {
         String username = jwtUtils.getUserNameFromJwtToken(token.substring(7));
-        System.out.println(tagihanRestService.getAllTagihan());
-        return tagihanRestService.getAllTagihan();
+        return tagihanRestService.getUserTagihan(username);
     }
 
     @PutMapping("/updateStatusTagihan")
