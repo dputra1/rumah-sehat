@@ -36,7 +36,7 @@ class Appointment {
 
 class Tagihan {
   final String kode;
-  final String tanggalTerbuat;
+  final DateTime tanggalTerbuat;
   String? tanggalBayar;
   final int jumlahTagihan;
   final String isPaid;
@@ -52,7 +52,7 @@ class Tagihan {
   factory Tagihan.fromJson(Map<String, dynamic> json) {
     return Tagihan(
       kode: json['kode'],
-      tanggalTerbuat: formatDateTime(json['tanggalTerbuat']),
+      tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
       tanggalBayar: json['tanggalBayar'] == null ? 'Belum Dibayar' : formatDateTime(json['tanggalBayar']),    
       isPaid: json['isPaid'] == true ? 'Lunas' : 'Belum Lunas',
       jumlahTagihan: json['jumlahTagihan'],
