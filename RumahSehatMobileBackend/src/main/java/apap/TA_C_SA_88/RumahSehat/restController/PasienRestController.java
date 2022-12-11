@@ -11,6 +11,7 @@ import apap.TA_C_SA_88.RumahSehat.payload.MessageResponse;
 import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 import apap.TA_C_SA_88.RumahSehat.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,6 +51,21 @@ public class PasienRestController {
             pasien.setSaldo(0);
             pasien.setIsSso(false);;
             return pasienRestService.addPasien(pasien);
+        }
+    }
+
+    @GetMapping(value = "/getPasien")
+    private PasienModel getPasien(@RequestHeader("Authorization") String token){
+        String username = jwtUtils.getUserNameFromJwtToken(token.substring(7));
+        try {
+            PasienModel pasien = pasienService.getPasienByUsername(username);
+            logger.info("Order Success at API Profile - retrieveProfile");
+            return pasien;
+        }  catch (Exception e) {
+            logger.error("Order Failed at API PROFILE - ", new Exception("retrieveProfile Exception"));
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "username " + username + " tidak ditemukan pada database"
+            );
         }
     }
 

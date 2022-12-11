@@ -30,7 +30,7 @@ class Appointment {
         kode: json['kode'],
         nama: json['dokter']['nama'],
         waktuAwal: formatDateTime(json['waktuAwal']),
-        status: json['isDone'] == 1 ? 'Selesai' : 'Belum Selesai');
+        status: json['isDone'] == true ? 'Selesai' : 'Belum Selesai');
   }
 }
 
@@ -54,7 +54,7 @@ class Tagihan {
       kode: json['kode'],
       tanggalTerbuat: DateTime.parse(json['tanggalTerbuat']),
       tanggalBayar: json['tanggalBayar'] == null ? 'Belum Dibayar' : formatDateTime(json['tanggalBayar']),    
-      isPaid: json['isPaid'] == 1 ? 'Selesai' : 'Belum Selesai',
+      isPaid: json['isPaid'] == true ? 'Lunas' : 'Belum Lunas',
       jumlahTagihan: json['jumlahTagihan'],
     );
   }
