@@ -19,4 +19,6 @@ public interface PasienRestService {
     Authentication getAuthentication();
 
     void setAuthentication(Authentication newAuthentication);
+
+    PasienModel updateSaldoPasien(String username, PasienModel newPasien);
 }

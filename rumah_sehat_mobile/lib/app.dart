@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rumah_sehat_mobile/bloc/authentication_bloc.dart';
 import 'package:rumah_sehat_mobile/bloc/authentication_event.dart';
 import 'package:rumah_sehat_mobile/bloc/authentication_state.dart';
+import 'package:rumah_sehat_mobile/constants.dart';
 import 'package:rumah_sehat_mobile/repository/user_repository.dart';
 import 'package:rumah_sehat_mobile/routes.dart';
 import 'package:rumah_sehat_mobile/screens/pages.dart';
@@ -42,6 +43,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,
           routes: routes,
+          theme: ThemeData(
+            fontFamily: "Cairo",
+            scaffoldBackgroundColor: kBackgroundColor,
+            textTheme: Theme.of(context).textTheme.apply(displayColor: kTextColor),
+          ),
           builder: (context, child) {
             return BlocListener<AuthenticationBloc, AuthenticationState>(
               key: Key("appBlocListener"),
