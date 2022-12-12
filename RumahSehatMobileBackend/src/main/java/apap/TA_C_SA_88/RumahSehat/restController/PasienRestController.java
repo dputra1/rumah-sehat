@@ -100,4 +100,12 @@ public class PasienRestController {
         }
     }
 
+    @GetMapping("/get-detail-pasien")
+    public ResponseEntity<?> detailPasien(@RequestHeader("Authorization") String token){
+        String username = jwtUtils.getUserNameFromJwtToken(token.substring(7));
+        PasienModel pasien = pasienService.getPasienByUsername(username);
+        return ResponseEntity.ok(pasien);   
+    }
+
+
 }

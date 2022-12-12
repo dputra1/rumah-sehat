@@ -271,19 +271,12 @@ class _SplashPageState extends State<SplashPage> {
                               color: Colors.transparent,
                               child: InkWell(
                                 onTap: () async {
-                                  var response = await Api.fetchAppointment();
-                                  if (response.statusCode == 200) {
-                                    List jsonRes = json.decode(response.body);
-                                    List<Appointment> listAppointment= jsonRes.map((data) => new Appointment.fromJson(data)).toList();
                                     {Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
-                                          return AppointmentPage(listAppointment: listAppointment);
+                                          return DetailProfilePage();
                                         }),
                                       );
                                     }
-                                  } else {
-                                    print("gagal get Data");
-                                  }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
@@ -296,7 +289,7 @@ class _SplashPageState extends State<SplashPage> {
                                         size: 60,),
                                       Spacer(),
                                       Text(
-                                        "List Appointment",
+                                        "Detail Profile",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: kTextMediumColor,

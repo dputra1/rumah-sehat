@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import '../models/dokter_model.dart';
 
 class Api {
-  static final String url = 'http://localhost:2020/api/';
+  // static final String url = 'http://localhost:2020/api/';
+  static final String url = 'http://10.0.2.2:2020/api/';
   static final dio = Dio(BaseOptions(baseUrl: url));
 
   static Future<Map> signIn(String userId, String password) async {
@@ -243,5 +244,14 @@ class Api {
       body: data);
 
     return response;
+  }
+  static Future<Map> getDetailProfile(String token) async {
+    Uri uri = Uri.parse('${url}pasien/get-detail-pasien');
+    Map<String, String>  headers = {
+      "Authorization": "Bearer $token",
+    };
+    final response = await http.get(uri,headers: headers);
+    final Map parsedResponse = json.decode(response.body);
+    return parsedResponse;
   }
 }
