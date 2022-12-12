@@ -8,4 +8,6 @@ public interface AppointmentService {
     List<AppointmentModel> viewAllAppointment();
     boolean checkAvailability(NewAppointmentRequest newAppointment);
     AppointmentModel addAppointment(AppointmentModel appointment);
+
+    AppointmentModel findAppointmentById(String kode);
 }
