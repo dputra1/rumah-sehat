@@ -22,9 +22,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointmentDb.save(appointment);
     }
 
-    @Override
     public AppointmentModel getAppointmentByKode(String kode) {
-        return appointmentDb.findById(kode).get();
+        AppointmentModel appointmentModel = appointmentDb.findByKode(kode);
+        return appointmentModel;
     }
-
 }

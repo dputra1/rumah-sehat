@@ -11,7 +11,7 @@ import java.util.Collection;
 
 @Repository
 public interface TagihanDb extends JpaRepository<TagihanModel,String> {
-
+    TagihanModel findByKode(String kode);
     @Query("SELECT a.tagihan FROM AppointmentModel a where a.pasien.uuid = :code")
     Collection<TagihanModel> findTagihanUser(@Param("code") String code);
 
