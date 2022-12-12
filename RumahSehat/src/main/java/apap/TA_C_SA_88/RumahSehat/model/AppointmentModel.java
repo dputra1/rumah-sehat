@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "appointment")
 public class AppointmentModel implements Serializable {
+    
     @Id
     @GenericGenerator(name = "sequence_apt_id", strategy = "apap.TA_C_SA_88.RumahSehat.generator.AppointmentIdGenerator")
     @GeneratedValue(generator = "sequence_apt_id")  

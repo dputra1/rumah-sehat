@@ -7,6 +7,7 @@ import apap.TA_C_SA_88.RumahSehat.model.ResepModel;
 
 public interface ResepService {
     List<ResepModel> viewAllResep();
-    void addResep (ResepModel resep);
-    void addJumlah(JumlahModel jumlah);
+    ResepModel addResep (ResepModel resep);
+    JumlahModel addJumlah(JumlahModel jumlah);
+    ResepModel findResepById(Long id);
 }
