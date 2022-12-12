@@ -21,19 +21,19 @@ public class RumahSehatApplication {
 		SpringApplication.run(RumahSehatApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner run(PasienRestService pasienRestService, DokterService dokterService, ApotekerService apotekerService) {
-		return args -> {
-			pasienRestService.addPasien(PasienModel.builder().email("testpasien@gmail.com")
-			.isSso(false)
-			.listAppointment(new ArrayList<>())
-			.nama("testPasien")
-			.password("pasientest")
-			.role("Pasien")
-			.saldo(0)
-			.username("pasientest")
-			.umur(20)
-			.build());
+	// @Bean
+	// CommandLineRunner run(PasienRestService pasienRestService, DokterService dokterService, ApotekerService apotekerService) {
+	// 	return args -> {
+	// 		pasienRestService.addPasien(PasienModel.builder().email("testpasien@gmail.com")
+	// 		.isSso(false)
+	// 		.listAppointment(new ArrayList<>())
+	// 		.nama("testPasien")
+	// 		.password("pasientest")
+	// 		.role("Pasien")
+	// 		.saldo(0)
+	// 		.username("pasientest")
+	// 		.umur(20)
+	// 		.build());
 
 	// 		apotekerService.addApoteker(ApotekerModel.builder().email("testapoteker@gmail.com")
 	// 		.isSso(false)

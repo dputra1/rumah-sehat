@@ -73,35 +73,9 @@ class _TagihanPageState extends State<TagihanPage> {
                         letterSpacing: 1.2,
                       ),
                     ),
-                    // Row(
-                    //   children: <Widget>[
-                    //     Icon(
-                    //       FontAwesomeIcons.locationArrow,
-                    //       size: 15.0,
-                    //       color: Colors.white70,
-                    //     ),
-                    //     SizedBox(width: 5.0),
-                    //     Text(
-                    //       widget.destination.country,
-                    //       style: TextStyle(
-                    //         color: Colors.white70,
-                    //         fontSize: 20.0,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),
-              // Positioned(
-              //   right: 20.0,
-              //   bottom: 20.0,
-              //   child: Icon(
-              //     Icons.location_on,
-              //     color: Colors.white70,
-              //     size: 25.0,
-              //   ),
-              // ),
             ],
           ),
           Expanded(
@@ -141,24 +115,6 @@ class _TagihanPageState extends State<TagihanPage> {
                                     maxLines: 2,
                                   ),
                                 ),
-                                
-                                // Column(
-                                //   children: <Widget>[
-                                //     Text(
-                                //       '\$${activity.price}',
-                                //       style: TextStyle(
-                                //         fontSize: 22.0,
-                                //         fontWeight: FontWeight.w600,
-                                //       ),
-                                //     ),
-                                //     Text(
-                                //       'per pax',
-                                //       style: TextStyle(
-                                //         color: Colors.grey,
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
                               ],
                             ),
                             SizedBox(height: 13.0), 
@@ -212,27 +168,26 @@ class _TagihanPageState extends State<TagihanPage> {
                                 ),
                               ],
                             ),
-                            // SizedBox(height: 10.0),
-                            // Row(
-                            //   children: [
-                            //     Text(
-                            //       "Status",
-                            //       style: TextStyle(
-                            //       color: Colors.black87,
-                            //       fontWeight: FontWeight.w500,
-                            //       ),
-                            //     ),
-                            //     const SizedBox(
-                            //         width: 71,
-                            //       ),
-                            //     Text(": " + (
-                            //       widget.listTagihan[index].status),
-                            //       style: TextStyle(
-                            //         color: Colors.grey,
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
+                            SizedBox(height: 10.0),
+                            Row(
+                              children: [
+                                Text(
+                                  "Jumlah Tagihan",
+                                  style: TextStyle(
+                                  color: kTextColor,
+                                  fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 10,
+                                  ),
+                                Text(": ${NumberFormat.currency(name: "Rp").format(widget.listTagihan[index].jumlahTagihan)}",
+                                  style: TextStyle(
+                                  color: kTextLightColor,
+                                  ),
+                                ),
+                              ],
+                            ),
                             SizedBox(height: 10.0), 
                             widget.listTagihan[index].isPaid == "Belum Lunas"?
                             Container(
@@ -267,21 +222,6 @@ class _TagihanPageState extends State<TagihanPage> {
                         ),
                       ),
                     ),
-                    // Positioned(
-                    //   left: 20.0,
-                    //   top: 15.0,
-                    //   bottom: 15.0,
-                    //   child: ClipRRect(
-                    //     borderRadius: BorderRadius.circular(20.0),
-                    //     child: Image(
-                    //       width: 110.0,
-                    //       image: AssetImage(
-                    //         'assets/images/appointment2.jpg',
-                    //       ),
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 );
               },
