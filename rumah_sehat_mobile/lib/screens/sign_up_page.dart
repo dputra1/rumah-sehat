@@ -14,6 +14,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool _isHidden = true;
   TextEditingController namaController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController umurController = TextEditingController();
@@ -22,210 +23,118 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(0, 70, 0, 0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
-                child: Text(
-                  'Daftar',
-                  style: TextStyle(
-                    fontSize: 20
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              // Nama Lengkap
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.fromLTRB(24, 0, 24, 6),
-                child: Text(
-                  "Nama Lengkap",
-                  // style: blackFontStyleSemiBold,
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  key: Key("inputNama"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: namaController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                      borderSide: BorderSide.none,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        iconTheme: IconThemeData(color: kPrimaryColor),
+        backgroundColor: kBackgroundColor,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.center,
+          child: Container(
+            margin: EdgeInsets.fromLTRB(
+                30, MediaQuery.of(context).size.height * 0.1, 30, 10),
+            child: Column(
+              children: [
+                Text("Daftar Akun Baru!",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: kPrimaryColor,
+                        fontSize: 24)),
+                SizedBox(height: 40.0),
+                Form(
+                  key: _formKey,
+                    child: Column(children: [
+                  Container(
+                    child: TextFormField(
+                      decoration: Style().textInputDecoration(
+                          "Nama", "", namaController),
+                      controller: namaController,
                     ),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 235, 235, 235),
-                    hintText: 'Masukkan nama lengkap',
+                    decoration: Style().inputBoxDecorationShaddow(),
                   ),
-                ),
-              ),
-
-              // Email part
-              Container(
-                width: double.infinity,
-                margin:
-                    const EdgeInsets.fromLTRB(24, 16, 24, 6),
-                child: Text(
-                  "Email",
-                  // style: blackFontStyleSemiBold,
-                ),
-              ),
-
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  key: Key("inputEmail"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                      borderSide: BorderSide.none,
+                  SizedBox(height: 30.0),
+                  Container(
+                    child: TextFormField(
+                      decoration: Style().textInputDecoration(
+                          "Username", "", usernameController),
+                      controller: usernameController,
                     ),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 235, 235, 235),
-                    hintText: 'Contoh: john@rumahsehatmobile.com',
+                    decoration: Style().inputBoxDecorationShaddow(),
                   ),
-                ),
-              ),
-
-              // Nomor Telepon part
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(24, 16, 24, 6),
-                child: Text(
-                  "Umur",
-                  // style: blackFontStyleSemiBold,
-                ),
-              ),
-
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  key: const Key("inputUmur"),
-                  controller: umurController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                      borderSide: BorderSide.none,
+                  SizedBox(height: 30.0),
+                  Container(
+                    child: TextFormField(
+                      decoration: Style().textInputDecoration(
+                          "Email", "", emailController),
+                      controller: emailController,
                     ),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 235, 235, 235),
-                    hintText: 'Masukkkan umur',
+                    decoration: Style().inputBoxDecorationShaddow(),
                   ),
-                ),
-              ),
-
-              // Kata Sandi part
-              Container(
-                width: double.infinity,
-                margin:
-                    EdgeInsets.fromLTRB(24, 16, 24, 6),
-                child: Text(
-                  "Username",
-                  // style: blackFontStyleSemiBold,
-                ),
-              ),
-
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  key: Key("inputUsername"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: usernameController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                      borderSide: BorderSide.none,
+                  SizedBox(height: 30.0),
+                  Container(
+                    child: TextFormField(
+                      decoration: Style().textInputDecoration(
+                          "Umur", "", umurController),
+                      controller: umurController,
                     ),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 235, 235, 235),
-                    hintText: 'Masukkan username',
+                    decoration: Style().inputBoxDecorationShaddow(),
                   ),
-                  obscureText: true,
-                ),
-              ),
-
-              // Konfirmasi Kata Sandi part
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(24, 16, 24, 6),
-                child: Text(
-                  "Kata Sandi",
-                  // style: blackFontStyleSemiBold,
-                ),
-              ),
-
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  key: Key("inputPassword"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                  SizedBox(height: 30.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      width: 1500,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(
+                              width: 1,
+                              color: kPrimaryColor,
+                              style: BorderStyle.solid)),
+                      child: TextFormField(
+                        controller: passwordController,
+                        obscureText: _isHidden,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: "Kata Sandi",
+                          contentPadding: EdgeInsets.all(15),
+                          border: InputBorder.none,
+                          suffix: GestureDetector(
+                            onTap: () {
+                              _togglePasswordView();
+                            },
+                            child: Icon(
+                              _isHidden
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: _isHidden ? Colors.grey : Colors.grey,
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ),
-                      borderSide: BorderSide.none,
                     ),
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 235, 235, 235),
-                    hintText: 'Masukkan kata sandi',
+                    decoration: Style().inputBoxDecorationShaddow(),
                   ),
-                  obscureText: true,
-                ),
-              ),
-
-              const SizedBox(
-                height: 60,
-              ),
-              // !! Button untuk daftar
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 0),
-                height: 56,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextButton(
-                  key: const Key("daftarButton"),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.lightGreen)
-                  ),
-                  child: isLoading ?
-                    const SpinKitRing(
-                      color: Colors.white,
-                      lineWidth: 4.0,
-                    ) :
-                    Text(
-                      'Daftar',
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                    )
-                  ,
-                  onPressed: () async {
+                  SizedBox(height: 25.0),
+                  Container(
+                    decoration: Style().buttonBoxDecoration(context),
+                    child: ElevatedButton(
+                        style: Style().buttonStyle(),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Text(
+                            "Daftarkan Akun",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       setState(() {
                         isLoading = true;
@@ -260,13 +169,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       setState(() {
                         isLoading = false;
                       });
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
+                  },),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -291,34 +199,63 @@ class _SignUpPageState extends State<SignUpPage> {
                     )
                   ],
                 ),
-              )
-            ],
+              ),
+                  SizedBox(height: 30.0),
+                ])),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
 
   Widget _buildPopupDialog(BuildContext context, String msg) {
     return AlertDialog(
-      title: const Text('Gagal Daftar'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(msg),
-        ],
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.black)),
-          child: const Text('Tutup'),
+        shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.all(
+                Radius.circular(
+                    20.0))),
+        title: Center(
+            child: Text("Gagal Daftar",
+                style: TextStyle(
+                    fontWeight:
+                    FontWeight
+                        .w500,
+                    color: kPrimaryColor))),
+        content: Text(
+          msg,
+          textAlign:
+          TextAlign.center,
         ),
-      ],
-    );
+        actions: [
+          Center(
+              child: ElevatedButton(
+                child: Text("Ok"),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor:
+                  MaterialStateProperty
+                      .resolveWith<
+                      Color>(
+                        (Set<MaterialState>
+                    states) {
+                      if (states.contains(
+                          MaterialState
+                              .pressed))
+                        return kPrimaryColor;
+                      return kPrimaryColor;
+                    },
+                  ),
+                ),
+              ))
+        ]);
   }
 }
