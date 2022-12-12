@@ -355,4 +355,54 @@ class TagihanDetail extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildPopupDialog(BuildContext context) {
+      return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius:
+              BorderRadius.all(
+                  Radius.circular(
+                      30.0))),
+          title: Center(
+              child: Text("Berhasil",
+                  style: TextStyle(
+                      fontWeight:
+                      FontWeight
+                          .w500,
+                      color: Colors
+                          .teal))),
+          content: Text(
+            "Berhasil membayar tagihan",
+            textAlign:
+            TextAlign.center,
+          ),
+          actions: [
+            Center(
+                child: ElevatedButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => SplashPage(),
+                    ));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty
+                        .resolveWith<
+                        Color>(
+                          (Set<MaterialState>
+                      states) {
+                        if (states.contains(
+                            MaterialState
+                                .pressed))
+                          return Colors
+                              .teal;
+                        return Colors
+                            .teal;
+                      },
+                    ),
+                  ),
+                ))
+          ]);
+  }
 }
