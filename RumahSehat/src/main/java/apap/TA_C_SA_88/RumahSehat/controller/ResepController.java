@@ -7,6 +7,7 @@ import apap.TA_C_SA_88.RumahSehat.model.ObatModel;
 import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
+import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.repository.AdminDb;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
 import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
@@ -78,6 +79,12 @@ public class ResepController {
 
     @GetMapping("/resep/add-resep/{IdApp}")
     public String addResepFormPage(@PathVariable String IdApp, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+
         ResepModel resep = new ResepModel();
 
         List<ObatModel> listObat = obatService.getListObat();
@@ -86,15 +93,7 @@ public class ResepController {
         resep.setListJumlah(listJumlahNew);
         resep.getListJumlah().add(new JumlahModel());
 
-
-        //auth
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedin = adminService.findByUsername(username);
-
         model.addAttribute("IdApp",IdApp);
-        model.addAttribute("user",userLoggedin);
         model.addAttribute("resep", resep);
         model.addAttribute("listObatExisting", listObat);
 
@@ -107,6 +106,13 @@ public class ResepController {
             @PathVariable String IdApp, @ModelAttribute ResepModel resep,
             Model model
     ){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+
+
         if (resep.getListJumlah() == null || resep.getListJumlah().size()==0){
             resep.setListJumlah(new ArrayList<>());
         }
@@ -114,12 +120,6 @@ public class ResepController {
         resep.getListJumlah().add(new JumlahModel());
         List<ObatModel> listObat = obatService.getListObat();
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedin = adminService.findByUsername(username);
-
-        model.addAttribute("user",userLoggedin);
         model.addAttribute("IdApp",IdApp);
         model.addAttribute("resep", resep);
         model.addAttribute("listObatExisting", listObat);
@@ -129,17 +129,17 @@ public class ResepController {
     }
     @PostMapping(value = "/resep/add-resep/{IdApp}", params = {"deleteRow"})
     private String deleteRowObatMultiple(@PathVariable String IdApp, @ModelAttribute ResepModel resep, final HttpServletRequest req, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+        
         final Integer rowId = Integer.valueOf(req.getParameter("deleteRow"));
         resep.getListJumlah().remove(rowId.intValue());
 
         List<ObatModel> listObat = obatService.getListObat();
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedin = adminService.findByUsername(username);
-
-        model.addAttribute("user",userLoggedin);
         model.addAttribute("IdApp",IdApp);
         model.addAttribute("resep", resep);
         model.addAttribute("listObatExisting", listObat);
@@ -149,6 +149,12 @@ public class ResepController {
 
     @PostMapping("/resep/add-resep/{IdApp}")
     public String addResepSubmitPage(@PathVariable String IdApp, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+        
         if (resep.getListJumlah() == null) {
             resep.setListJumlah(new ArrayList<>());
         }
@@ -186,14 +192,6 @@ public class ResepController {
 
         resepModel.setListJumlah(listJumlah);
         resepModel = resepService.addResep(resepModel);
-
-        //auth
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        String username = user.getUsername();
-        AdminModel userLoggedin = adminService.findByUsername(username);
-
-        model.addAttribute("user",userLoggedin);
         model.addAttribute("resep", resepModel);
         return "add-resep";
     }
@@ -224,6 +222,19 @@ public class ResepController {
         ResepModel resep = resepService.findResepById(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        if(dokterService.getDokterByUsername(username)!=null) {
+            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else if(adminService.findByUsername(username)!=null) {
+            AdminModel userLoggedIn = adminService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else if(apotekerService.findByUsername(username)!=null) {
+            ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
         boolean isApoteker = user.getAuthorities().stream()
           .anyMatch(r -> r.getAuthority().equals("Apoteker"));
 
@@ -234,6 +245,13 @@ public class ResepController {
 
     @PostMapping("resep/detail-resep/{id}")
     public String konfirmasiResep(@PathVariable Long id, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        
+        ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
+        model.addAttribute("user", userLoggedIn);
+        
         ResepModel resep = resepService.findResepById(id);
         List<JumlahModel> listJumlah = resep.getListJumlah();
         for(JumlahModel jumlah : listJumlah){

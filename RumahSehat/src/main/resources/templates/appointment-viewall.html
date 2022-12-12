@@ -40,7 +40,7 @@
                                         <td th:text="${iterationStatus.count}"></td>
                                         <td th:text="${appointment.dokter.getNama()}"></td>
                                         <td th:text="${appointment.pasien.getNama()}"></td>
-                                        <td th:text="${appointment.waktuAwal}"></td>
+                                        <td th:text="${#temporals.format(appointment.waktuAwal, 'dd MMMM yyyy HH:mm')}"></td>
                                         <td>
                                             <span th:if="${appointment.isDone == false}" th:text="'Belum selesai'"></span>
                                             <span th:if="${appointment.isDone == true}" th:text="'Selesai'"></span>
