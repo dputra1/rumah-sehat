@@ -44,7 +44,7 @@ public class TagihanRestServiceImpl implements TagihanRestService {
 	public List<TagihanModel> getUserTagihan(String username) {
         PasienModel pasien = pasienService.getPasienByUsername(username);
         String code = pasien.getUuid();
-        List<TagihanModel> listTagihan = new ArrayList<>(tagihanDb.findTagihanUser(code));
+        List<TagihanModel> listTagihan = (List<TagihanModel>) tagihanDb.findTagihanUser(code);
 		return listTagihan;
     }
 }

@@ -101,7 +101,7 @@ class TagihanDetail extends StatelessWidget {
                           )),
                     ],
                   ),
-                  tagihan.isPaid=='' ? const Spacer() : button(context),
+                  tagihan.isPaid=='Lunas' ? const Spacer() : button(context),
                   const Spacer(),
                   TextButton(
                     style: TextButton.styleFrom(
@@ -146,7 +146,7 @@ class TagihanDetail extends StatelessWidget {
           //print(namaDokter);
           if (response.statusCode == 200) {
             final Map<String, dynamic> res = json.decode(response.body);
-            //Profile user = Profile.fromJson(res);
+            Pasien pasien = Pasien.fromJson(res);
             //print(user.toJson());
 
             showDialog(
@@ -191,7 +191,7 @@ class TagihanDetail extends StatelessWidget {
                                   child: Text('Yakin'),
                                   onPressed: () async {
                                     Navigator.of(context).pop();
-                                    int saldoAwal = 0;
+                                    int saldoAwal = pasien.saldo;
                                     int saldoAkhir = 0;
 
                                     saldoAkhir = saldoAwal - tagihan.jumlahTagihan;
@@ -244,73 +244,21 @@ class TagihanDetail extends StatelessWidget {
                                           });
                                     } else {
                                       var response = await Api
-                                          .updateSaldo(jsonEncode({
-                                        "nama": 'user.nama',
-                                        "email": 'user.email',
-                                        "umur": 'user.umur',
-                                        "username": 'user.username',
-                                        "password": "1",
-                                        "saldo": saldoAkhir
-                                      }));
+                                          .updateSaldo(jsonEncode(<String, int>{
+                                            "min": saldoAkhir
+                                          }),);
                                       var response1 = await Api
                                           .updateStatusTagihan(jsonEncode({
-                                        "kode": tagihan.kode,
-                                        "isPaid": 'tagihan.is_paid',
-                                        "jumlahTagihan": tagihan.jumlahTagihan
+                                            "kode": tagihan.kode,
+                                            "isPaid": 'false',
+                                            "jumlahTagihan": tagihan.jumlahTagihan
                                       }));
                                       if (response.statusCode == 200) {
                                         if (response1.statusCode == 200) {
                                           showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                30.0))),
-                                                    title: Center(
-                                                        child: Text("Berhasil",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w500,
-                                                                color: Colors
-                                                                    .teal))),
-                                                    content: Text(
-                                                      "Berhasil membayar tagihan",
-                                                      textAlign:
-                                                      TextAlign.center,
-                                                    ),
-                                                    actions: [
-                                                      Center(
-                                                          child: ElevatedButton(
-                                                            child: Text("OK"),
-                                                            onPressed: () {
-                                                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                                                builder: (context) => SplashPage(),
-                                                              ));
-                                                            },
-                                                            style: ButtonStyle(
-                                                              backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith<
-                                                                  Color>(
-                                                                    (Set<MaterialState>
-                                                                states) {
-                                                                  if (states.contains(
-                                                                      MaterialState
-                                                                          .pressed))
-                                                                    return Colors
-                                                                        .teal;
-                                                                  return Colors
-                                                                      .teal;
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ))
-                                                    ]);
-                                              });
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              _buildPopupDialog(context));
                                         }
                                       }
                                     }
@@ -335,5 +283,55 @@ class TagihanDetail extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Widget _buildPopupDialog(BuildContext context) {
+      return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius:
+              BorderRadius.all(
+                  Radius.circular(
+                      30.0))),
+          title: Center(
+              child: Text("Berhasil",
+                  style: TextStyle(
+                      fontWeight:
+                      FontWeight
+                          .w500,
+                      color: Colors
+                          .teal))),
+          content: Text(
+            "Berhasil membayar tagihan",
+            textAlign:
+            TextAlign.center,
+          ),
+          actions: [
+            Center(
+                child: ElevatedButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => SplashPage(),
+                    ));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty
+                        .resolveWith<
+                        Color>(
+                          (Set<MaterialState>
+                      states) {
+                        if (states.contains(
+                            MaterialState
+                                .pressed))
+                          return Colors
+                              .teal;
+                        return Colors
+                            .teal;
+                      },
+                    ),
+                  ),
+                ))
+          ]);
   }
 }

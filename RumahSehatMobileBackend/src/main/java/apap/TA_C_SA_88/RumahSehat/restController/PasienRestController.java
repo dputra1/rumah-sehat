@@ -88,6 +88,18 @@ public class PasienRestController {
         return ResponseEntity.ok(new MessageResponse("Patient TopUp Successfully"));
     }
 
-
+    @PutMapping("/updateSaldoPasien")
+    private ResponseEntity<?> updateSaldo(@RequestHeader("Authorization") String token, @RequestBody Map<String, Integer> payload){
+        String username = jwtUtils.getUserNameFromJwtToken(token.substring(7));
+        PasienModel pasien = pasienService.getPasienByUsername(username);
+        try {
+            pasien.setSaldo(payload.get("min"));
+            pasienDb.save(pasien);
+            return ResponseEntity.ok(new MessageResponse("Payment Success"));
+        }
+        catch (NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pasien dengan username " + username + " tidak ditemukan");
+        }
+    }
 
 }
