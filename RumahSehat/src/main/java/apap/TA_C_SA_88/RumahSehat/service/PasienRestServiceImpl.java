@@ -20,6 +20,7 @@ public class PasienRestServiceImpl implements PasienRestService{
 
     @Override
     public PasienModel addPasien(PasienModel pasien){
+        pasien.setPassword(encrypt(pasien.getPassword()));
         return pasienDb.save(pasien);
     }
 
@@ -33,6 +34,11 @@ public class PasienRestServiceImpl implements PasienRestService{
       BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
       String hashedPassword = passwordEncoder.encode(password);
       return hashedPassword;
+    }
+
+    @Override
+    public PasienModel getByUsername(String username){
+        return pasienDb.findByUsername(username);
     }
 
 }
