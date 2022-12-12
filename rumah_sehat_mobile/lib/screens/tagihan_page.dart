@@ -73,35 +73,9 @@ class _TagihanPageState extends State<TagihanPage> {
                         letterSpacing: 1.2,
                       ),
                     ),
-                    // Row(
-                    //   children: <Widget>[
-                    //     Icon(
-                    //       FontAwesomeIcons.locationArrow,
-                    //       size: 15.0,
-                    //       color: Colors.white70,
-                    //     ),
-                    //     SizedBox(width: 5.0),
-                    //     Text(
-                    //       widget.destination.country,
-                    //       style: TextStyle(
-                    //         color: Colors.white70,
-                    //         fontSize: 20.0,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),
-              // Positioned(
-              //   right: 20.0,
-              //   bottom: 20.0,
-              //   child: Icon(
-              //     Icons.location_on,
-              //     color: Colors.white70,
-              //     size: 25.0,
-              //   ),
-              // ),
             ],
           ),
           Expanded(
@@ -109,11 +83,10 @@ class _TagihanPageState extends State<TagihanPage> {
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
               itemCount: widget.listTagihan.length,
               itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  child: Stack(children: <Widget>[
+                return Stack(children: <Widget>[
                     Container(
                       margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
-                      height: 170.0,
+                      height: 198.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -126,12 +99,11 @@ class _TagihanPageState extends State<TagihanPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,  
                               children: <Widget>[
-                                Center(
-                                  child: Text(
+                                Text(
                                     widget.listTagihan[index].kode,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
@@ -140,25 +112,29 @@ class _TagihanPageState extends State<TagihanPage> {
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
-                                ),
-
-                                // Column(
-                                //   children: <Widget>[
-                                //     Text(
-                                //       '\$${activity.price}',
-                                //       style: TextStyle(
-                                //         fontSize: 22.0,
-                                //         fontWeight: FontWeight.w600,
-                                //       ),
-                                //     ),
-                                //     Text(
-                                //       'per pax',
-                                //       style: TextStyle(
-                                //         color: Colors.grey,
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
+                                  widget.listTagihan[index].isPaid == "Lunas" ?
+                                  Text(
+                                    widget.listTagihan[index].isPaid,
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: kPrimaryColor2
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ) : 
+                                  Text(
+                                    widget.listTagihan[index].isPaid,
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: kTextLightColor
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
                               ],
                             ),
                             SizedBox(height: 13.0),
@@ -212,95 +188,66 @@ class _TagihanPageState extends State<TagihanPage> {
                                 ),
                               ],
                             ),
-                            // SizedBox(height: 10.0),
-                            // Row(
-                            //   children: [
-                            //     Text(
-                            //       "Status",
-                            //       style: TextStyle(
-                            //       color: Colors.black87,
-                            //       fontWeight: FontWeight.w500,
-                            //       ),
-                            //     ),
-                            //     const SizedBox(
-                            //         width: 71,
-                            //       ),
-                            //     Text(": " + (
-                            //       widget.listTagihan[index].status),
-                            //       style: TextStyle(
-                            //         color: Colors.grey,
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
                             SizedBox(height: 10.0),
-                            widget.listTagihan[index].isPaid == "Belum Lunas"?
-                            Container(
+                            Row(
+                              children: [
+                                Text(
+                                  "Jumlah Tagihan",
+                                  style: TextStyle(
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 42,
+                                ),
+                                Text(": " + (
+                                    widget.listTagihan[index].jumlahTagihan.toString()),
+                                  style: TextStyle(
+                                    color: kTextLightColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 15.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                GestureDetector(
+                              child: Container(
                               padding: EdgeInsets.all(5.0),
                               width: 100.0,
-                              decoration: BoxDecoration(
-                                color: kTextLightColor,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                widget.listTagihan[index].isPaid,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ):
-                            Container(
-                              padding: EdgeInsets.all(5.0),
-                              width: 60.0,
                               decoration: BoxDecoration(
                                 color: kPrimaryColor,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                widget.listTagihan[index].isPaid,
-                                style: TextStyle(color: Colors.white),
+                                "Detail",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            // Row(
-                            //     mainAxisAlignment: MainAxisAlignment.end,
-                            //     children: [
-                            //       TextButton(
-                            //         onPressed: () {
-                            //           Navigator.push(
-                            //               context,
-                            //               MaterialPageRoute(
-                            //                 builder: (context) => TagihanDetail(
-                            //                   tagihan: widget.listTagihan[index],
-                            //                 ),
-                            //               ));
-                            //         },
-                            //         child: Text(
-                            //           textAlign: TextAlign.right,
-                            //           'View Detail',
-                            //           style: TextStyle (
-                            //               fontWeight: FontWeight.w600,
-                            //               color: kPrimaryColor),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   )   
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                  builder: (context) => TagihanDetail(
+                                  tagihan: widget.listTagihan[index],
+                                  ),
+                                )
+                              );
+                              }
+                            )
+                              ],
+                            )
                           ],
                         ),
                       ),
                     ),
                   ],
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TagihanDetail(
-                            tagihan: widget.listTagihan[index],
-                          ),
-                        ));
-                  },
                 );
               },
             ),
