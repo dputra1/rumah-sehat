@@ -67,3 +67,33 @@ class Tagihan {
         jumlahTagihan: jumlahTagihan,
       };
 }
+
+class Pasien {
+  final String username;
+  final String nama;
+  final String email;
+  final int umur;
+  late final int saldo;
+
+  Pasien(
+      {required this.username,
+      required this.nama,
+      required this.email,
+      required this.umur,
+      required this.saldo});
+
+  factory Pasien.fromJson(Map<String, dynamic> json) => Pasien(
+      username: json["username"],
+      nama: json["nama"],
+      email: json["email"],
+      umur: json["umur"],
+      saldo: json["saldo"]);
+
+  Map<dynamic, dynamic> toJson() => {
+        "username": username,
+        "nama": nama,
+        "email": email,
+        "umur": umur,
+        "saldo": saldo,
+      };
+}
