@@ -22,4 +22,4 @@ part 'splash_page.dart';
 part 'add_appointment.dart';
 part 'tagihan_page.dart';
 part 'list_appointment.dart';
-// part 'detail_resep.dart';
+part 'detail_resep.dart';

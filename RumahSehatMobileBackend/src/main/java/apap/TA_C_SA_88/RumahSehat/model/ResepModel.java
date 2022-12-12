@@ -46,7 +46,6 @@ public class ResepModel implements Serializable{
     private List<JumlahModel> listJumlah;
 
     @OneToOne(mappedBy = "resep")
-    @JsonIgnore
     private AppointmentModel appointment;
     //relasi one-to-many ke apoteker
     // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)

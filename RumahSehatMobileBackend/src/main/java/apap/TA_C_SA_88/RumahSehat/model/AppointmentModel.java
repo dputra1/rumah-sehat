@@ -1,6 +1,7 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,13 +44,12 @@ public class AppointmentModel implements Serializable {
     @Column(name = "is_done", nullable = false)
     private Boolean isDone;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name="uuid_pasien", referencedColumnName="uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private PasienModel pasien;
 
-    @JsonBackReference
+
     @ManyToOne(fetch = FetchType.EAGER, optional=false)
     @JoinColumn(name="uuid_dokter", referencedColumnName="uuid")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -60,6 +60,7 @@ public class AppointmentModel implements Serializable {
     private TagihanModel tagihan;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "id_resep", referencedColumnName = "id")
     private ResepModel resep;
 }
