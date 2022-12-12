@@ -25,17 +25,22 @@ public class ResepServiceImpl implements ResepService{
 
     
     @Override
-    public void addResep(ResepModel resep) {resepDb.save(resep);
+    public ResepModel addResep(ResepModel resep) {return resepDb.save(resep);
     }
 
     @Override
-    public void addJumlah(JumlahModel jumlah) {
-        jumlahDb.save(jumlah);
+    public JumlahModel addJumlah(JumlahModel jumlah) {
+        return jumlahDb.save(jumlah);
     }
 
     @Override
     public List<ResepModel> viewAllResep() {
         // TODO Auto-generated method stub
         return resepDb.findAll();
+    }
+
+    @Override
+    public ResepModel findResepById(Long id) {
+        return resepDb.findById(id).get();
     }
 }

@@ -5,4 +5,6 @@ import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
 import java.util.List;
 public interface AppointmentService {
     List<AppointmentModel> viewAllAppointment();
+    void saveApp(AppointmentModel appointment);
+    AppointmentModel getAppointmentByKode(String Id);
 }

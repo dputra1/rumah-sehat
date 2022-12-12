@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Daftar Resep</title>
+    <title>Add Resep</title>
 
     <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
@@ -15,17 +15,22 @@
 
     <main id="main">
         <section>
-            <div class="container" data-aos="fade-up">
-                <div class="container-fluid" style="padding-bottom: 32%; display: flex; align-items: center; justify-content: center;">
-                    <div class="container" style="align-items: center">
-                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+            <div class="container-fluid" style="padding-bottom: 27%; display: flex; align-items: center; justify-content: center;">
+                <div class="container" data-aos="fade-up">
+                    <div class="card m-4 p-4">
+                        <div class="card-body">
+                            <div class="justify-content-center">
+                                <h2>Resep dengan ID <span th:text="${resep.id}"></span> berhasil dikonfirmasi.</h2>
+                                <br />
+                                <a class="btn btn-primary" href="/appointment">Kembali</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 </section>
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </body>
 </html>

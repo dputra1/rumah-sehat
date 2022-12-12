@@ -194,17 +194,16 @@ class _TagihanPageState extends State<TagihanPage> {
                                 Text(
                                   "Jumlah Tagihan",
                                   style: TextStyle(
-                                    color: kTextColor,
-                                    fontWeight: FontWeight.w600,
+                                  color: kTextColor,
+                                  fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 42,
-                                ),
-                                Text(": " + (
-                                    widget.listTagihan[index].jumlahTagihan.toString()),
+                                    width: 10,
+                                  ),
+                                Text(": ${NumberFormat.currency(name: "Rp").format(widget.listTagihan[index].jumlahTagihan)}",
                                   style: TextStyle(
-                                    color: kTextLightColor,
+                                  color: kTextLightColor,
                                   ),
                                 ),
                               ],
