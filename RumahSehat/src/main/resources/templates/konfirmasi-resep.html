@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Add Resep</title>
+
+    <object th:include="fragments/fragment :: fonts" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+<header th:replace="fragments/fragment :: header"></header>
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <main id="main">
+        <section>
+            <div class="container-fluid" style="padding-bottom: 27%; display: flex; align-items: center; justify-content: center;">
+                <div class="container" data-aos="fade-up">
+                    <div class="card m-4 p-4">
+                        <div class="card-body">
+                            <div class="justify-content-center">
+                                <h2>Resep dengan ID <span th:text="${resep.id}"></span> berhasil dikonfirmasi.</h2>
+                                <br />
+                                <a class="btn btn-primary" href="/appointment">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</body>
+</html>

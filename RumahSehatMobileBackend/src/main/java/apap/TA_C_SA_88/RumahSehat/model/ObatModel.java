@@ -1,5 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,6 +46,7 @@ public class ObatModel implements Serializable {
     private Integer harga;
 
 //    relasi many to many ke resep
+    @JsonIgnore
     @OneToMany(mappedBy = "obat", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<JumlahModel> listJumlah;
 }
