@@ -3,7 +3,6 @@ package apap.TA_C_SA_88.RumahSehat.generator;
 import java.io.Serializable;
 import java.sql.*;
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
@@ -24,11 +23,9 @@ public class TagihanIdGenerator implements IdentifierGenerator{
             {
                 int id=rs.getInt(1)+1;
                 String generatedId = prefix + new Integer(id).toString();
-                System.out.println("Generated Id: " + generatedId);
                 return generatedId;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

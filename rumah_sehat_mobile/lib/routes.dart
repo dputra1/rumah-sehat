@@ -12,5 +12,6 @@ final Map<String, WidgetBuilder> routes = {
   AddAppointmentPage.routeName: (context) => AddAppointmentPage(),
   TagihanPage.routeName: (context) => TagihanPage(listTagihan: [],),
   AppointmentPage.routeName: (context) => AppointmentPage(listAppointment: [],),
-  TopUpPage.routeName: (context) => TopUpPage()
+  TopUpPage.routeName: (context) => TopUpPage(),
+  DetailAppointmentPage.routeName: (context) => DetailAppointmentPage(kodeAppointment: '123123',)
 };

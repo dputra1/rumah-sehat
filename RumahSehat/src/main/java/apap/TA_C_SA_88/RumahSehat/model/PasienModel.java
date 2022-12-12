@@ -1,22 +1,14 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.List;
 
 @Setter
@@ -26,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "pasien")
-public class PasienModel extends UserModel implements Serializable {
+public class PasienModel extends UserModel {
     @NotNull
     @Column(name = "saldo", nullable = false)
     private Integer saldo;
