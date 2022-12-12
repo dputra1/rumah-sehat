@@ -70,4 +70,10 @@ public class PasienRestServiceImpl implements PasienRestService{
         pasien.setSaldo(update);
         return pasienDb.save(pasien);
     }
+
+    @Override
+    public PasienModel getPasien(String username) {
+        return pasienDb.findByUsername(username).get();
+    }
+
 }
