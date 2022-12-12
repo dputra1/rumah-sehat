@@ -1,6 +1,11 @@
 package apap.TA_C_SA_88.RumahSehat.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +34,7 @@ public class DokterModel extends UserModel implements Serializable {
     @NotNull
     @Column(name = "tarif", nullable = false)
     private Integer tarif;
+
 
     @OneToMany(mappedBy = "dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

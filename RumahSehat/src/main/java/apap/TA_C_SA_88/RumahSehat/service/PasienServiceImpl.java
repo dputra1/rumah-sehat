@@ -18,4 +18,5 @@ public class PasienServiceImpl implements PasienService{
     public List<PasienModel> viewAllPasien(){
         return pasienDb.findAll();
     }
+
 }

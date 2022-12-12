@@ -41,7 +41,7 @@
                                         <td th:text="${#temporals.format(resep.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
                                         <td th:text="${resep.isDone}"></td>
                                         <td>
-                                        <a class="btn btn-sm btn-primary" >Detail Resep</a>
+                                        <a class="btn btn-sm btn-primary" th:href="@{/resep/detail-resep/} + ${resep.id}" >Detail Resep</a>
                                         </td>
                                     </tr>
                                 </table>

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +28,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SuperBuilder
 @Table(name = "resep")
 public class ResepModel implements Serializable{
     @Id
@@ -51,8 +54,8 @@ public class ResepModel implements Serializable{
     @JsonIgnore
     private AppointmentModel appointment;
 
-    @OneToMany(mappedBy = "idObat", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<ObatModel> listObatResep;
+    @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<JumlahModel> listJumlah;
 
     //relasi one-to-many ke apoteker
     // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
