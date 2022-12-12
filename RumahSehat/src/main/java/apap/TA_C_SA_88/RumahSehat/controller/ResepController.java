@@ -1,20 +1,14 @@
 package apap.TA_C_SA_88.RumahSehat.controller;
 
-import apap.TA_C_SA_88.RumahSehat.model.JumlahId;
 import apap.TA_C_SA_88.RumahSehat.model.JumlahModel;
 import apap.TA_C_SA_88.RumahSehat.model.ResepModel;
-import apap.TA_C_SA_88.RumahSehat.payload.JumlahObatDTO;
 import apap.TA_C_SA_88.RumahSehat.service.*;
 import apap.TA_C_SA_88.RumahSehat.model.ObatModel;
-import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
-import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
-
 import apap.TA_C_SA_88.RumahSehat.repository.AdminDb;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
-import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
 import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
 import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 
@@ -29,12 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.ArrayList;
 
 @Controller
@@ -78,11 +72,9 @@ public class ResepController {
     private ObatService obatService;
 
     @Autowired
-    private PasienRestService pasienService;
-
-    @Autowired
     private AppointmentService appointmentService;
 
+    Logger logger = LoggerFactory.getLogger(ResepController.class);
 
     @GetMapping("/resep/add-resep/{IdApp}")
     public String addResepFormPage(@PathVariable String IdApp, Model model){
@@ -170,9 +162,10 @@ public class ResepController {
         resepModel.setAppointment(appointment);
         resepModel = resepService.addResep(resepModel);
 
+        logger.info("Created resep {}",resep.getId());
+
         appointment.setResep(resepModel);
         appointmentService.saveApp(appointment);
-        System.out.println(IdApp);
 
         List<JumlahModel> listJumlah = new ArrayList<>();
 
