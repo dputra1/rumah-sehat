@@ -8,25 +8,16 @@ import apap.TA_C_SA_88.RumahSehat.payload.RegisterRequest;
 import apap.TA_C_SA_88.RumahSehat.security.jwt.JwtUtils;
 import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsImpl;
 import apap.TA_C_SA_88.RumahSehat.service.PasienRestService;
-import apap.TA_C_SA_88.RumahSehat.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
@@ -37,9 +28,6 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private PasswordEncoder encoder;
-
-    @Autowired
     private JwtUtils jwtUtils;
 
     @Autowired
@@ -47,16 +35,13 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println("test1");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         pasienRestService.setAuthentication(authentication);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("test3");
         String jwt = jwtUtils.generateJwtToken(authentication);
-        System.out.println("test4");
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()

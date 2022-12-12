@@ -15,7 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import java.util.List;
 
 @Controller
@@ -29,6 +30,8 @@ public class DokterController {
 
     @Autowired
     private AdminService adminService;
+
+    Logger logger = LoggerFactory.getLogger(DokterController.class);
 
     @GetMapping("/user/add-dokter")
     public String addDokterFormPage(Model model){
@@ -47,6 +50,7 @@ public class DokterController {
         dokter.setIsSso(false);
         dokterService.addDokter(dokter);
 
+        logger.info("Created Dokter {}", dokter.getNama());
         model.addAttribute("dokter", dokter);
         model.addAttribute("user", userLoggedIn);
         return "add-dokter";

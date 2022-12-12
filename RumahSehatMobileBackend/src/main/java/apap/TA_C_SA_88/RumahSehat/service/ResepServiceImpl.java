@@ -1,7 +1,5 @@
 package apap.TA_C_SA_88.RumahSehat.service;
 
-import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
-import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
