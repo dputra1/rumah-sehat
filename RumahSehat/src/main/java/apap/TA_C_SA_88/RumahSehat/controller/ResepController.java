@@ -155,6 +155,10 @@ public class ResepController {
 
         ResepModel resepModel = new ResepModel();
         AppointmentModel appointment = appointmentService.getAppointmentByKode(IdApp);
+        if(appointment == null){
+            model.addAttribute("IdApp", IdApp);
+            return "appointment-notfound";
+        }
 
         resepModel.setCreatedAt(LocalDateTime.now());
         resepModel.setIsDone(false);
@@ -251,9 +255,6 @@ public class ResepController {
         }
 
         resep.setIsDone(true);
-        resep.getAppointment().setIsDone(true);
-
-        appointmentService.saveApp(resep.getAppointment());
         resepService.addResep(resep);
 
         model.addAttribute("resep", resep);
