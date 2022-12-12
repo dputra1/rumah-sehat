@@ -2,8 +2,10 @@ package apap.TA_C_SA_88.RumahSehat.controller;
 
 import apap.TA_C_SA_88.RumahSehat.model.*;
 import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
+import apap.TA_C_SA_88.RumahSehat.repository.TagihanDb;
 import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.RumahSehat.service.AppointmentService;
+import net.bytebuddy.utility.nullability.AlwaysNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -32,6 +35,9 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentDb appointmentDb;
+
+    @Autowired
+    private TagihanDb tagihanDb;
 
     @GetMapping("/appointment")
     public String viewAllAppointment(Model model) {
@@ -67,6 +73,14 @@ public class AppointmentController {
         AppointmentModel appointmentModel = appointmentService.getAppointmentByKode(kode);
         appointmentModel.setIsDone(Boolean.TRUE);
         appointmentDb.save(appointmentModel);
+
+        TagihanModel tagihanModel = new TagihanModel();
+        tagihanModel.setAppointment(appointmentModel);
+        tagihanModel.setJumlahTagihan(appointmentModel.getDokter().getTarif());
+        tagihanModel.setTanggalTerbuat(LocalDateTime.now());
+        tagihanModel.setIsPaid(false);
+        tagihanDb.save(tagihanModel);
+
         return "redirect:/appointment/" + kode;
     }
 }
