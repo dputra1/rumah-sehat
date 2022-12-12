@@ -8,7 +8,10 @@ class Button extends StatelessWidget {
   const Button({Key? key,required this.kode, required this.jumlahTagihan}) : super(key: key);
 
 Widget build(BuildContext context) {
-    return ElevatedButton(
+    return Column
+    (children: <Widget>[
+      SizedBox(height: 20,),
+      ElevatedButton(
         child: Text("Bayar Tagihan"),
         
         onPressed: () async{
@@ -239,6 +242,8 @@ Widget build(BuildContext context) {
             },
           ),
         ),
+    ),
+    ],
       );
 }
   }
