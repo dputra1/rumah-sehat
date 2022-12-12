@@ -5,6 +5,8 @@ import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
 import apap.TA_C_SA_88.RumahSehat.repository.TagihanDb;
 import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.RumahSehat.service.AppointmentService;
+import apap.TA_C_SA_88.RumahSehat.service.DokterService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -32,6 +34,9 @@ public class AppointmentController {
     private AdminService adminService;
 
     @Autowired
+    private DokterService dokterService;
+
+    @Autowired
     private AppointmentDb appointmentDb;
 
     @Autowired
@@ -44,26 +49,40 @@ public class AppointmentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         String username = user.getUsername();
-        AdminModel userLoggedIn = adminService.findByUsername(username);
+        if(dokterService.getDokterByUsername(username)!=null) {
+            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else if(adminService.findByUsername(username)!=null) {
+            AdminModel userLoggedIn = adminService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
 
         List<AppointmentModel> listAppointment = appointmentService.viewAllAppointment();
 
         model.addAttribute("listAppointment", listAppointment);
-        model.addAttribute("user", userLoggedIn);
         return "appointment-viewall";
     }
 
     @GetMapping("/appointment/{kode}")
-    public String viewAllAppointment(@PathVariable String kode, Model model) {
-        AdminModel userLoggedIn = adminService.getAdminLoggedIn();
-
+    public String viewAppointmentDetail(@PathVariable String kode, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        String username = user.getUsername();
+        if(dokterService.getDokterByUsername(username)!=null) {
+            DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
+        else {
+            AdminModel userLoggedIn = adminService.findByUsername(username);
+            model.addAttribute("user", userLoggedIn);
+        }
         AppointmentModel appointmentModel = appointmentService.getAppointmentByKode(kode);
         DokterModel dokterModel = appointmentModel.getDokter();
         PasienModel pasienModel = appointmentModel.getPasien();
         model.addAttribute("appointment", appointmentModel);
         model.addAttribute("dokter", dokterModel);
         model.addAttribute("pasien", pasienModel);
-        model.addAttribute("user", userLoggedIn);
         model.addAttribute("appointmentService", appointmentService);
         return "appointment-detail";
     }
