@@ -378,7 +378,6 @@ class _TagihanPageState extends State<TagihanPage> {
                                             ],
                                           ),
                                         ),
-                                        SizedBox(height: 20,),
                                         widget.listTagihan[index].isPaid=='Lunas' ? SizedBox() : Button(
                                           kode: widget.listTagihan[index].kode, jumlahTagihan: widget.listTagihan[index].jumlahTagihan,
                                         ),
