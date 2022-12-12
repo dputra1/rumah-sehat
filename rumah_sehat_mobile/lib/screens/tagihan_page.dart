@@ -199,7 +199,7 @@ class _TagihanPageState extends State<TagihanPage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 10,
+                                    width: 42,
                                   ),
                                 Text(": ${NumberFormat.currency(name: "Rp").format(widget.listTagihan[index].jumlahTagihan)}",
                                   style: TextStyle(
@@ -230,14 +230,169 @@ class _TagihanPageState extends State<TagihanPage> {
                               ),
                               ),
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                  builder: (context) => TagihanDetail(
-                                  tagihan: widget.listTagihan[index],
-                                  ),
-                                )
-                              );
+                                showModalBottomSheet(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30)),
+                          ),
+                          backgroundColor: kBackgroundColor.withOpacity(0.95),
+                          builder: ((builder) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.black.withOpacity(0.05),
+                                ),
+                                child: Wrap(
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              WidgetSpan(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      widget.listTagihan[index].kode,
+                                                      style: TextStyle(
+                                                          color: kPrimaryColor,
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.w800),
+                                                      
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: 13.0),
+                                                    Divider(
+                                                      color: kPrimaryColor2, //color of divider
+                                                      height: 5, //height spacing of divider
+                                                      thickness: 1, //thickness of divier line
+                                                      indent: 8, //spacing at the start of divider
+                                                      endIndent: 8, //spacing at the end of divider
+                                                    ),
+                                                    
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              WidgetSpan(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.date_range_outlined,
+                                                      color: kPrimaryColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      widget.listTagihan[index].tanggalTerbuat.toString(),
+                                                      style: TextStyle(
+                                                          color: kTextColor,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              WidgetSpan(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.payment_outlined,
+                                                      color: kPrimaryColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      (
+                                                      widget.listTagihan[index].tanggalBayar == "Belum dibayar" ? "Belum dibayar" :
+                                                      widget.listTagihan[index].tanggalBayar.toString()),
+                                                      style: TextStyle(
+                                                          color: kTextColor,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              WidgetSpan(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.payments_outlined,
+                                                      color: kPrimaryColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text("${NumberFormat.currency(name: "Rp").format(widget.listTagihan[index].jumlahTagihan)}",
+                                                      style: TextStyle(
+                                                          color: kTextColor,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: 20,),
+                                        widget.listTagihan[index].isPaid=='Lunas' ? SizedBox() : Button(
+                                          kode: widget.listTagihan[index].kode, jumlahTagihan: widget.listTagihan[index].jumlahTagihan,
+                                        ),
+                                        
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        );
+
                               }
                             )
                               ],
