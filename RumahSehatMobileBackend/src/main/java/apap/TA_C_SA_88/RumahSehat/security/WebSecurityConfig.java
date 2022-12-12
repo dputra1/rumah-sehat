@@ -1,6 +1,5 @@
 package apap.TA_C_SA_88.RumahSehat.security;
 
-
 import apap.TA_C_SA_88.RumahSehat.security.jwt.AuthEntryPointJwt;
 import apap.TA_C_SA_88.RumahSehat.security.jwt.AuthTokenFilter;
 import apap.TA_C_SA_88.RumahSehat.security.services.UserDetailsServiceImpl;
@@ -17,10 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -63,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/dash/**").permitAll()
-//                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

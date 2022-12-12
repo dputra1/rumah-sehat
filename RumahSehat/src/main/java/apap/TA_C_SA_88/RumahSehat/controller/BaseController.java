@@ -22,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.UserModel;
@@ -33,7 +35,6 @@ import apap.TA_C_SA_88.RumahSehat.security.xml.ServiceResponse;
 import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.setting.Setting;
 import apap.TA_C_SA_88.RumahSehat.security.xml.Attributes;
-import org.springframework.ui.Model;
 
 @Controller
 public class BaseController {
@@ -69,6 +70,8 @@ public class BaseController {
 
     private WebClient webClient = WebClient.builder().build();
 
+    Logger logger = LoggerFactory.getLogger(BaseController.class);
+
     @GetMapping("/")
     private String Home(Model model) {
 
@@ -78,14 +81,17 @@ public class BaseController {
         if(dokterService.getDokterByUsername(username)!=null) {
             DokterModel userLoggedIn = dokterService.getDokterByUsername(username);
             model.addAttribute("user", userLoggedIn);
+            logger.info("Dokter {} logged in", userLoggedIn.getUsername());
         }
         else if(adminService.findByUsername(username)!=null) {
             AdminModel userLoggedIn = adminService.findByUsername(username);
             model.addAttribute("user", userLoggedIn);
+            logger.info("Admin {} logged in", userLoggedIn.getUsername());
         }
         else if(apotekerService.findByUsername(username)!=null) {
             ApotekerModel userLoggedIn = apotekerService.findByUsername(username);
             model.addAttribute("user", userLoggedIn);
+            logger.info("Apoteker {} logged in", userLoggedIn.getUsername());
         }
         return "home";
     }
@@ -154,8 +160,10 @@ public class BaseController {
             user = adminDb.findByUsername(principal.getName());
         }
         if (user.getIsSso() == false){
+            logger.info("{} {} logged out", user.getRole(), user.getNama());
             return new ModelAndView("redirect:/logout");
         }
+        logger.info("{} {} logged out", user.getRole(), user.getNama());
         return new ModelAndView("redirect:" + Setting.SERVER_LOGOUT + Setting.CLIENT_LOGOUT);
     }
 }
