@@ -83,8 +83,8 @@ class _TagihanPageState extends State<TagihanPage> {
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
               itemCount: widget.listTagihan.length,
               itemBuilder: (BuildContext context, int index) {
-                return Stack(
-                  children: <Widget>[
+                return InkWell(
+                  child: Stack(children: <Widget>[
                     Container(
                       margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
                       height: 170.0,
@@ -107,9 +107,9 @@ class _TagihanPageState extends State<TagihanPage> {
                                   child: Text(
                                     widget.listTagihan[index].kode,
                                     style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: kPrimaryColor
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: kPrimaryColor
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
@@ -117,31 +117,31 @@ class _TagihanPageState extends State<TagihanPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 13.0), 
+                            SizedBox(height: 13.0),
                             Divider(
-                                  color: kPrimaryColor2, //color of divider
-                                  height: 5, //height spacing of divider
-                                  thickness: 1, //thickness of divier line
-                                  indent: 8, //spacing at the start of divider
-                                  endIndent: 8, //spacing at the end of divider
-                                ),
-                            SizedBox(height: 10.0), 
+                              color: kPrimaryColor2, //color of divider
+                              height: 5, //height spacing of divider
+                              thickness: 1, //thickness of divier line
+                              indent: 8, //spacing at the start of divider
+                              endIndent: 8, //spacing at the end of divider
+                            ),
+                            SizedBox(height: 10.0),
                             Row(
                               children: [
                                 Text(
                                   "Tanggal Dibuat",
                                   style: TextStyle(
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.w600,
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 47,
-                                  ),
+                                  width: 47,
+                                ),
                                 Text(": " + (
-                                  widget.listTagihan[index].tanggalTerbuat.toString()),
+                                    widget.listTagihan[index].tanggalTerbuat.toString()),
                                   style: TextStyle(
-                                  color: kTextLightColor,
+                                    color: kTextLightColor,
                                   ),
                                 ),
                               ],
@@ -152,16 +152,16 @@ class _TagihanPageState extends State<TagihanPage> {
                                 Text(
                                   "Tanggal Pembayaran",
                                   style: TextStyle(
-                                  color: kTextColor,
-                                  fontWeight: FontWeight.w600,
+                                    color: kTextColor,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 10,
-                                  ),
+                                  width: 10,
+                                ),
                                 Text(": " + (
-                                  widget.listTagihan[index].tanggalBayar == "Belum dibayar" ? "Belum dibayar" : 
-                                  widget.listTagihan[index].tanggalBayar.toString()),
+                                    widget.listTagihan[index].tanggalBayar == "Belum dibayar" ? "Belum dibayar" :
+                                    widget.listTagihan[index].tanggalBayar.toString()),
                                   style: TextStyle(
                                     color: kTextLightColor,
                                   ),
@@ -201,8 +201,8 @@ class _TagihanPageState extends State<TagihanPage> {
                               child: Text(
                                 widget.listTagihan[index].isPaid,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                  ),
+                                  color: Colors.white,
+                                ),
                               ),
                             ):
                             Container(
@@ -217,12 +217,45 @@ class _TagihanPageState extends State<TagihanPage> {
                                 widget.listTagihan[index].isPaid,
                                 style: TextStyle(color: Colors.white),
                               ),
-                            ),   
+                            ),
+                            // Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       TextButton(
+                            //         onPressed: () {
+                            //           Navigator.push(
+                            //               context,
+                            //               MaterialPageRoute(
+                            //                 builder: (context) => TagihanDetail(
+                            //                   tagihan: widget.listTagihan[index],
+                            //                 ),
+                            //               ));
+                            //         },
+                            //         child: Text(
+                            //           textAlign: TextAlign.right,
+                            //           'View Detail',
+                            //           style: TextStyle (
+                            //               fontWeight: FontWeight.w600,
+                            //               color: kPrimaryColor),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   )   
                           ],
                         ),
                       ),
                     ),
                   ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TagihanDetail(
+                            tagihan: widget.listTagihan[index],
+                          ),
+                        ));
+                  },
                 );
               },
             ),

@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/widgets.dart';
 import 'package:rumah_sehat_mobile/screens/pages.dart';
 
@@ -8,5 +10,6 @@ final Map<String, WidgetBuilder> routes = {
   SignUpPage.routeName: (context) => SignUpPage(),
   SplashPage.routeName: (context) => SplashPage(),
   TagihanPage.routeName: (context) => TagihanPage(listTagihan: [],),
-  AppointmentPage.routeName: (context) => AppointmentPage(listAppointment: [],)
+  AppointmentPage.routeName: (context) => AppointmentPage(listAppointment: [],),
+  TopUpPage.routeName: (context) => TopUpPage()
 };

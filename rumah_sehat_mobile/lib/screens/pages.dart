@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:convert';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -24,3 +25,5 @@ part 'sign_up_page.dart';
 part 'splash_page.dart';
 part 'tagihan_page.dart';
 part 'list_appointment.dart';
+part 'tagihan_detail.dart';
+part 'top_up_page.dart';
