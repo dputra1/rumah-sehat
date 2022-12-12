@@ -1,8 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.controller;
 
-import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
-import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

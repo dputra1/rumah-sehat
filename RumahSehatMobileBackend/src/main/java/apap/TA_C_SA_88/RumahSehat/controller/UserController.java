@@ -3,7 +3,6 @@ package apap.TA_C_SA_88.RumahSehat.controller;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
-import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 import apap.TA_C_SA_88.RumahSehat.security.jwt.JwtUtils;
 import apap.TA_C_SA_88.RumahSehat.service.ApotekerService;
 import apap.TA_C_SA_88.RumahSehat.service.DokterService;
@@ -37,8 +36,6 @@ public class UserController {
 
     @Autowired
     private PasienService pasienService;
-    @Autowired
-    private PasienDb pasienDb;
 
     @Autowired
     JwtUtils jwtUtils;
