@@ -10,15 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import java.io.Serializable;
 import java.util.List;
 
 @Setter
@@ -31,7 +24,7 @@ import java.util.List;
 @JsonIdentityInfo(
   generator = ObjectIdGenerators.PropertyGenerator.class, 
   property = "nama")
-public class DokterModel extends UserModel implements Serializable {
+public class DokterModel extends UserModel {
     @NotNull
     @Column(name = "tarif", nullable = false)
     private Integer tarif;

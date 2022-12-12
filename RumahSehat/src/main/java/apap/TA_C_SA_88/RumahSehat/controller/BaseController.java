@@ -33,7 +33,6 @@ import apap.TA_C_SA_88.RumahSehat.security.xml.ServiceResponse;
 import apap.TA_C_SA_88.RumahSehat.service.AdminService;
 import apap.TA_C_SA_88.setting.Setting;
 import apap.TA_C_SA_88.RumahSehat.security.xml.Attributes;
-import org.springframework.ui.Model;
 
 @Controller
 public class BaseController {

@@ -1,20 +1,14 @@
 package apap.TA_C_SA_88.RumahSehat.controller;
 
-import apap.TA_C_SA_88.RumahSehat.model.JumlahId;
 import apap.TA_C_SA_88.RumahSehat.model.JumlahModel;
 import apap.TA_C_SA_88.RumahSehat.model.ResepModel;
-import apap.TA_C_SA_88.RumahSehat.payload.JumlahObatDTO;
 import apap.TA_C_SA_88.RumahSehat.service.*;
 import apap.TA_C_SA_88.RumahSehat.model.ObatModel;
-import apap.TA_C_SA_88.RumahSehat.model.PasienModel;
 import apap.TA_C_SA_88.RumahSehat.model.AdminModel;
 import apap.TA_C_SA_88.RumahSehat.model.ApotekerModel;
 import apap.TA_C_SA_88.RumahSehat.model.AppointmentModel;
-import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
-
 import apap.TA_C_SA_88.RumahSehat.repository.AdminDb;
 import apap.TA_C_SA_88.RumahSehat.repository.ApotekerDb;
-import apap.TA_C_SA_88.RumahSehat.repository.AppointmentDb;
 import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
 import apap.TA_C_SA_88.RumahSehat.repository.PasienDb;
 
@@ -76,9 +70,6 @@ public class ResepController {
 
     @Autowired
     private ObatService obatService;
-
-    @Autowired
-    private PasienRestService pasienService;
 
     @Autowired
     private AppointmentService appointmentService;

@@ -1,8 +1,6 @@
 package apap.TA_C_SA_88.RumahSehat.service;
 
-import apap.TA_C_SA_88.RumahSehat.model.DokterModel;
 import apap.TA_C_SA_88.RumahSehat.model.JumlahModel;
-import apap.TA_C_SA_88.RumahSehat.repository.DokterDb;
 import apap.TA_C_SA_88.RumahSehat.repository.JumlahDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +33,6 @@ public class ResepServiceImpl implements ResepService{
 
     @Override
     public List<ResepModel> viewAllResep() {
-        // TODO Auto-generated method stub
         return resepDb.findAll();
     }
 
