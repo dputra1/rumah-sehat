@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 @Controller
 public class ApotekerController {
@@ -23,6 +25,8 @@ public class ApotekerController {
 
     @Autowired
     private AdminService adminService;
+
+    Logger logger = LoggerFactory.getLogger(ApotekerController.class);
 
     @GetMapping("/user/add-apoteker")
     public String addApotekerFormPage(Model model){
@@ -43,6 +47,8 @@ public class ApotekerController {
         apoteker.setIsSso(false);
         apotekerService.addApoteker(apoteker);
 
+        logger.info("Created Apoteker {}", apoteker.getNama());
+        
         model.addAttribute("apoteker", apoteker);
         model.addAttribute("user", userLoggedIn);
         return "add-apoteker";

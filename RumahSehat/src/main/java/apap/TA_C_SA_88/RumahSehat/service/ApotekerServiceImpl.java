@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -18,8 +20,11 @@ public class ApotekerServiceImpl implements ApotekerService{
     @Autowired
     ApotekerDb apotekerDb;
 
+    Logger logger = LoggerFactory.getLogger(ApotekerServiceImpl.class);
+
     @Override
     public List<ApotekerModel> viewAllApoteker(){
+        logger.info("Fetch all Apoteker");
         return apotekerDb.findAll();
     }
 
@@ -39,6 +44,7 @@ public class ApotekerServiceImpl implements ApotekerService{
 
     @Override
     public ApotekerModel findByUsername(String apoteker) {
+        logger.info("Searched Apoteker {}", apoteker);
         return apotekerDb.findByUsername(apoteker);
     }
 

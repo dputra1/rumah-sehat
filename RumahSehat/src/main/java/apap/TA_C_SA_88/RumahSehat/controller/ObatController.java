@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -29,6 +31,8 @@ public class ObatController {
 
     @Autowired
     private AdminService adminService;
+
+    Logger logger = LoggerFactory.getLogger(ObatController.class);
 
     @GetMapping("/obat")
     public String viewAllObat(Model model) {
@@ -63,6 +67,7 @@ public class ObatController {
     public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model) {
         ApotekerModel userLoggedIn = apotekerService.getApotekerLoggedIn();
         ObatModel updatedObat = obatService.updateStok(obat);
+        logger.info("Apoteker {} update Obat {}",userLoggedIn.getUsername(), updatedObat.getNamaObat());
         model.addAttribute("idObat", updatedObat.getIdObat());
         model.addAttribute("user", userLoggedIn);
         return "redirect:/obat";
