@@ -179,7 +179,7 @@ class _TagihanPageState extends State<TagihanPage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                    width: 10,
+                                    width: 45,
                                   ),
                                 Text(": ${NumberFormat.currency(name: "Rp").format(widget.listTagihan[index].jumlahTagihan)}",
                                   style: TextStyle(
