@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                 .antMatchers("/resep/add-resep/**").hasAuthority("Dokter")
                 .antMatchers("/obat/update-stok/**").hasAuthority("Apoteker")
                 .antMatchers(HttpMethod.POST, "/resep/detail-resep/**").hasAuthority("Apoteker")
-                .antMatchers("/resep", "/obat/viewAll").hasAnyAuthority("Admin", "Apoteker")
+                .antMatchers("/resep", "/obat").hasAnyAuthority("Admin", "Apoteker")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
