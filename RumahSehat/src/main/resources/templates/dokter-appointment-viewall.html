@@ -37,11 +37,11 @@
                                     <tbody th:each= "appointment, iterationStatus : ${listAppointment}">
                                     <tr>
                                         <td th:text="${iterationStatus.count}"></td>
-                                        <td th:text="${appointment.dokter.getNama()}"></td>
+                                        <td th:text="${appointment.pasien.getNama}"></td>
                                         <td th:text="${appointment.waktuAwal}"></td>
                                         <td>
-                                            <span th:if="${appointment.isDone == false}" th:text="'Non-Aktif'"></span>
-                                            <span th:if="${appointment.isDone == true}" th:text="'Aktif'"></span>
+                                            <span th:if="${appointment.isDone == false}" th:text="'Belum selesai'"></span>
+                                            <span th:if="${appointment.isDone == true}" th:text="'Selesai'"></span>
                                         </td>
                                         <td style="vertical-align : middle;text-align:center;">
                                             <a class="btn btn-primary" th:href="@{/appointment/} + ${appointment.kode}">Detail</a>
