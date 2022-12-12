@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -32,7 +32,38 @@
                 <br>
                 <div th:if="${appointment.isDone == False}">
                   <a class="btn btn-primary" th:href="@{/appointment/} + ${appointment.kode}">Create Resep</a>
-                  <a class="btn btn-primary" th:href="@{/appointment/updateStatus/} + ${appointment.kode}">Selesai</a>
+                  <br>
+                  <br>
+                  <div th:if="${appointment.resep == null}">
+                    <a class="btn btn-primary" th:onclick="myFunction()">Selesai</a>
+                    <script>
+                      function myFunction() {
+                        let text = "Apakah ingin menyelesaikan appointment tanpa resep ?\n" +
+                                "Klik OK untuk melanjutkan";
+                        if (confirm(text) === true) {
+                          text = "You pressed OK!";
+                          window.location.replace('http://localhost:8080/appointment/updateStatus/' + [[${appointment.kode}]]);
+                        } else {
+                          text = "You canceled!";
+                        }
+                        document.getElementById("demo").innerHTML = text;
+                      }
+                    </script>
+                  </div>
+                  <div th:if="${appointment.resep != null}">
+                    <div th:if="${appointment.resep.isDone == False}">
+                      <a class="btn btn-primary" th:onclick="myFunction()">Selesai</a>
+                      <script>
+                        function myFunction() {
+                          alert("Masih ada resep yang belum diselesaikan");
+                        }
+                      </script>
+                    </div>
+                    <div th:if="${appointment.resep.isDone}">
+                      <a class="btn btn-primary" th:href="@{/appointment/updateStatus/} + ${appointment.kode}">Selesai</a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
           </div>
