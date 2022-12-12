@@ -36,3 +36,4 @@ part 'detail_resep.dart';
 part 'tagihan_detail.dart';
 part 'top_up_page.dart';
 part 'button.dart';
+part 'detail_profile_page.dart';
