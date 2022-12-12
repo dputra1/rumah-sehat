@@ -181,6 +181,23 @@ class Api {
     return data;
   }
 
+  static Future<Map<String, dynamic>> fetchDetailAppointment(String kodeAppointment) async {
+    final storage = FlutterSecureStorage();
+    final token = await storage.read(key: "token");
+    final response = await http.get(
+      Uri.parse('${url}appointment/detail-appointment/' + kodeAppointment),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    );
+    print(response.body);
+    Map<String, dynamic> data = jsonDecode(response.body);
+    return data;
+  }
+
+
   static Future<dynamic> fetchTagihan() async {
     final storage = FlutterSecureStorage();
     final token = await storage.read(key: "token");
