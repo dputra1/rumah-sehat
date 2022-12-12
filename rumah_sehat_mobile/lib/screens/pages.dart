@@ -31,3 +31,4 @@ part 'list_appointment.dart';
 part 'detail_resep.dart';
 part 'tagihan_detail.dart';
 part 'top_up_page.dart';
+part 'detail_appointment.dart';
