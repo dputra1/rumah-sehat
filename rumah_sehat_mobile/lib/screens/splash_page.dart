@@ -212,19 +212,11 @@ class _SplashPageState extends State<SplashPage> {
                               color: Colors.transparent,
                               child: InkWell(
                                 onTap: () async {
-                                  var response = await Api.fetchAppointment();
-                                  if (response.statusCode == 200) {
-                                    List jsonRes = json.decode(response.body);
-                                    List<Appointment> listAppointment= jsonRes.map((data) => new Appointment.fromJson(data)).toList();
-                                    {Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) {
-                                          return AppointmentPage(listAppointment: listAppointment);
-                                        }),
-                                      );
-                                    }
-                                  } else {
-                                    print("gagal get Data");
-                                  }
+                                  Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      TopUpPage()));
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
@@ -232,12 +224,12 @@ class _SplashPageState extends State<SplashPage> {
                                     children: <Widget>[
                                       Spacer(),
                                       Icon(
-                                        Icons.list_alt_outlined, 
+                                        Icons.payment_outlined, 
                                         color: kPrimaryColor,
                                         size: 60,),
                                       Spacer(),
                                       Text(
-                                        "List Appointment",
+                                        "Top Up",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: kTextMediumColor,
@@ -271,19 +263,12 @@ class _SplashPageState extends State<SplashPage> {
                               color: Colors.transparent,
                               child: InkWell(
                                 onTap: () async {
-                                  var response = await Api.fetchAppointment();
-                                  if (response.statusCode == 200) {
-                                    List jsonRes = json.decode(response.body);
-                                    List<Appointment> listAppointment= jsonRes.map((data) => new Appointment.fromJson(data)).toList();
                                     {Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
-                                          return AppointmentPage(listAppointment: listAppointment);
+                                          return DetailProfilePage();
                                         }),
                                       );
                                     }
-                                  } else {
-                                    print("gagal get Data");
-                                  }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
@@ -291,12 +276,12 @@ class _SplashPageState extends State<SplashPage> {
                                     children: <Widget>[
                                       Spacer(),
                                       Icon(
-                                        Icons.list_alt_outlined, 
+                                        Icons.person_outline, 
                                         color: kPrimaryColor,
                                         size: 60,),
                                       Spacer(),
                                       Text(
-                                        "List Appointment",
+                                        "Detail Profile",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: kTextMediumColor,

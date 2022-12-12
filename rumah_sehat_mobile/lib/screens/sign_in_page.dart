@@ -182,11 +182,6 @@ class _SignInPageState extends State<SignInPage> {
       _isHidden = !_isHidden;
     });
   }
-  void _togglePasswordView() {
-    setState(() {
-      _isHidden = !_isHidden;
-    });
-  }
 
 
 

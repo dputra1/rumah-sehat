@@ -51,6 +51,13 @@ stages:
 #     - docker push $REGISTRY_SERVER/fairuz.satria/apap-088:$CI_COMMIT_SHORT_SHA
 #     - docker push $REGISTRY_SERVER/fairuz.satria/apap-088:latest
 
+
+
+
+
+
+
+
 build:
   image: $IMAGE_OPENJDK_GRADLE
   stage: build

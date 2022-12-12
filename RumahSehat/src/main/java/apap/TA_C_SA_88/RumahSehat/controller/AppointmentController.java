@@ -90,17 +90,45 @@ public class AppointmentController {
     @GetMapping("/appointment/updateStatus/{kode}")
     public String updateAppointmentStatus(@PathVariable String kode) {
         AppointmentModel appointmentModel = appointmentService.getAppointmentByKode(kode);
-        appointmentModel.setIsDone(Boolean.TRUE);
-        appointmentDb.save(appointmentModel);
-        logger.info("Change appointment {} Status", appointmentModel.getKode());
+        ResepModel resep = appointmentModel.getResep();
+        if(resep == null){
+            appointmentModel.setIsDone(Boolean.TRUE);
+            
 
-        TagihanModel tagihanModel = new TagihanModel();
-        tagihanModel.setAppointment(appointmentModel);
-        tagihanModel.setJumlahTagihan(appointmentModel.getDokter().getTarif());
-        tagihanModel.setTanggalTerbuat(LocalDateTime.now());
-        tagihanModel.setIsPaid(false);
-        tagihanDb.save(tagihanModel);
-        logger.info("Created Tagihan {}", tagihanModel.getKode());
+            TagihanModel tagihanModel = new TagihanModel();
+            tagihanModel.setAppointment(appointmentModel);
+            tagihanModel.setJumlahTagihan(appointmentModel.getDokter().getTarif());
+            tagihanModel.setTanggalTerbuat(LocalDateTime.now());
+            tagihanModel.setIsPaid(false);
+            tagihanModel = tagihanDb.save(tagihanModel);
+
+            appointmentModel.setTagihan(tagihanModel);
+            appointmentService.saveApp(appointmentModel);
+        }else{
+            if(resep.getIsDone() == true){
+                appointmentModel.setIsDone(Boolean.TRUE);
+                List<JumlahModel> listJumlah = resep.getListJumlah();
+                Integer totalTarif = 0;
+
+                totalTarif += appointmentModel.getDokter().getTarif();
+                for(JumlahModel jumlah : listJumlah){
+                    totalTarif += jumlah.getKuantitas()*jumlah.getObat().getHarga();
+                }
+            
+                TagihanModel tagihanModel = new TagihanModel();
+                tagihanModel.setAppointment(appointmentModel);
+                tagihanModel.setJumlahTagihan(totalTarif);
+                tagihanModel.setTanggalTerbuat(LocalDateTime.now());
+                tagihanModel.setIsPaid(false);
+                tagihanModel = tagihanDb.save(tagihanModel);
+
+                appointmentModel.setTagihan(tagihanModel);
+                appointmentService.saveApp(appointmentModel);
+            }else{
+                return "fail-selesai-appointment";
+            }
+            
+        }
 
         return "redirect:/appointment/" + kode;
     }
