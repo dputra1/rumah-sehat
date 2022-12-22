@@ -26,9 +26,7 @@ public class AppointmentIdGenerator implements IdentifierGenerator{
             if(rs.next())
             {
                 int id=rs.getInt(1)+1;
-                String generatedId = prefix + new Integer(id).toString();
-                System.out.println("Generated Id: " + generatedId);
-                return generatedId;
+                return prefix + Integer.toString(id);
             }
             statement.close();
         } catch (SQLException e) {

@@ -52,7 +52,4 @@ public class ResepModel implements Serializable{
     @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<JumlahModel> listJumlah;
 
-    //relasi one-to-many ke apoteker
-    // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    // private List<ApotekerModel> id_apoteker;
 }

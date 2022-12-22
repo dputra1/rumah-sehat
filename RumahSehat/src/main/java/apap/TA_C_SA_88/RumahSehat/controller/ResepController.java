@@ -188,10 +188,6 @@ public class ResepController {
             jumlahModel = resepService.addJumlah(jumlahModel);
             listJumlah.add(jumlahModel);
 
-            // //ngurangin jumlah obat
-            // ObatModel obatModel = resep.getListJumlah().get(i).getObat();
-            // obatModel.setStok(obatModel.getStok()-resep.getListJumlah().get(i).getKuantitas());
-            // obatService.save(obatModel);
         }
 
         resepModel.setListJumlah(listJumlah);

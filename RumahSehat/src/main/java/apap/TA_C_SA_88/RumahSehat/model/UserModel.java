@@ -53,11 +53,4 @@ public class  UserModel implements Serializable {
     @Column(name="role", nullable = false)
     private String role;
 
-    // relasi ke role model
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "id_role", referencedColumnName = "id", nullable = false)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // @JsonIgnore
-    // private RoleModel role;
-
 }
