@@ -40,17 +40,8 @@ public class WebSecurityConfig {
 
     }
 
-    public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    public static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(encoder())
-//                .withUser("ayu")
-//                .password(encoder().encode("apapABC"))
-//                .roles("USER");
-//    }
     @Autowired
     private UserDetailsService userDetailsService;
 

@@ -41,7 +41,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService{
         if(user == null) {
             user = adminDb.findByUsername(username);
         }
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }

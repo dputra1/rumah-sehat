@@ -159,7 +159,7 @@ public class BaseController {
         if(user == null) {
             user = adminDb.findByUsername(principal.getName());
         }
-        if (user.getIsSso() == false){
+        if (!user.getIsSso()){
             logger.info("{} {} logged out", user.getRole(), user.getNama());
             return new ModelAndView("redirect:/logout");
         }

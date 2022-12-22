@@ -45,7 +45,7 @@ public class ResepModel implements Serializable{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apoteker;
 
-    @OneToOne(mappedBy = "resep")
+    @OneToOne(mappedBy = "resep", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private AppointmentModel appointment;
 

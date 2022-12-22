@@ -105,7 +105,7 @@ public class AppointmentController {
             appointmentModel.setTagihan(tagihanModel);
             appointmentService.saveApp(appointmentModel);
         }else{
-            if(resep.getIsDone() == true){
+            if(resep.getIsDone()){
                 appointmentModel.setIsDone(Boolean.TRUE);
                 List<JumlahModel> listJumlah = resep.getListJumlah();
                 Integer totalTarif = 0;

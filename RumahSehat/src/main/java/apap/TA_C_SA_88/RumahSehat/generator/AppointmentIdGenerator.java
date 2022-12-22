@@ -5,8 +5,12 @@ import java.sql.*;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class AppointmentIdGenerator implements IdentifierGenerator{
+
+    Logger logger = LoggerFactory.getLogger(AppointmentIdGenerator.class);
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
@@ -17,7 +21,7 @@ public class AppointmentIdGenerator implements IdentifierGenerator{
         try {
             Statement statement=connection.createStatement();
 
-            ResultSet rs=statement.executeQuery("select count(kode) from tkapap.appointment");
+            ResultSet rs=statement.executeQuery("select count(kode) from apap_db.appointment");
 
             if(rs.next())
             {
@@ -26,8 +30,9 @@ public class AppointmentIdGenerator implements IdentifierGenerator{
                 System.out.println("Generated Id: " + generatedId);
                 return generatedId;
             }
+            statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 
