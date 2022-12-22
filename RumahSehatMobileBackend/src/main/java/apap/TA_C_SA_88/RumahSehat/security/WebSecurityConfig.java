@@ -62,26 +62,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .cors().configurationSource(request -> {
-//                    CorsConfiguration corsConfiguration = new CorsConfiguration();
-//                    corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
-//                    corsConfiguration.setAllowedMethods(Arrays.asList(
-//                            "GET", "POST", "PUT", "DELETE", "OPTIONS"
-//                    ));
-//
-//                    corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
-//                    return corsConfiguration;
-//                }).and()
-//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//                .authorizeRequests()
-//                .antMatchers("/api/auth/**").permitAll()
-//                .anyRequest().authenticated();
-//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//    }
-
-
 }

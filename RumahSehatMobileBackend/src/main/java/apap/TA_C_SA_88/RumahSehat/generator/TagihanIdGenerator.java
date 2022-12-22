@@ -5,8 +5,12 @@ import java.sql.*;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class TagihanIdGenerator implements IdentifierGenerator{
+
+    Logger logger = LoggerFactory.getLogger(TagihanIdGenerator.class);
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
@@ -22,11 +26,11 @@ public class TagihanIdGenerator implements IdentifierGenerator{
             if(rs.next())
             {
                 int id=rs.getInt(1)+1;
-                String generatedId = prefix + new Integer(id).toString();
-                return generatedId;
+                return prefix + Integer.toString(id);
             }
+            statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 
