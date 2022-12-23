@@ -24,58 +24,23 @@ stages:
   - deploy
 
 
-# build:
-#   image: $IMAGE_OPENJDK_GRADLE
-#   stage: build
-#   script:
-#     - echo "Compiling the code..."
-#     - cd $CI_PROJECT_DIR/RumahSehat
-#     - sh gradlew clean assemble
-#   artifacts:
-#     paths:
-#       - RumahSehat/build/libs/RumahSehat-0.0.1-SNAPSHOT.jar
-
-# build-image:
-#   stage: build-image
-#   script:
-#     - echo "Building Docker Image..."
-#     - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-088:$CI_COMMIT_SHORT_SHA .
-#     - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-088:latest .
-    
-# publish-image:
-#   stage: publish-image
-#   script:
-#     - echo "Publishing Docker Image..."
-#     - echo $REGISTRY_SERVER
-#     - echo $REGISTRY_PASSWORD | docker login --username $REGISTRY_USERNAME --password-stdin $REGISTRY_SERVER
-#     - docker push $REGISTRY_SERVER/fairuz.satria/apap-088:$CI_COMMIT_SHORT_SHA
-#     - docker push $REGISTRY_SERVER/fairuz.satria/apap-088:latest
-
-
-
-
-
-
-
-
 build:
   image: $IMAGE_OPENJDK_GRADLE
   stage: build
   script:
     - echo "Compiling the code..."
-    - cd ..
-    - cd $CI_PROJECT_DIR/RumahSehatMobileBackend
+    - cd $CI_PROJECT_DIR/RumahSehat
     - sh gradlew clean assemble
   artifacts:
     paths:
-      - RumahSehatMobileBackend/build/libs/RumahSehat-0.0.1-SNAPSHOT.jar
+      - RumahSehat/build/libs/RumahSehat-0.0.1-SNAPSHOT.jar
 
 build-image:
   stage: build-image
   script:
     - echo "Building Docker Image..."
-    - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-129:$CI_COMMIT_SHORT_SHA .
-    - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-129:latest .
+    - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-088:$CI_COMMIT_SHORT_SHA .
+    - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-088:latest .
     
 publish-image:
   stage: publish-image
@@ -83,8 +48,43 @@ publish-image:
     - echo "Publishing Docker Image..."
     - echo $REGISTRY_SERVER
     - echo $REGISTRY_PASSWORD | docker login --username $REGISTRY_USERNAME --password-stdin $REGISTRY_SERVER
-    - docker push $REGISTRY_SERVER/fairuz.satria/apap-129:$CI_COMMIT_SHORT_SHA
-    - docker push $REGISTRY_SERVER/fairuz.satria/apap-129:latest
+    - docker push $REGISTRY_SERVER/fairuz.satria/apap-088:$CI_COMMIT_SHORT_SHA
+    - docker push $REGISTRY_SERVER/fairuz.satria/apap-088:latest
+
+
+
+
+
+
+
+
+# build:
+#   image: $IMAGE_OPENJDK_GRADLE
+#   stage: build
+#   script:
+#     - echo "Compiling the code..."
+#     - cd ..
+#     - cd $CI_PROJECT_DIR/RumahSehatMobileBackend
+#     - sh gradlew clean assemble
+#   artifacts:
+#     paths:
+#       - RumahSehatMobileBackend/build/libs/RumahSehat-0.0.1-SNAPSHOT.jar
+
+# build-image:
+#   stage: build-image
+#   script:
+#     - echo "Building Docker Image..."
+#     - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-129:$CI_COMMIT_SHORT_SHA .
+#     - docker build -t $REGISTRY_SERVER/fairuz.satria/apap-129:latest .
+    
+# publish-image:
+#   stage: publish-image
+#   script:
+#     - echo "Publishing Docker Image..."
+#     - echo $REGISTRY_SERVER
+#     - echo $REGISTRY_PASSWORD | docker login --username $REGISTRY_USERNAME --password-stdin $REGISTRY_SERVER
+#     - docker push $REGISTRY_SERVER/fairuz.satria/apap-129:$CI_COMMIT_SHORT_SHA
+#     - docker push $REGISTRY_SERVER/fairuz.satria/apap-129:latest
 
 deploy:
   stage: deploy
