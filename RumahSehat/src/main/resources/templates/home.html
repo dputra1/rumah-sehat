@@ -64,13 +64,25 @@
                             <h3><a href="/appointment/dokter">Appointment</a></h3>
                         </div>
                     </div>
-                    <div th:if="${user.getRole() != 'Dokter'}" class="col-xl-2 col-md-4">
+                    <div th:if="${user.getRole() == 'Admin'}" class="col-xl-2 col-md-4">
                         <div class="icon-box">
                             <i class="ri-dossier-line"></i>
                             <h3><a href="/resep">Resep</a></h3>
                         </div>
                     </div>
-                    <div th:if="${user.getRole() != 'Dokter'}" class="col-xl-2 col-md-4">
+                    <div th:if="${user.getRole() == 'Apoteker'}" class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-dossier-line"></i>
+                            <h3><a href="/resep">Resep</a></h3>
+                        </div>
+                    </div>
+                    <div th:if="${user.getRole() == 'Admin'}" class="col-xl-2 col-md-4">
+                        <div class="icon-box">
+                            <i class="ri-capsule-fill"></i>
+                            <h3><a href="/obat">Obat</a></h3>
+                        </div>
+                    </div>
+                    <div th:if="${user.getRole() == 'Apoteker'}" class="col-xl-2 col-md-4">
                         <div class="icon-box">
                             <i class="ri-capsule-fill"></i>
                             <h3><a href="/obat">Obat</a></h3>
